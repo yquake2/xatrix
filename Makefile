@@ -290,5 +290,5 @@ build/q_shared.o:      			src/q_shared.c
 
 # Quake II
 release/game.so : $(XATRIX_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(XATRIX_OBJS) $(LDFLAGS)
+	$(CC) -o $@ $(XATRIX_OBJS) $(LDFLAGS)
 
