@@ -1,3 +1,11 @@
+/*
+ * =======================================================================
+ *
+ * Game fields to be saved.
+ *
+ * =======================================================================
+ */ 
+
 {"classname", FOFS(classname), F_LSTRING},
 {"model", FOFS(model), F_LSTRING},
 {"spawnflags", FOFS(spawnflags), F_INT},

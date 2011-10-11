@@ -1,3 +1,11 @@
+/*
+ * =======================================================================
+ *
+ * Fields inside a level to be saved.
+ *
+ * =======================================================================
+ */ 
+
 {"changemap", LLOFS(changemap), F_LSTRING},
 {"sight_client", LLOFS(sight_client), F_EDICT},
 {"sight_entity", LLOFS(sight_entity), F_EDICT},
