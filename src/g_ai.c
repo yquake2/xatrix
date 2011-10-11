@@ -1,4 +1,4 @@
-#include "g_local.h"
+#include "header/local.h"
 
 qboolean FindTarget (edict_t *self);
 extern cvar_t	*maxclients;
