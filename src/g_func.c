@@ -2068,7 +2068,7 @@ void rotating_light_killed (edict_t *self, edict_t *inflictor, edict_t *attacker
 	
 }
 
-static void rotating_light_use (edict_t *self, edict_t *other, edict_t *activator)
+void rotating_light_use (edict_t *self, edict_t *other, edict_t *activator)
 {
 	if (self->spawnflags & START_OFF)
 	{
