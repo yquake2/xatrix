@@ -2,6 +2,9 @@
 
 #include "g_local.h"
 
+int	gibsthisframe = 0;
+int lastgibframe = 0;
+
 
 /*QUAKED func_group (0 0 0) ?
 Used to group brushes together just for editor convenience.
@@ -121,6 +124,24 @@ void ThrowGib (edict_t *self, char *gibname, int damage, int type)
 	vec3_t	size;
 	float	vscale;
 
+	if (!self || !gibname)
+	{
+		return;
+	}
+
+	if (level.framenum > lastgibframe)
+	{
+		gibsthisframe = 0;
+		lastgibframe = level.framenum;
+	}
+
+	gibsthisframe++;
+	
+	if (gibsthisframe > 20)
+	{
+		return;
+	}
+
 	gib = G_Spawn();
 
 	VectorScale (self->size, 0.5, size);
@@ -215,6 +236,24 @@ void ThrowGibACID (edict_t *self, char *gibname, int damage, int type)
 	vec3_t origin;
 	vec3_t size;
 	float vscale;
+
+	if (!self || !gibname)
+	{
+		return;
+	}
+
+	if (level.framenum > lastgibframe)
+	{
+		gibsthisframe = 0;
+		lastgibframe = level.framenum;
+	}
+
+	gibsthisframe++;
+	
+	if (gibsthisframe > 20)
+	{
+		return;
+	}
 
 	gib = G_Spawn();
 
@@ -380,6 +419,24 @@ void ThrowDebris (edict_t *self, char *modelname, float speed, vec3_t origin)
 {
 	edict_t	*chunk;
 	vec3_t	v;
+
+	if (!self)
+	{
+		return;
+	}
+
+	if (level.framenum > lastgibframe)
+	{
+		gibsthisframe = 0;
+		lastgibframe = level.framenum;
+	}
+
+	gibsthisframe++;
+	
+	if (gibsthisframe > 20)
+	{
+		return;
+	}
 
 	chunk = G_Spawn();
 	VectorCopy (origin, chunk->s.origin);
