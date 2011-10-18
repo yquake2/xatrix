@@ -1187,7 +1187,6 @@
 {"Move_Done", (byte *)Move_Done},
 {"T_RadiusDamage", (byte *)T_RadiusDamage},
 {"T_Damage", (byte *)T_Damage},
-{"CheckTeamDamage", (byte *)CheckTeamDamage},
 {"M_ReactToDamage", (byte *)M_ReactToDamage},
 {"CheckArmor", (byte *)CheckArmor},
 {"CheckPowerArmor", (byte *)CheckPowerArmor},
