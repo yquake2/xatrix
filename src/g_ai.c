@@ -1,3 +1,10 @@
+/* =======================================================================
+ *
+ * The basic AI functions like enemy detection, attacking and so on.
+ *
+ * =======================================================================
+ */
+
 #include "header/local.h"
 
 qboolean FindTarget(edict_t *self);
