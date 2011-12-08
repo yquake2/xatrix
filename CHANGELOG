@@ -1,0 +1,22 @@
+The Reckoning 1.05 to 1.06:
+- Reformat the console output
+
+The Reckoning 1.04 to 1.05:
+- Fix "weapprev" cmd, weapon change via mousewheel should now
+  work without running into loops
+- Fix animation of strogg infantry
+
+The Reckoning 1.04RC2 to 1.04:
+- Just version number change
+
+The Reckoning 1.04RC to 1.04RC2:
+- Saner CFLAGS
+- Do not show the gun symbol when fov is bigger than 91 and
+  cl_gun is set to 2
+
+The Reckoning 1.03 to 1.04RC:
+- Slightly better performance (~10 FPS)
+
+The Reckoning 1.02 to 1.03:
+- Added License
+- Added Readme 
