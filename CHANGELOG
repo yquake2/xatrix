@@ -1,3 +1,7 @@
+The Reckoning 1.06 to 1.07
+- Port the new savegame system from baseq2
+- Reorder the files to reflect the new structure of baseq2
+
 The Reckoning 1.05 to 1.06:
 - Reformat the console output
 
