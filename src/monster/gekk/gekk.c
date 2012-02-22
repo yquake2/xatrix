@@ -1077,7 +1077,7 @@ void gekk_pain (edict_t *self, edict_t *other, float kick, int damage)
 		
 	if (self->waterlevel)
 	{
-		if (!self->flags & FL_SWIM)
+		if (!(self->flags & FL_SWIM))
 			self->flags |= FL_SWIM;
 		
 		self->monsterinfo.currentmove = &gekk_move_pain;
