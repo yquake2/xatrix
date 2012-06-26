@@ -31,7 +31,7 @@ endif
 # ----------
 
 # The compiler
-CC := gcc
+#CC := gcc
 
 # ----------
 
@@ -140,6 +140,7 @@ XATRIX_OBJS_ = \
 	src/player/weapon.o \
 	src/savegame/savegame.o \
 	src/shared/flash.o \
+	src/shared/rand.o \
 	src/shared/shared.o 
 
 # ----------
