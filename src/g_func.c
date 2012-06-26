@@ -937,6 +937,9 @@ void door_use (edict_t *self, edict_t *other, edict_t *activator)
 {
 	edict_t	*ent;
 
+	if (!self)
+		return;
+
 	if (self->flags & FL_TEAMSLAVE)
 		return;
 

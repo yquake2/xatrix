@@ -109,6 +109,9 @@ gitem_t	*FindItem (char *pickup_name)
 
 void DoRespawn (edict_t *ent)
 {
+	if (!ent)
+		return;
+
 	if (ent->team)
 	{
 		edict_t	*master;
