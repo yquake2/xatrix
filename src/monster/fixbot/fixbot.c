@@ -212,7 +212,7 @@ void roam_goal (edict_t *self)
 	vec3_t		end;
 	edict_t		*ent;
 	vec3_t		dang;
-	int			len, oldlen, whichi, i;
+	int			len, oldlen, i;
 	vec3_t		vec;
 	vec3_t		whichvec;
 
@@ -227,7 +227,6 @@ void roam_goal (edict_t *self)
 	gi.linkentity (ent);
 
 	oldlen = 0;
-	whichi = 0;
 	for (i=0; i<12; i++) 
 	{
 		

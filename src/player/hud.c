@@ -160,7 +160,6 @@ void DeathmatchScoreboardMessage (edict_t *ent, edict_t *killer)
 	int		sorted[MAX_CLIENTS];
 	int		sortedscores[MAX_CLIENTS];
 	int		score, total;
-	int		picnum;
 	int		x, y;
 	gclient_t	*cl;
 	edict_t		*cl_ent;
@@ -203,7 +202,6 @@ void DeathmatchScoreboardMessage (edict_t *ent, edict_t *killer)
 		cl = &game.clients[sorted[i]];
 		cl_ent = g_edicts + 1 + sorted[i];
 
-		picnum = gi.imageindex ("i_fixme");
 		x = (i>=6) ? 160 : 0;
 		y = 32 + 32 * (i%6);
 
@@ -367,10 +365,8 @@ G_SetStats
 void G_SetStats (edict_t *ent)
 {
 	gitem_t		*item;
-	int			index, cells;
+	int			index, cells = 0;
 	int			power_armor_type;
-
-        cells = 0;
 
 	//
 	// health
