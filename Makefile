@@ -2,7 +2,7 @@
 # Makefile for the xatrix game module for Quake II      #
 #                                                       #
 # Just type "make" to compile the                       #
-#  - The Reckoning Game (game.so)                       #
+#  - The Reckoning Game (game.so / game.dll)            #
 #                                                       #
 # Dependencies:                                         #
 # - None, but you need a Quake II to play.              #
@@ -10,28 +10,32 @@
 #   Yamagi Quake II ist recommended.                    #
 #                                                       #
 # Platforms:                                            #
-# - Linux                                               #
 # - FreeBSD                                             #
+# - Linux                                               #
+# - Windows                                             #
 # ----------------------------------------------------- #
 
-# Check the OS type
+# Detect the OS
+ifdef SystemRoot
+OSTYPE := Windows
+else
 OSTYPE := $(shell uname -s)
+endif
 
-# Some plattforms call it "amd64" and some "x86_64"
+# Detect the architecture
+ifeq ($(OSTYPE), Windows)
+# At this time only i386 is supported on Windows
+ARCH := i386
+else
+# Some platforms call it "amd64" and some "x86_64"
 ARCH := $(shell uname -m | sed -e s/i.86/i386/ -e s/amd64/x86_64/)
+endif
 
-# Refuse all other plattforms as a firewall against PEBKAC
+# Refuse all other platforms as a firewall against PEBKAC
 # (You'll need some #ifdef for your unsupported  plattform!)
-ifneq ($(ARCH),i386)
-ifneq ($(ARCH),x86_64)
+ifeq ($(findstring $(ARCH), i386 x86_64 sparc64),)
 $(error arch $(ARCH) is currently not supported)
 endif
-endif
-
-# ----------
-
-# The compiler
-#CC := gcc
 
 # ----------
 
@@ -54,7 +58,7 @@ endif
 #
 # -MMD to generate header dependencies.
 CFLAGS := -O2 -fno-strict-aliasing -fomit-frame-pointer \
-		  -fPIC -Wall -pipe -g -MMD
+		  -Wall -pipe -g -MMD
 
 # ----------
 
@@ -68,24 +72,60 @@ all: xatrix
 
 # ----------
 
+# When make is invoked by "make VERBOSE=1" print
+# the compiler and linker commands.
+
+ifdef VERBOSE
+Q :=
+else
+Q := @
+endif
+
+# ----------
+
+# Phony targets
+.PHONY : all clean xatrix
+
+# ----------
+
 # Cleanup
+ifeq ($(OSTYPE), Windows)
 clean:
 	@echo "===> CLEAN"
-	@rm -Rf build release
+	@-rmdir /S /Q release build 
+else
+clean:
+	@echo "===> CLEAN"
+	${Q}rm -Rf build release
+endif
 
 # ----------
 
 # The xatrix game
+ifeq ($(OSTYPE), Windows)
 xatrix:
-	@echo '===> Building game.so'
-	@mkdir -p release/
+	@echo "===> Building game.dll"
+	${Q}tools/mkdir.exe -p release
+	${MAKE} release/game.dll
+
+build/%.o: %.c
+	@echo "===> CC $<"
+	${Q}tools/mkdir.exe -p $(@D)
+	${Q}$(CC) -c $(CFLAGS) -o $@ $<
+else
+xatrix:
+	@echo "===> Building game.so"
+	${Q}mkdir -p release
 	$(MAKE) release/game.so
 
 build/%.o: %.c
-	@echo '===> CC $<'
-	@mkdir -p $(@D)
-	@$(CC) -c $(CFLAGS) -o $@ $<
+	@echo "===> CC $<"
+	${Q}mkdir -p $(@D)
+	${Q}$(CC) -c $(CFLAGS) -o $@ $<
 
+release/game.so : CFLAGS += -fPIC
+endif
+ 
 # ----------
 
 XATRIX_OBJS_ = \
@@ -160,8 +200,14 @@ XATRIX_DEPS= $(XATRIX_OBJS:.o=.d)
 
 # ----------
 
+ifeq ($(OSTYPE), Windows)
+release/game.dll : $(XATRIX_OBJS)
+	@echo "===> LD $@"
+	${Q}$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
+else
 release/game.so : $(XATRIX_OBJS)
-	@echo '===> LD $@'
-	@$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
-
+	@echo "===> LD $@"
+	${Q}$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
+endif
+ 
 # ----------
