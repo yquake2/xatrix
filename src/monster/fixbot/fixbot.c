@@ -1115,8 +1115,6 @@ void fixbot_fire_welder (edict_t *self)
 {
 	vec3_t	start;
 	vec3_t	forward, right, up;
-	vec3_t	end;
-	vec3_t	dir;
 	vec3_t  vec;
 	float	r;
 	
@@ -1130,10 +1128,6 @@ void fixbot_fire_welder (edict_t *self)
 
 	AngleVectors (self->s.angles, forward, right, up);
 	G_ProjectSource (self->s.origin, vec, forward, right, start);
-
-	VectorCopy (self->enemy->s.origin, end);
-	
-	VectorSubtract (end, start, dir);
 
 	gi.WriteByte (svc_temp_entity);
 	gi.WriteByte (TE_WELDING_SPARKS);
