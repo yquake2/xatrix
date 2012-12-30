@@ -1,3 +1,6 @@
+The Reckoning 1.08 to 1.09
+- Port 'The Reckoning' to Mac OS X.
+
 The Reckoning 1.07 to 1.08
 - Port 'The Reckoning' to Windows.
 - Use randk() instead of rand(), a better PNRG.
