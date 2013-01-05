@@ -79,12 +79,6 @@ void dabeam_hit (edict_t *self)
 	vec3_t	start;
 	vec3_t	end;
 	trace_t	tr;
-	int		count;
-
-	if (self->spawnflags & 0x80000000)
-		count = 8;
-	else
-		count = 4;
 
 	ignore = self;
 	VectorCopy (self->s.origin, start);

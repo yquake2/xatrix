@@ -1571,24 +1571,20 @@ void weapon_ionripper_fire (edict_t *ent)
 	vec3_t	offset;
 	vec3_t	tempang;
 	int		damage;
-	int		kick;
 
 	if (deathmatch->value)
 	{
 		// tone down for deathmatch
 		damage = 30;
-		kick = 40;
 	}
 	else
 	{
 		damage = 50;
-		kick = 60;
 	}
 	
 	if (is_quad)
 	{
 		damage *= 4;
-		kick *= 4;
 	}
 
 	VectorCopy (ent->client->v_angle, tempang);

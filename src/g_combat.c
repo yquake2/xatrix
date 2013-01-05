@@ -155,11 +155,11 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 void
 SpawnDamage(int type, vec3_t origin, vec3_t normal, int damage)
 {
-	gi.WriteByte(svc_temp_entity);
-	gi.WriteByte(type);
-	gi.WritePosition(origin);
-	gi.WriteDir(normal);
-	gi.multicast(origin, MULTICAST_PVS);
+	gi.WriteByte (svc_temp_entity);
+	gi.WriteByte (type);
+	gi.WritePosition (origin);
+	gi.WriteDir (normal);
+	gi.multicast (origin, MULTICAST_PVS);
 }
 
 /*

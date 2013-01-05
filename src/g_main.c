@@ -120,6 +120,9 @@ GetGameAPI(game_import_t *import)
 
 	globals.edict_size = sizeof(edict_t);
 
+	/* Initalize the PRNG */
+	randk_seed();
+
 	return &globals;
 }
 

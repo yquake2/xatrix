@@ -66,8 +66,14 @@
  */
 #if defined(__FreeBSD__)
  #define OS "FreeBSD"
+#elif defined(__APPLE__)
+ #define OS "MacOS X"
+#elif defined(__OpenBSD__)
+ #define OS "OpenBSD"
 #elif defined(__linux__)
  #define OS "Linux"
+#elif defined(_WIN32)
+ #define OS "Windows"
 #else
  #define OS "Unknown"
 #endif
@@ -76,6 +82,10 @@
  #define ARCH "i386"
 #elif defined(__x86_64__)
  #define ARCH "amd64"
+#elif defined(__ia64__)
+ #define ARCH "ia64"
+#elif defined(__sparc__)
+ #define ARCH "sparc64"
 #else
  #define ARCH "unknown"
 #endif

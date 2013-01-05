@@ -687,6 +687,9 @@ void fire_rail (edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick
 	int		mask;
 	qboolean	water;
 
+	if (!self)
+		return;
+
 	VectorMA (start, 8192, aimdir, end);
 	VectorCopy (start, from);
 	ignore = self;
@@ -1041,7 +1044,6 @@ void heat_think (edict_t *self)
 	edict_t		*target = NULL;
 	edict_t		*aquire = NULL;
 	vec3_t		vec;
-	vec3_t		oldang;
 	int			len;
 	int			oldlen = 0;
 
@@ -1078,11 +1080,8 @@ void heat_think (edict_t *self)
 
 	if (aquire != NULL)
 	{
-		VectorCopy (self->s.angles, oldang);
 		VectorSubtract (aquire->s.origin, self->s.origin, vec);
-		
 		vectoangles (vec, self->s.angles);
-		
 		VectorNormalize (vec);
 		VectorCopy (vec, self->movedir);
 		VectorScale (vec, 500, self->velocity);

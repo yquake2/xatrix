@@ -212,7 +212,7 @@ void roam_goal (edict_t *self)
 	vec3_t		end;
 	edict_t		*ent;
 	vec3_t		dang;
-	int			len, oldlen, whichi, i;
+	int			len, oldlen, i;
 	vec3_t		vec;
 	vec3_t		whichvec;
 
@@ -227,7 +227,6 @@ void roam_goal (edict_t *self)
 	gi.linkentity (ent);
 
 	oldlen = 0;
-	whichi = 0;
 	for (i=0; i<12; i++) 
 	{
 		
@@ -1116,8 +1115,6 @@ void fixbot_fire_welder (edict_t *self)
 {
 	vec3_t	start;
 	vec3_t	forward, right, up;
-	vec3_t	end;
-	vec3_t	dir;
 	vec3_t  vec;
 	float	r;
 	
@@ -1131,10 +1128,6 @@ void fixbot_fire_welder (edict_t *self)
 
 	AngleVectors (self->s.angles, forward, right, up);
 	G_ProjectSource (self->s.origin, vec, forward, right, start);
-
-	VectorCopy (self->enemy->s.origin, end);
-	
-	VectorSubtract (end, start, dir);
 
 	gi.WriteByte (svc_temp_entity);
 	gi.WriteByte (TE_WELDING_SPARKS);
