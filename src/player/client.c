@@ -12,6 +12,24 @@ void ClientUserinfoChanged(edict_t *ent, char *userinfo);
 void SP_misc_teleporter_dest(edict_t *ent);
 void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);
 
+void
+SP_FixCoopSpots(edict_t *self)
+{
+	/* Necessary for savegame compatiblity */
+}
+
+void
+SP_CreateCoopSpots(edict_t *self)
+{
+	/* Necessary for savegame compatiblity */
+}
+
+void
+SP_CreateUnnamedSpawn(edict_t *self)
+{
+	/* Necessary for savegame compatiblity */
+}
+
 /*
  * QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32)
  * The normal starting point for a level.
