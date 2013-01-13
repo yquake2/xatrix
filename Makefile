@@ -155,7 +155,6 @@ XATRIX_OBJS_ = \
 	src/g_turret.o \
 	src/g_utils.o \
 	src/g_weapon.o \
-	src/monster/actor/actor.o \
 	src/monster/berserker/berserker.o \
 	src/monster/boss2/boss2.o \
 	src/monster/boss3/boss3.o \
