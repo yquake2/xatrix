@@ -19,12 +19,12 @@ static int sound_search1;
 
 void
 boss2_search(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		gi.sound(self, CHAN_VOICE, sound_search1, 1, ATTN_NONE, 0);
@@ -47,12 +47,12 @@ Boss2Rocket(edict_t *self)
 	vec3_t start;
 	vec3_t dir;
 	vec3_t vec;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	AngleVectors(self->s.angles, forward, right, NULL);
 
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_ROCKET_1],
@@ -93,12 +93,12 @@ boss2_firebullet_right(edict_t *self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_MACHINEGUN_R1],
 			forward, right, start);
@@ -117,12 +117,12 @@ boss2_firebullet_left(edict_t *self)
 {
 	vec3_t forward, right, target;
 	vec3_t start;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_BOSS2_MACHINEGUN_L1],
 			forward, right, start);
@@ -139,12 +139,12 @@ boss2_firebullet_left(edict_t *self)
 
 void
 Boss2MachineGun(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	boss2_firebullet_left(self);
 	boss2_firebullet_right(self);
 }
@@ -173,7 +173,7 @@ mframe_t boss2_frames_stand[] = {
 	{ai_stand, 0, NULL}
 };
 
-mmove_t boss2_move_stand = { 
+mmove_t boss2_move_stand = {
 	FRAME_stand30,
    	FRAME_stand50,
    	boss2_frames_stand,
@@ -293,7 +293,7 @@ mframe_t boss2_frames_attack_pre_mg[] = {
 };
 
 mmove_t boss2_move_attack_pre_mg = {
-	FRAME_attack1, 
+	FRAME_attack1,
 	FRAME_attack9,
    	boss2_frames_attack_pre_mg,
    	NULL
@@ -354,7 +354,7 @@ mframe_t boss2_frames_attack_rocket[] = {
 };
 
 mmove_t boss2_move_attack_rocket = {
-	FRAME_attack20, 
+	FRAME_attack20,
 	FRAME_attack40,
    	boss2_frames_attack_rocket,
    	boss2_run
@@ -463,23 +463,23 @@ mmove_t boss2_move_death = {
 
 void
 boss2_stand(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &boss2_move_stand;
 }
 
 void
 boss2_run(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 	{
 		self->monsterinfo.currentmove = &boss2_move_stand;
@@ -492,12 +492,12 @@ boss2_run(edict_t *self)
 
 void
 boss2_walk(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &boss2_move_walk;
 }
 
@@ -506,12 +506,12 @@ boss2_attack(edict_t *self)
 {
 	vec3_t vec;
 	float range;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSubtract(self->enemy->s.origin, self->s.origin, vec);
 	range = VectorLength(vec);
 
@@ -534,23 +534,23 @@ boss2_attack(edict_t *self)
 
 void
 boss2_attack_mg(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &boss2_move_attack_mg;
 }
 
 void
 boss2_reattack_mg(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (infront(self, self->enemy))
 	{
 		if (random() <= 0.7)
@@ -569,14 +569,14 @@ boss2_reattack_mg(edict_t *self)
 }
 
 void
-boss2_pain(edict_t *self, edict_t *other /* unused */, 
+boss2_pain(edict_t *self, edict_t *other /* unused */,
 		float kick /* unused */, int damage)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum = 1;
@@ -608,12 +608,12 @@ boss2_pain(edict_t *self, edict_t *other /* unused */,
 
 void
 boss2_dead(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -56, -56, 0);
 	VectorSet(self->maxs, 56, 56, 80);
 	self->movetype = MOVETYPE_TOSS;
@@ -625,12 +625,12 @@ boss2_dead(edict_t *self)
 void
 boss2_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
 		int damage /* unused */, vec3_t point /* unused */)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_death, 1, ATTN_NONE, 0);
 	self->deadflag = DEAD_DEAD;
 	self->takedamage = DAMAGE_NO;
@@ -647,12 +647,12 @@ Boss2_CheckAttack(edict_t *self)
 	trace_t tr;
 	int enemy_range;
 	float enemy_yaw;
-     
+
   	if (!self)
 	{
 		return false;
 	}
- 
+
 	if (self->enemy->health > 0)
 	{
 		/* see if any entities are in the way of the shot */
@@ -757,12 +757,12 @@ Boss2_CheckAttack(edict_t *self)
  */
 void
 SP_monster_boss2(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

@@ -13,7 +13,7 @@
 #define sv_stopspeed 100
 #define sv_friction 6
 #define sv_waterfriction 1
- 
+
 /*
  * pushmove objects do not obey gravity, and do not interact
  * with each other or trigger fields, but block normal movement
@@ -34,12 +34,12 @@
 
 edict_t *
 SV_TestEntityPosition(edict_t *ent)
-{       
+{
   	if (!ent)
 	{
 		return NULL;
 	}
- 
+
 	trace_t trace;
 	int mask;
 
@@ -71,12 +71,12 @@ void
 SV_CheckVelocity(edict_t *ent)
 {
 	int i;
-      
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* bound velocity */
 	for (i = 0; i < 3; i++)
 	{
@@ -92,19 +92,19 @@ SV_CheckVelocity(edict_t *ent)
 }
 
 /*
- * Runs thinking code for 
+ * Runs thinking code for
  * this frame if necessary
  */
 qboolean
 SV_RunThink(edict_t *ent)
 {
 	float thinktime;
-           
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	thinktime = ent->nextthink;
 
 	if (thinktime <= 0)
@@ -247,14 +247,14 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 		trace = gi.trace(ent->s.origin, ent->mins, ent->maxs, end, ent, mask);
 
 		if (trace.allsolid)
-		{   
+		{
 			/* entity is trapped in another solid */
 			VectorCopy(vec3_origin, ent->velocity);
 			return 3;
 		}
 
 		if (trace.fraction > 0)
-		{   
+		{
 			/* actually covered some distance */
 			VectorCopy(trace.endpos, ent->s.origin);
 			VectorCopy(ent->velocity, original_velocity);
@@ -296,7 +296,7 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 
 		/* cliped to another plane */
 		if (numplanes >= MAX_CLIP_PLANES)
-		{   
+		{
 			/* this shouldn't really happen */
 			VectorCopy(vec3_origin, ent->velocity);
 			return 3;
@@ -305,7 +305,7 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 		VectorCopy(trace.plane.normal, planes[numplanes]);
 		numplanes++;
 
-		/* modify original_velocity so it 
+		/* modify original_velocity so it
 		   parallels all of the clip planes */
 		for (i = 0; i < numplanes; i++)
 		{
@@ -329,12 +329,12 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 		}
 
 		if (i != numplanes)
-		{   
+		{
 			/* go along this plane */
 			VectorCopy(new_velocity, ent->velocity);
 		}
 		else
-		{   
+		{
 			/* go along the crease */
 			if (numplanes != 2)
 			{
@@ -347,7 +347,7 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 			VectorScale(dir, d, ent->velocity);
 		}
 
-		/* If original velocity is against the original 
+		/* If original velocity is against the original
 		   velocity, stop dead to avoid tiny occilations
 		   in sloping corners */
 		if (DotProduct(ent->velocity, primal_velocity) <= 0)
@@ -362,12 +362,12 @@ SV_FlyMove(edict_t *ent, float time, int mask)
 
 void
 SV_AddGravity(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	ent->velocity[2] -= ent->gravity * sv_gravity->value * FRAMETIME;
 }
 
@@ -669,7 +669,7 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
 			VectorAdd(check->s.origin, move, check->s.origin);
 
 			if (check->client)
-			{  
+			{
 				check->client->ps.pmove.delta_angles[YAW] += amove[YAW];
 			}
 
@@ -706,7 +706,7 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
 			block = SV_TestEntityPosition(check);
 
 			if (!block)
-			{   
+			{
 				/* pushed ok */
 				gi.linkentity(check);
 
@@ -729,8 +729,8 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
 		/* save off the obstacle so we can call the block function */
 		obstacle = check;
 
-		/* move back any entities we already moved 
-		   go backwards, so if the same entity was pushed 
+		/* move back any entities we already moved
+		   go backwards, so if the same entity was pushed
 		   twice, it goes back to the original position */
 		for (p = pushed_p - 1; p >= pushed; p--)
 		{
@@ -758,7 +758,7 @@ SV_Push(edict_t *pusher, vec3_t move, vec3_t amove)
 }
 
 /*
- * Bmodel objects don't interact with each 
+ * Bmodel objects don't interact with each
  * other, but push all box objects
  */
 void
@@ -766,20 +766,20 @@ SV_Physics_Pusher(edict_t *ent)
 {
 	vec3_t move, amove;
 	edict_t *part, *mv;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
-	/* if not a team captain, so movement 
+
+	/* if not a team captain, so movement
 	   will be handled elsewhere */
 	if (ent->flags & FL_TEAMSLAVE)
 	{
 		return;
 	}
 
-	/* make sure all team slaves can move before commiting 
+	/* make sure all team slaves can move before commiting
 	   any moves or calling any think functions. if the move
 	   is blocked, all moved objects will be backed out */
 	pushed_p = pushed;
@@ -788,7 +788,7 @@ SV_Physics_Pusher(edict_t *ent)
 	{
 		if (part->velocity[0] || part->velocity[1] || part->velocity[2] ||
 			part->avelocity[0] || part->avelocity[1] || part->avelocity[2])
-		{   
+		{
 			/* object is moving */
 			VectorScale(part->velocity, FRAMETIME, move);
 			VectorScale(part->avelocity, FRAMETIME, amove);
@@ -816,8 +816,8 @@ SV_Physics_Pusher(edict_t *ent)
 			}
 		}
 
-		/* if the pusher has a "blocked" function, call it 
-		   otherwise, just stay in place until the obstacle 
+		/* if the pusher has a "blocked" function, call it
+		   otherwise, just stay in place until the obstacle
 		   is gone */
 		if (part->blocked)
 		{
@@ -841,12 +841,12 @@ SV_Physics_Pusher(edict_t *ent)
  */
 void
 SV_Physics_None(edict_t *ent)
-{        
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* regular thinking */
 	SV_RunThink(ent);
 }
@@ -856,12 +856,12 @@ SV_Physics_None(edict_t *ent)
  */
 void
 SV_Physics_Noclip(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* regular thinking */
 	if (!SV_RunThink(ent))
 	{
@@ -891,12 +891,12 @@ SV_Physics_Toss(edict_t *ent)
 	qboolean wasinwater;
 	qboolean isinwater;
 	vec3_t old_origin;
-           
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* regular thinking */
 	SV_RunThink(ent);
 
@@ -1036,12 +1036,12 @@ SV_AddRotationalFriction(edict_t *ent)
 {
 	int n;
 	float adjustment;
-      
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	VectorMA(ent->s.angles, FRAMETIME, ent->avelocity, ent->s.angles);
 	adjustment = FRAMETIME * sv_stopspeed * sv_friction;
 
@@ -1078,12 +1078,12 @@ SV_Physics_Step(edict_t *ent)
 	float friction;
 	edict_t *groundentity;
 	int mask;
-      
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* airborn monsters should always check for ground */
 	if (!ent->groundentity)
 	{
@@ -1108,8 +1108,8 @@ SV_Physics_Step(edict_t *ent)
 		SV_AddRotationalFriction(ent);
 	}
 
-	/* add gravity except: 
-	    - flying monsters 
+	/* add gravity except:
+	    - flying monsters
 	    - swimming monsters who are in the water */
 	if (!wasonground)
 	{
@@ -1232,12 +1232,12 @@ SV_Physics_Step(edict_t *ent)
 
 void
 G_RunEntity(edict_t *ent)
-{      
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (ent->prethink)
 	{
 		ent->prethink(ent);

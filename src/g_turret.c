@@ -6,13 +6,13 @@
  */
 
 #include "header/local.h"
- 
+
 void infantry_die(edict_t *self, edict_t *inflictor, edict_t *attacker, int damage);
 void infantry_stand(edict_t *self);
 void monster_use(edict_t *self, edict_t *other, edict_t *activator);
 
 qboolean FindTarget(edict_t *self);
- 
+
 void
 AnglesNormalize(vec3_t vec)
 {
@@ -103,12 +103,12 @@ turret_breach_fire(edict_t *self)
 	vec3_t start;
 	int damage;
 	int speed;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	AngleVectors(self->s.angles, f, r, u);
 	VectorMA(self->s.origin, self->move_origin[0], f, start);
 	VectorMA(start, self->move_origin[1], r, start);
@@ -127,12 +127,12 @@ turret_breach_think(edict_t *self)
 	edict_t *ent;
 	vec3_t current_angles;
 	vec3_t delta;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorCopy(self->s.angles, current_angles);
 	AnglesNormalize(current_angles);
 
@@ -286,12 +286,12 @@ turret_breach_think(edict_t *self)
 
 void
 turret_breach_finish_init(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* get and save info for muzzle location */
 	if (!self->target)
 	{
@@ -313,12 +313,12 @@ turret_breach_finish_init(edict_t *self)
 
 void
 SP_turret_breach(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->solid = SOLID_BSP;
 	self->movetype = MOVETYPE_PUSH;
 	gi.setmodel(self, self->model);
@@ -370,12 +370,12 @@ SP_turret_breach(edict_t *self)
  */
 void
 SP_turret_base(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->solid = SOLID_BSP;
 	self->movetype = MOVETYPE_PUSH;
 	gi.setmodel(self, self->model);
@@ -425,12 +425,12 @@ turret_driver_think(edict_t *self)
 	vec3_t target;
 	vec3_t dir;
 	float reaction_time;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->nextthink = level.time + FRAMETIME;
 
 	if (self->enemy && (!self->enemy->inuse || (self->enemy->health <= 0)))
@@ -493,12 +493,12 @@ turret_driver_link(edict_t *self)
 {
 	vec3_t vec;
 	edict_t *ent;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->think = turret_driver_think;
 	self->nextthink = level.time + FRAMETIME;
 
@@ -533,12 +533,12 @@ turret_driver_link(edict_t *self)
 
 void
 SP_turret_driver(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

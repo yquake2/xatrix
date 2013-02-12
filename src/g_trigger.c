@@ -15,12 +15,12 @@ static int windsound;
 
 void
 InitTrigger(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!VectorCompare(self->s.angles, vec3_origin))
 	{
 		G_SetMovedir(self->s.angles, self->movedir);
@@ -32,34 +32,34 @@ InitTrigger(edict_t *self)
 	self->svflags = SVF_NOCLIENT;
 }
 
-/* 
- * The wait time has passed, so set 
- * back up for another activation 
+/*
+ * The wait time has passed, so set
+ * back up for another activation
  */
 void
 multi_wait(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	ent->nextthink = 0;
 }
 
-/* 
+/*
  * The trigger was just activated.  ent->activator should
- * be set to the activator so it can be held through a delay 
- * so wait for the delay time before firing 
+ * be set to the activator so it can be held through a delay
+ * so wait for the delay time before firing
  */
 void
 multi_trigger(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (ent->nextthink)
 	{
 		return; /* already been triggered */
@@ -73,9 +73,9 @@ multi_trigger(edict_t *ent)
 		ent->nextthink = level.time + ent->wait;
 	}
 	else
-	{   
-		/* we can't just remove (self) here, 
-		   because this is a touch function 
+	{
+		/* we can't just remove (self) here,
+		   because this is a touch function
 		   called while looping through area links... */
 		ent->touch = NULL;
 		ent->nextthink = level.time + FRAMETIME;
@@ -158,12 +158,12 @@ Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 void
 trigger_enable(edict_t *self, edict_t *other /* unused */,
 	   	edict_t *activator /* unused */)
-{      
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->solid = SOLID_TRIGGER;
 	self->use = Use_Multi;
 	gi.linkentity(self);
@@ -171,12 +171,12 @@ trigger_enable(edict_t *self, edict_t *other /* unused */,
 
 void
 SP_trigger_multiple(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (ent->sounds == 1)
 	{
 		ent->noise_index = gi.soundindex("misc/secret.wav");
@@ -237,13 +237,13 @@ SP_trigger_multiple(edict_t *ent)
  */
 void
 SP_trigger_once(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
-	/* make old maps work because I messed up 
+
+	/* make old maps work because I messed up
 	   on flag assignments here. triggered was
 	   on bit 1 when it should have been on bit 4 */
 	if (ent->spawnflags & 1)
@@ -278,12 +278,12 @@ trigger_relay_use(edict_t *self, edict_t *other /* unused */, edict_t *activator
 
 void
 SP_trigger_relay(edict_t *self)
-{   
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->use = trigger_relay_use;
 }
 
@@ -402,12 +402,12 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 
 void
 SP_trigger_key(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!st.item)
 	{
 		gi.dprintf("no key item for trigger_key at %s\n", vtos(self->s.origin));
@@ -486,12 +486,12 @@ trigger_counter_use(edict_t *self, edict_t *other /* unused */, edict_t *activat
 
 void
 SP_trigger_counter(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->wait = -1;
 
 	if (!self->count)
@@ -508,13 +508,13 @@ SP_trigger_counter(edict_t *self)
  */
 void
 SP_trigger_always(edict_t *ent)
-{    
+{
   	if (!ent)
 	{
 		return;
 	}
 	
-	/* we must have some delay to make 
+	/* we must have some delay to make
 	   sure our use targets are present */
 	if (ent->delay < 0.2)
 	{
@@ -573,12 +573,12 @@ trigger_effect(edict_t *self)
 	vec3_t origin;
 	vec3_t size;
 	int i;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorScale(self->size, 0.5, size);
 	VectorAdd(self->absmin, size, origin);
 
@@ -597,12 +597,12 @@ trigger_effect(edict_t *self)
 
 void
 trigger_push_inactive(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->delay > level.time)
 	{
 		self->nextthink = level.time + 0.1;
@@ -618,12 +618,12 @@ trigger_push_inactive(edict_t *self)
 
 void
 trigger_push_active(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->delay > level.time)
 	{
 		self->nextthink = level.time + 0.1;
@@ -644,12 +644,12 @@ SP_trigger_push(edict_t *self)
 	InitTrigger(self);
 	windsound = gi.soundindex("misc/windfly.wav");
 	self->touch = trigger_push_touch;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->spawnflags & 2)
 	{
 		if (!self->wait)
@@ -681,15 +681,15 @@ SP_trigger_push(edict_t *self)
  * NO_PROTECTION	*nothing* stops the damage
  *
  * "dmg"			default 5 (whole numbers only)
- */ 
+ */
 void
 hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->solid == SOLID_NOT)
 	{
 		self->solid = SOLID_TRIGGER;
@@ -708,7 +708,7 @@ hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unuse
 }
 
 void
-hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, 
+hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 		csurface_t *surf /* unused */)
 {
 	int dflags;
@@ -760,12 +760,12 @@ hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 
 void
 SP_trigger_hurt(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	InitTrigger(self);
 
 	self->noise_index = gi.soundindex("world/electro.wav");
@@ -813,12 +813,12 @@ trigger_gravity_touch(edict_t *self, edict_t *other,
 
 void
 SP_trigger_gravity(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (st.gravity == 0)
 	{
 		gi.dprintf("trigger_gravity without gravity set at %s\n",
@@ -878,12 +878,12 @@ trigger_monsterjump_touch(edict_t *self, edict_t *other,
 
 void
 SP_trigger_monsterjump(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!self->speed)
 	{
 		self->speed = 200;

@@ -293,12 +293,12 @@ ED_CallSpawn(edict_t *ent)
 	spawn_t *s;
 	gitem_t *item;
 	int i;
-      
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (!ent->classname)
 	{
 		gi.dprintf("ED_CallSpawn: NULL classname\n");
@@ -314,7 +314,7 @@ ED_CallSpawn(edict_t *ent)
 		}
 
 		if (!strcmp(item->classname, ent->classname))
-		{   
+		{
 			/* found it */
 			SpawnItem(ent, item);
 			return;
@@ -325,7 +325,7 @@ ED_CallSpawn(edict_t *ent)
 	for (s = spawns; s->name; s++)
 	{
 		if (!strcmp(s->name, ent->classname))
-		{  
+		{
 		   	/* found it */
 			s->spawn(ent);
 			return;
@@ -391,7 +391,7 @@ ED_ParseField(const char *key, const char *value, edict_t *ent)
 	for (f = fields; f->name; f++)
 	{
 		if (!(f->flags & FFL_NOSPAWN) && !Q_stricmp(f->name, key))
-		{   
+		{
 			/* found it */
 			if (f->flags & FFL_SPAWNTEMP)
 			{
@@ -486,8 +486,8 @@ ED_ParseEdict(char *data, edict_t *ent)
 
 		init = true;
 
-		/* keynames with a leading underscore are 
-		   used for utility comments, and are 
+		/* keynames with a leading underscore are
+		   used for utility comments, and are
 		   immediately discarded by quake */
 		if (keyname[0] == '_')
 		{
@@ -663,7 +663,7 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 			ent->spawnflags &= ~SPAWNFLAG_NOT_HARD;
 		}
 
-		/* remove things (except the world) from 
+		/* remove things (except the world) from
 		   different skill levels or deathmatch */
 		if (ent != g_edicts)
 		{
@@ -972,9 +972,9 @@ SP_worldspawn(edict_t *ent)
 	gi.soundindex("*pain100_1.wav");
 	gi.soundindex("*pain100_2.wav");
 
-	/* sexed models. you can add more, max 19 
-	   THIS ORDER MUST MATCH THE DEFINES IN g_local.h 
-	   these models are only loaded in coop or deathmatch. 
+	/* sexed models. you can add more, max 19
+	   THIS ORDER MUST MATCH THE DEFINES IN g_local.h
+	   these models are only loaded in coop or deathmatch.
 	   not singleplayer. */
 	if (coop->value || deathmatch->value)
 	{

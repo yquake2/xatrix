@@ -82,12 +82,12 @@ PlayerTrail_PickFirst(edict_t *self)
 {
 	int marker;
 	int n;
-     
+
   	if (!self)
 	{
 		return NULL;
 	}
- 
+
 	if (!trail_active)
 	{
 		return NULL;
@@ -123,12 +123,12 @@ PlayerTrail_PickNext(edict_t *self)
 {
 	int marker;
 	int n;
-     
+
   	if (!self)
 	{
 		return NULL;
 	}
- 
+
 	if (!trail_active)
 	{
 		return NULL;

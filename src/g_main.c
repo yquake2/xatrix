@@ -4,7 +4,7 @@
  * Jump in into the game.so and support functions.
  *
  * =======================================================================
- */ 
+ */
 
 #include "header/local.h"
 
@@ -160,7 +160,7 @@ ClientEndServerFrames(void)
 	int i;
 	edict_t *ent;
 
-	/* calc the player views now that all 
+	/* calc the player views now that all
 	   pushing and damage has been added */
 	for (i = 0; i < maxclients->value; i++)
 	{
@@ -182,11 +182,11 @@ edict_t *
 CreateTargetChangeLevel(char *map)
 {
 	edict_t *ent;
-     
+
 	if (!map)
 	{
 		return NULL;
-	}       
+	}
 
 	ent = G_Spawn();
 	ent->classname = "target_changelevel";
@@ -281,7 +281,7 @@ CheckNeedPass(void)
 {
 	int need;
 
-	/* if password or spectator_password has changed, 
+	/* if password or spectator_password has changed,
 	   update needpass  as needed */
 	if (password->modified || spectator_password->modified)
 	{

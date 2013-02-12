@@ -2,7 +2,7 @@
  *
  * Soldier aka "Guard". This is the most complex enemy in Quake 2, since
  * it uses all AI features (dodging, sight, crouching, etc) and comes
- * in a myriad of variants. In Xatrix it's even more complex due to 
+ * in a myriad of variants. In Xatrix it's even more complex due to
  * another 4 variants added.
  *
  * =======================================================================
@@ -31,12 +31,12 @@ extern void brain_dabeam(edict_t *self);
 
 void
 soldier_idle(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.8)
 	{
 		gi.sound(self, CHAN_VOICE, sound_idle, 1, ATTN_IDLE, 0);
@@ -45,12 +45,12 @@ soldier_idle(edict_t *self)
 
 void
 soldier_cock(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.frame == FRAME_stand322)
 	{
 		gi.sound(self, CHAN_WEAPON, sound_cock, 1, ATTN_IDLE, 0);
@@ -157,12 +157,12 @@ mmove_t soldier_move_stand3 = {
 
 void
 soldier_stand(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((self->monsterinfo.currentmove == &soldier_move_stand3) ||
 		(random() < 0.8))
 	{
@@ -176,12 +176,12 @@ soldier_stand(edict_t *self)
 
 void
 soldier_walk1_random(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.1)
 	{
 		self->monsterinfo.nextframe = FRAME_walk101;
@@ -253,12 +253,12 @@ mmove_t soldier_move_walk2 = {
 
 void
 soldier_walk(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		self->monsterinfo.currentmove = &soldier_move_walk1;
@@ -299,12 +299,12 @@ mmove_t soldier_move_run = {
 
 void
 soldier_run(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 	{
 		self->monsterinfo.currentmove = &soldier_move_stand1;
@@ -416,12 +416,12 @@ soldier_pain(edict_t *self, edict_t *other /* unused */,
 {
 	float r;
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum |= 1;
@@ -487,7 +487,7 @@ soldier_pain(edict_t *self, edict_t *other /* unused */,
 static int blaster_flash[] = {
 	MZ2_SOLDIER_BLASTER_1,
    	MZ2_SOLDIER_BLASTER_2,
-   	MZ2_SOLDIER_BLASTER_3, 
+   	MZ2_SOLDIER_BLASTER_3,
 	MZ2_SOLDIER_BLASTER_4,
    	MZ2_SOLDIER_BLASTER_5,
    	MZ2_SOLDIER_BLASTER_6,
@@ -509,10 +509,10 @@ static int shotgun_flash[] = {
 static int machinegun_flash[] = {
 	MZ2_SOLDIER_MACHINEGUN_1,
    	MZ2_SOLDIER_MACHINEGUN_2,
-   	MZ2_SOLDIER_MACHINEGUN_3, 
+   	MZ2_SOLDIER_MACHINEGUN_3,
 	MZ2_SOLDIER_MACHINEGUN_4,
    	MZ2_SOLDIER_MACHINEGUN_5,
-   	MZ2_SOLDIER_MACHINEGUN_6, 
+   	MZ2_SOLDIER_MACHINEGUN_6,
 	MZ2_SOLDIER_MACHINEGUN_7,
    	MZ2_SOLDIER_MACHINEGUN_8
 };
@@ -527,12 +527,12 @@ soldier_fire(edict_t *self, int flash_number)
 	vec3_t end;
 	float r, u;
 	int flash_index;
-  
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		flash_index = blaster_flash[flash_number];
@@ -604,23 +604,23 @@ soldier_fire(edict_t *self, int flash_number)
 
 void
 soldier_fire1(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 0);
 }
 
 void
 soldier_attack1_refire1(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum > 1)
 	{
 		return;
@@ -643,12 +643,12 @@ soldier_attack1_refire1(edict_t *self)
 
 void
 soldier_attack1_refire2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -689,23 +689,23 @@ mmove_t soldier_move_attack1 = {
 
 void
 soldier_fire2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 1);
 }
 
 void
 soldier_attack2_refire1(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum > 1)
 	{
 		return;
@@ -728,12 +728,12 @@ soldier_attack2_refire1(edict_t *self)
 
 void
 soldier_attack2_refire2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -780,12 +780,12 @@ mmove_t soldier_move_attack2 = {
 
 void
 soldier_duck_down(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_DUCKED)
 	{
 		return;
@@ -800,12 +800,12 @@ soldier_duck_down(edict_t *self)
 
 void
 soldier_duck_up(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.aiflags &= ~AI_DUCKED;
 	self->maxs[2] += 32;
 	self->takedamage = DAMAGE_AIM;
@@ -814,24 +814,24 @@ soldier_duck_up(edict_t *self)
 
 void
 soldier_fire3(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_duck_down(self);
 	soldier_fire(self, 2);
 }
 
 void
 soldier_attack3_refire(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((level.time + 0.4) < self->monsterinfo.pausetime)
 	{
 		self->monsterinfo.nextframe = FRAME_attak303;
@@ -859,12 +859,12 @@ mmove_t soldier_move_attack3 = {
 
 void
 soldier_fire4(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 3);
 }
 
@@ -886,23 +886,23 @@ mmove_t soldier_move_attack4 = {
 
 void
 soldier_fire8(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 7);
 }
 
 void
 soldier_attack6_refire(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->enemy->health <= 0)
 	{
 		return;
@@ -945,12 +945,12 @@ mmove_t soldier_move_attack6 = {
 
 void
 soldier_attack(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 4)
 	{
 		if (random() < 0.5)
@@ -970,12 +970,12 @@ soldier_attack(edict_t *self)
 
 void
 soldier_sight(edict_t *self, edict_t *other /* unused */)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		gi.sound(self, CHAN_VOICE, sound_sight1, 1, ATTN_NORM, 0);
@@ -996,12 +996,12 @@ soldier_sight(edict_t *self, edict_t *other /* unused */)
 
 void
 soldier_duck_hold(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (level.time >= self->monsterinfo.pausetime)
 	{
 		self->monsterinfo.aiflags &= ~AI_HOLD_FRAME;
@@ -1031,12 +1031,12 @@ void
 soldier_dodge(edict_t *self, edict_t *attacker, float eta)
 {
 	float r;
-     
+
   	if (!self || !attacker)
 	{
 		return;
 	}
- 
+
 	r = random();
 
 	if (r > 0.25)
@@ -1091,34 +1091,34 @@ soldier_dodge(edict_t *self, edict_t *attacker, float eta)
 
 void
 soldier_fire6(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 5);
 }
 
 void
 soldier_fire7(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldier_fire(self, 6);
 }
 
 void
 soldier_dead(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -16, -16, -24);
 	VectorSet(self->maxs, 16, 16, -8);
 	self->movetype = MOVETYPE_TOSS;
@@ -1413,12 +1413,12 @@ soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 		vec3_t point /* unused */)
 {
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
@@ -1491,12 +1491,12 @@ soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 
 void
 SP_monster_soldier_x(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->s.modelindex = gi.modelindex("models/monsters/soldier/tris.md2");
 	self->monsterinfo.scale = MODEL_SCALE;
 	VectorSet(self->mins, -16, -16, -24);
@@ -1534,12 +1534,12 @@ SP_monster_soldier_x(edict_t *self)
  */
 void
 SP_monster_soldier_light(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -1564,12 +1564,12 @@ SP_monster_soldier_light(edict_t *self)
  */
 void
 SP_monster_soldier(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -1592,12 +1592,12 @@ SP_monster_soldier(edict_t *self)
  */
 void
 SP_monster_soldier_ss(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -1617,12 +1617,12 @@ SP_monster_soldier_ss(edict_t *self)
 
 void
 soldierh_idle(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.8)
 	{
 		gi.sound(self, CHAN_VOICE, sound_idle, 1, ATTN_IDLE, 0);
@@ -1631,12 +1631,12 @@ soldierh_idle(edict_t *self)
 
 void
 soldierh_cock(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.frame == FRAME_stand322)
 	{
 		gi.sound(self, CHAN_WEAPON, sound_cock, 1, ATTN_IDLE, 0);
@@ -1743,12 +1743,12 @@ mmove_t soldierh_move_stand3 = {
 
 void
 soldierh_stand(edict_t *self)
-{                                                                   
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((self->monsterinfo.currentmove == &soldierh_move_stand3) || (random() < 0.8))
 	{
 		self->monsterinfo.currentmove = &soldierh_move_stand1;
@@ -1761,12 +1761,12 @@ soldierh_stand(edict_t *self)
 
 void
 soldierh_walk1_random(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.1)
 	{
 		self->monsterinfo.nextframe = FRAME_walk101;
@@ -1838,12 +1838,12 @@ mmove_t soldierh_move_walk2 = {
 
 void
 soldierh_walk(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		self->monsterinfo.currentmove = &soldierh_move_walk1;
@@ -1884,12 +1884,12 @@ mmove_t soldierh_move_run = {
 
 void
 soldierh_run(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 	{
 		self->monsterinfo.currentmove = &soldierh_move_stand1;
@@ -2001,12 +2001,12 @@ soldierh_pain(edict_t *self, edict_t *other /* unused */,
 {
 	float r;
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum |= 1;
@@ -2077,12 +2077,12 @@ soldierh_laserbeam(edict_t *self, int flash_index)
 	vec3_t dir, angles, end;
 	vec3_t tempvec;
 	edict_t *ent;
- 
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.8)
 	{
 		gi.sound(self, CHAN_AUTO, gi.soundindex("misc/lasfly.wav"), 1, ATTN_STATIC, 0);
@@ -2133,12 +2133,12 @@ soldierh_fire(edict_t *self, int flash_number)
 	vec3_t end;
 	float r, u;
 	int flash_index;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		flash_index = blaster_flash[flash_number]; /* ripper */
@@ -2210,12 +2210,12 @@ soldierh_fire(edict_t *self, int flash_number)
 
 void
 soldierh_hyper_refire1(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -2235,12 +2235,12 @@ soldierh_hyper_refire1(edict_t *self)
 
 void
 soldierh_ripper1(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		soldierh_fire(self, 0);
@@ -2253,23 +2253,23 @@ soldierh_ripper1(edict_t *self)
 
 void
 soldierh_fire1(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldierh_fire(self, 0);
 }
 
 void
 soldierh_attack1_refire1(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum > 1)
 	{
 		return;
@@ -2292,12 +2292,12 @@ soldierh_attack1_refire1(edict_t *self)
 
 void
 soldierh_attack1_refire2(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -2316,12 +2316,12 @@ soldierh_attack1_refire2(edict_t *self)
 
 void
 soldierh_hyper_sound(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -2360,12 +2360,12 @@ mmove_t soldierh_move_attack1 = {
 
 void
 soldierh_hyper_refire2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -2385,12 +2385,12 @@ soldierh_hyper_refire2(edict_t *self)
 
 void
 soldierh_ripper2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		soldierh_fire(self, 1);
@@ -2403,23 +2403,23 @@ soldierh_ripper2(edict_t *self)
 
 void
 soldierh_fire2(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldierh_fire(self, 1);
 }
 
 void
 soldierh_attack2_refire1(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum > 1)
 	{
 		return;
@@ -2442,12 +2442,12 @@ soldierh_attack2_refire1(edict_t *self)
 
 void
 soldierh_attack2_refire2(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 2)
 	{
 		return;
@@ -2496,12 +2496,12 @@ mmove_t soldierh_move_attack2 = {
 
 void
 soldierh_duck_down(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_DUCKED)
 	{
 		return;
@@ -2516,12 +2516,12 @@ soldierh_duck_down(edict_t *self)
 
 void
 soldierh_duck_up(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.aiflags &= ~AI_DUCKED;
 	self->maxs[2] += 32;
 	self->takedamage = DAMAGE_AIM;
@@ -2530,24 +2530,24 @@ soldierh_duck_up(edict_t *self)
 
 void
 soldierh_fire3(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldierh_duck_down(self);
 	soldierh_fire(self, 2);
 }
 
 void
 soldierh_attack3_refire(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((level.time + 0.4) < self->monsterinfo.pausetime)
 	{
 		self->monsterinfo.nextframe = FRAME_attak303;
@@ -2575,12 +2575,12 @@ mmove_t soldierh_move_attack3 = {
 
 void
 soldierh_fire4(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldierh_fire(self, 3);
 }
 
@@ -2602,23 +2602,23 @@ mmove_t soldierh_move_attack4 = {
 
 void
 soldierh_fire8(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	soldierh_fire(self, 7);
 }
 
 void
 soldierh_attack6_refire(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->enemy->health <= 0)
 	{
 		return;
@@ -2661,12 +2661,12 @@ mmove_t soldierh_move_attack6 = {
 
 void
 soldierh_attack(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->s.skinnum < 4)
 	{
 		if (random() < 0.5)
@@ -2686,12 +2686,12 @@ soldierh_attack(edict_t *self)
 
 void
 soldierh_sight(edict_t *self, edict_t *other /* unused */)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		gi.sound(self, CHAN_VOICE, sound_sight1, 1, ATTN_NORM, 0);
@@ -2719,12 +2719,12 @@ soldierh_sight(edict_t *self, edict_t *other /* unused */)
 
 void
 soldierh_duck_hold(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (level.time >= self->monsterinfo.pausetime)
 	{
 		self->monsterinfo.aiflags &= ~AI_HOLD_FRAME;
@@ -2754,12 +2754,12 @@ void
 soldierh_dodge(edict_t *self, edict_t *attacker, float eta)
 {
 	float r;
-     
+
   	if (!self || !attacker)
 	{
 		return;
 	}
- 
+
 	r = random();
 
 	if (r > 0.25)
@@ -2814,12 +2814,12 @@ soldierh_dodge(edict_t *self, edict_t *attacker, float eta)
 
 void
 soldierh_fire6(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* no fire laser */
 	if (self->s.skinnum < 4)
 	{
@@ -2829,12 +2829,12 @@ soldierh_fire6(edict_t *self)
 
 void
 soldierh_fire7(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* no fire laser */
 	if (self->s.skinnum < 4)
 	{
@@ -2844,12 +2844,12 @@ soldierh_fire7(edict_t *self)
 
 void
 soldierh_dead(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -16, -16, -24);
 	VectorSet(self->maxs, 16, 16, -8);
 	self->movetype = MOVETYPE_TOSS;
@@ -3143,12 +3143,12 @@ soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage, vec3_t point)
 {
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{
@@ -3222,12 +3222,12 @@ soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
 
 void
 SP_monster_soldier_h(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->s.modelindex = gi.modelindex("models/monsters/soldierh/tris.md2");
 	self->monsterinfo.scale = MODEL_SCALE;
 	VectorSet(self->mins, -16, -16, -24);
@@ -3266,12 +3266,12 @@ SP_monster_soldier_h(edict_t *self)
  */
 void
 SP_monster_soldier_ripper(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -3297,12 +3297,12 @@ SP_monster_soldier_ripper(edict_t *self)
  */
 void
 SP_monster_soldier_hypergun(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -3326,12 +3326,12 @@ SP_monster_soldier_hypergun(edict_t *self)
  */
 void
 SP_monster_soldier_lasergun(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

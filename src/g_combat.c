@@ -4,12 +4,12 @@
  * Combat code like damage, death and so on.
  *
  * =======================================================================
- */ 
+ */
 
 #include "header/local.h"
 
 /*
- * Returns true if the inflictor can directly damage the 
+ * Returns true if the inflictor can directly damage the
  * target. Used for explosions and melee attacks.
  */
 qboolean
@@ -137,7 +137,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 	if ((targ->movetype == MOVETYPE_PUSH) ||
 		(targ->movetype == MOVETYPE_STOP) ||
 	   	(targ->movetype == MOVETYPE_NONE))
-	{   
+	{
 		/* doors, triggers, etc */
 		targ->die(targ, inflictor, attacker, damage, point);
 		return;
@@ -401,14 +401,14 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker)
 		}
 	}
 
-	/* if attacker is a client, get mad at 
+	/* if attacker is a client, get mad at
 	   them because he's good and we're not */
 	if (attacker->client)
 	{
 		targ->monsterinfo.aiflags &= ~AI_SOUND_TARGET;
 
 		/* this can only happen in coop (both new and old
-		   enemies are clients) only switch if can't see the 
+		   enemies are clients) only switch if can't see the
 		   current enemy */
 		if (targ->enemy && targ->enemy->client)
 		{
@@ -432,7 +432,7 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker)
 	}
 
 	/* it's the same base (walk/swim/fly) type and
-	   a different classname and it's not a tank 
+	   a different classname and it's not a tank
 	   (they spray too much), get mad at them */
 	if (((targ->flags & (FL_FLY | FL_SWIM)) ==
 		 (attacker->flags & (FL_FLY | FL_SWIM))) &&
@@ -509,7 +509,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	}
 
 	/* friendly fire avoidance. If enabled you can't
-	   hurt teammates (but you can hurt yourself) 
+	   hurt teammates (but you can hurt yourself)
 	   knockback still occurs */
 	if ((targ != attacker) && ((deathmatch->value &&
 		((int)(dmflags->value) & (DF_MODELTEAMS | DF_SKINTEAMS))) ||
@@ -704,7 +704,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	}
 
 	/* add to the damage inflicted on a player this frame
-	   the total will be turned into screen blends and view angle kicks 
+	   the total will be turned into screen blends and view angle kicks
 	   at the end of the frame */
 	if (client)
 	{

@@ -3,7 +3,7 @@
  * Medic.
  *
  * =======================================================================
- */ 
+ */
 
 #include "../../header/local.h"
 #include "medic.h"
@@ -27,12 +27,12 @@ medic_FindDeadMonster(edict_t *self)
 {
 	edict_t *ent = NULL;
 	edict_t *best = NULL;
-     
+
   	if (!self)
 	{
 		return NULL;
 	}
- 
+
 	while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
 	{
 		if (ent == self)
@@ -91,12 +91,12 @@ void
 medic_idle(edict_t *self)
 {
 	edict_t *ent;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_idle1, 1, ATTN_IDLE, 0);
 
 	ent = medic_FindDeadMonster(self);
@@ -114,12 +114,12 @@ void
 medic_search(edict_t *self)
 {
 	edict_t *ent;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_search, 1, ATTN_IDLE, 0);
 
 	if (!self->oldenemy)
@@ -139,12 +139,12 @@ medic_search(edict_t *self)
 
 void
 medic_sight(edict_t *self, edict_t *other /* unused */)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_sight, 1, ATTN_NORM, 0);
 }
 
@@ -250,12 +250,12 @@ mmove_t medic_move_stand = {
 
 void
 medic_stand(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &medic_move_stand;
 }
 
@@ -283,12 +283,12 @@ mmove_t medic_move_walk = {
 
 void
 medic_walk(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &medic_move_walk;
 }
 
@@ -310,12 +310,12 @@ mmove_t medic_move_run = {
 
 void
 medic_run(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!(self->monsterinfo.aiflags & AI_MEDIC))
 	{
 		edict_t *ent;
@@ -389,12 +389,12 @@ mmove_t medic_move_pain2 = {
 void
 medic_pain(edict_t *self, edict_t *other /* unused */,
 		float kick, int damage /* unused */)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum = 1;
@@ -432,12 +432,12 @@ medic_fire_blaster(edict_t *self)
 	vec3_t end;
 	vec3_t dir;
 	int effect;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((self->s.frame == FRAME_attack9) || (self->s.frame == FRAME_attack12))
 	{
 		effect = EF_BLASTER;
@@ -467,12 +467,12 @@ medic_fire_blaster(edict_t *self)
 
 void
 medic_dead(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -16, -16, -24);
 	VectorSet(self->maxs, 16, 16, -8);
 	self->movetype = MOVETYPE_TOSS;
@@ -527,12 +527,12 @@ medic_die(edict_t *self, edict_t *inflictor /* unused */,
 		vec3_t point /* unused */)
 {
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* if we had a pending patient, free him up for another medic */
 	if ((self->enemy) && (self->enemy->owner == self))
 	{
@@ -574,12 +574,12 @@ medic_die(edict_t *self, edict_t *inflictor /* unused */,
 
 void
 medic_duck_down(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_DUCKED)
 	{
 		return;
@@ -594,12 +594,12 @@ medic_duck_down(edict_t *self)
 
 void
 medic_duck_hold(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (level.time >= self->monsterinfo.pausetime)
 	{
 		self->monsterinfo.aiflags &= ~AI_HOLD_FRAME;
@@ -612,12 +612,12 @@ medic_duck_hold(edict_t *self)
 
 void
 medic_duck_up(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.aiflags &= ~AI_DUCKED;
 	self->maxs[2] += 32;
 	self->takedamage = DAMAGE_AIM;
@@ -652,12 +652,12 @@ mmove_t medic_move_duck = {
 
 void
 medic_dodge(edict_t *self, edict_t *attacker, float eta /* unused */)
-{   
+{
   	if (!self || !attacker)
 	{
 		return;
 	}
- 
+
 	if (random() > 0.25)
 	{
 		return;
@@ -699,12 +699,12 @@ mmove_t medic_move_attackHyperBlaster = {
 
 void
 medic_continue(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (visible(self, self->enemy))
 	{
 		if (random() <= 0.95)
@@ -740,12 +740,12 @@ mmove_t medic_move_attackBlaster = {
 
 void
 medic_hook_launch(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_WEAPON, sound_hook_launch, 1, ATTN_NORM, 0);
 }
 
@@ -769,12 +769,12 @@ medic_cable_attack(edict_t *self)
 	trace_t tr;
 	vec3_t dir, angles;
 	float distance;
- 
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!self->enemy->inuse)
 	{
 		return;
@@ -869,12 +869,12 @@ medic_cable_attack(edict_t *self)
 
 void
 medic_hook_retract(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_WEAPON, sound_hook_retract, 1, ATTN_NORM, 0);
 	self->enemy->monsterinfo.aiflags &= ~AI_RESURRECTING;
 }
@@ -919,12 +919,12 @@ mmove_t medic_move_attackCable = {
 
 void
 medic_attack(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_MEDIC)
 	{
 		self->monsterinfo.currentmove = &medic_move_attackCable;
@@ -937,12 +937,12 @@ medic_attack(edict_t *self)
 
 qboolean
 medic_checkattack(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return false;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_MEDIC)
 	{
 		medic_attack(self);
@@ -957,12 +957,12 @@ medic_checkattack(edict_t *self)
  */
 void
 SP_monster_medic(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

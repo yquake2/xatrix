@@ -21,45 +21,45 @@ static int sound_sight;
 
 void
 gladb_idle(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_idle, 1, ATTN_IDLE, 0);
 }
 
 void
 gladb_sight(edict_t *self, edict_t *other /* unused */)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_sight, 1, ATTN_NORM, 0);
 }
 
 void
 gladb_search(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_search, 1, ATTN_NORM, 0);
 }
 
 void
 gladb_cleaver_swing(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_WEAPON, sound_cleaver_swing, 1, ATTN_NORM, 0);
 }
 
@@ -82,12 +82,12 @@ mmove_t gladb_move_stand = {
 
 void
 gladb_stand(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &gladb_move_stand;
 }
 
@@ -119,12 +119,12 @@ mmove_t gladb_move_walk = {
 
 void
 gladb_walk(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &gladb_move_walk;
 }
 
@@ -146,12 +146,12 @@ mmove_t gladb_move_run = {
 
 void
 gladb_run(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 	{
 		self->monsterinfo.currentmove = &gladb_move_stand;
@@ -166,12 +166,12 @@ void
 GladbMelee(edict_t *self)
 {
 	vec3_t aim;
-   
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(aim, MELEE_DISTANCE, self->mins[0], -4);
 
 	if (fire_hit(self, aim, (20 + (rand() % 5)), 300))
@@ -213,12 +213,12 @@ mmove_t gladb_move_attack_melee = {
 
 void
 gladb_melee(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &gladb_move_attack_melee;
 }
 
@@ -228,12 +228,12 @@ gladbGun(edict_t *self)
 	vec3_t start;
 	vec3_t dir;
 	vec3_t forward, right;
-   
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	AngleVectors(self->s.angles, forward, right, NULL);
 	G_ProjectSource(self->s.origin, monster_flash_offset[MZ2_GLADIATOR_RAILGUN_1],
 			forward, right, start);
@@ -247,12 +247,12 @@ gladbGun(edict_t *self)
 
 void
 gladbGun_check(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (skill->value == 3)
 	{
 		gladbGun(self);
@@ -283,12 +283,12 @@ gladb_attack(edict_t *self)
 {
 	float range;
 	vec3_t v;
- 
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* a small safe zone */
 	VectorSubtract(self->s.origin, self->enemy->s.origin, v);
 	range = VectorLength(v);
@@ -340,12 +340,12 @@ mmove_t gladb_move_pain_air = {
 void
 gladb_pain(edict_t *self, edict_t *other /* unused */,
 		float kick /* unused */, int damage)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum = 1;
@@ -385,12 +385,12 @@ gladb_pain(edict_t *self, edict_t *other /* unused */,
 
 void
 gladb_dead(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -16, -16, -24);
 	VectorSet(self->maxs, 16, 16, -8);
 	self->movetype = MOVETYPE_TOSS;
@@ -437,12 +437,12 @@ gladb_die(edict_t *self, edict_t *inflictor /* unused */,
 		vec3_t point)
 {
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	/* check for gib */
 	if (self->health <= self->gib_health)
 	{

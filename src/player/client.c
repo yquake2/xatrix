@@ -36,12 +36,12 @@ SP_CreateUnnamedSpawn(edict_t *self)
  */
 void
 SP_info_player_start(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!coop->value)
 	{
 		return;
@@ -54,12 +54,12 @@ SP_info_player_start(edict_t *self)
  */
 void
 SP_info_player_deathmatch(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!deathmatch->value)
 	{
 		G_FreeEdict(self);
@@ -75,12 +75,12 @@ SP_info_player_deathmatch(edict_t *self)
  */
 void
 SP_info_player_coop(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!coop->value)
 	{
 		G_FreeEdict(self);
@@ -106,7 +106,7 @@ SP_info_player_intermission(void)
 /* ======================================================================= */
 
 void
-player_pain(edict_t *self /* unsued */, edict_t *other /* unused */, 
+player_pain(edict_t *self /* unsued */, edict_t *other /* unused */,
 		float kick /* unused */, int damage /* unused */)
 {
 	/* Player pain is handled at the end
@@ -120,12 +120,12 @@ qboolean
 IsFemale(edict_t *ent)
 {
 	char *info;
-          
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	if (!ent->client)
 	{
 		return false;
@@ -145,12 +145,12 @@ qboolean
 IsNeutral(edict_t *ent)
 {
 	char *info;
-          
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	if (!ent->client)
 	{
 		return false;
@@ -158,7 +158,7 @@ IsNeutral(edict_t *ent)
 
 	info = Info_ValueForKey(ent->client->pers.userinfo, "gender");
 
-	if ((info[0] != 'f') && (info[0] != 'F') && 
+	if ((info[0] != 'f') && (info[0] != 'F') &&
 			(info[0] != 'm') && (info[0] != 'M'))
 	{
 		return true;
@@ -443,12 +443,12 @@ TossClientWeapon(edict_t *self)
 	qboolean quad;
 	qboolean quadfire;
 	float spread;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (!deathmatch->value)
 	{
 		return;
@@ -645,7 +645,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 	self->client->quadfire_framenum = 0;
 
 	if (self->health < -40)
-	{   
+	{
 		/* gib */
 		gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"),
 			   	1, ATTN_NORM, 0);
@@ -661,7 +661,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		self->takedamage = DAMAGE_NO;
 	}
 	else
-	{   
+	{
 		/* normal death */
 		if (!self->deadflag)
 		{
@@ -795,12 +795,12 @@ SaveClientData(void)
 
 void
 FetchClientEntData(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	ent->health = ent->client->pers.health;
 	ent->max_health = ent->client->pers.max_health;
 	ent->flags |= ent->client->pers.savedFlags;
@@ -860,7 +860,7 @@ PlayersRangeFromSpot(edict_t *spot)
 }
 
 /*
- * go to a random point, but NOT the two 
+ * go to a random point, but NOT the two
  * points closest to other players
  */
 edict_t *
@@ -953,7 +953,7 @@ SelectFarthestDeathmatchSpawnPoint(void)
 		return bestspot;
 	}
 
-	/* if there is a player just spawned on each and every start spot 
+	/* if there is a player just spawned on each and every start spot
 	   we have no choice to turn one into a telefrag meltdown */
 	spot = G_Find(NULL, FOFS(classname), "info_player_deathmatch");
 
@@ -979,12 +979,12 @@ SelectCoopSpawnPoint(edict_t *ent)
 	int index;
 	edict_t *spot = NULL;
 	char *target;
-          
+
   	if (!ent)
 	{
 		return NULL;
 	}
- 
+
 	index = ent->client - game.clients;
 
 	/* player 0 starts in normal player spawn point */
@@ -1013,7 +1013,7 @@ SelectCoopSpawnPoint(edict_t *ent)
 		}
 
 		if (Q_stricmp(game.spawnpoint, target) == 0)
-		{   
+		{
 			/* this is a coop spawn point for
 			   one of the clients here */
 			index--;
@@ -1035,12 +1035,12 @@ void
 SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 {
 	edict_t *spot = NULL;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		spot = SelectDeathmatchSpawnPoint();
@@ -1074,7 +1074,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 		if (!spot)
 		{
 			if (!game.spawnpoint[0])
-			{   
+			{
 				/* there wasn't a spawnpoint without a target, so use any */
 				spot = G_Find(spot, FOFS(classname), "info_player_start");
 			}
@@ -1114,12 +1114,12 @@ body_die(edict_t *self, edict_t *inflictor /* unused */,
 		vec3_t point /* unused */)
 {
 	int n;
-      
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < -40)
 	{
 		gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"),
@@ -1141,12 +1141,12 @@ void
 CopyToBodyQue(edict_t *ent)
 {
 	edict_t *body;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* grab a body que and cycle to the next one */
 	body = &g_edicts[(int)maxclients->value + level.body_que + 1];
 	level.body_que = (level.body_que + 1) % BODY_QUEUE_SIZE;
@@ -1176,12 +1176,12 @@ CopyToBodyQue(edict_t *ent)
 
 void
 respawn(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value || coop->value)
 	{
 		/* spectator's don't leave bodies */
@@ -1218,12 +1218,12 @@ void
 spectator_respawn(edict_t *ent)
 {
 	int i, numspec;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* if the user wants to become a spectator,
 	   make sure he doesn't exceed max_spectators */
 	if (ent->client->pers.spectator)
@@ -1332,12 +1332,12 @@ PutClientInServer(edict_t *ent)
 	int i;
 	client_persistant_t saved;
 	client_respawn_t resp;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	/* find a spawn point do it before setting
 	   health back up, so farthest ranging
 	   doesn't count this client */
@@ -1491,7 +1491,7 @@ PutClientInServer(edict_t *ent)
 	}
 
 	if (!KillBox(ent))
-	{   
+	{
 		/* could't spawn in? */
 	}
 
@@ -1509,12 +1509,12 @@ PutClientInServer(edict_t *ent)
  */
 void
 ClientBeginDeathmatch(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	G_InitEdict(ent);
 
 	InitClientResp(ent->client);
@@ -1549,12 +1549,12 @@ void
 ClientBegin(edict_t *ent)
 {
 	int i;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	ent->client = game.clients + (ent - g_edicts - 1);
 
 	if (deathmatch->value)
@@ -1799,12 +1799,12 @@ void
 ClientDisconnect(edict_t *ent)
 {
 	int playernum;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (!ent->client)
 	{
 		return;
@@ -1833,7 +1833,7 @@ ClientDisconnect(edict_t *ent)
 
 edict_t *pm_passent;
 
-/* pmove doesn't need to know 
+/* pmove doesn't need to know
    about passent and contentmask */
 trace_t
 PM_trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
@@ -2126,12 +2126,12 @@ ClientBeginServerFrame(edict_t *ent)
 {
 	gclient_t *client;
 	int buttonMask;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	if (level.intermissiontime)
 	{
 		return;

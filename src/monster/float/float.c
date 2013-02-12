@@ -3,7 +3,7 @@
  * Mechanic.
  *
  * =======================================================================
- */ 
+ */
 
 #include "../../header/local.h"
 #include "float.h"
@@ -15,33 +15,33 @@ static int sound_idle;
 static int sound_pain1;
 static int sound_pain2;
 static int sound_sight;
- 
+
 void floater_dead(edict_t *self);
 void floater_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 		int damage, vec3_t point);
 void floater_run(edict_t *self);
 void floater_wham(edict_t *self);
 void floater_zap(edict_t *self);
- 
+
 void
 floater_sight(edict_t *self, edict_t *other /* unused */)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_sight, 1, ATTN_NORM, 0);
 }
 
 void
 floater_idle(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_idle, 1, ATTN_IDLE, 0);
 }
 
@@ -53,12 +53,12 @@ floater_fire_blaster(edict_t *self)
 	vec3_t end;
 	vec3_t dir;
 	int effect;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if ((self->s.frame == FRAME_attak104) || (self->s.frame == FRAME_attak107))
 	{
 		effect = EF_HYPERBLASTER;
@@ -199,18 +199,18 @@ mframe_t floater_frames_stand2[] = {
 mmove_t floater_move_stand2 = {
 	FRAME_stand201,
    	FRAME_stand252,
-   	floater_frames_stand2, 
+   	floater_frames_stand2,
 	NULL
 };
 
 void
 floater_stand(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() <= 0.5)
 	{
 		self->monsterinfo.currentmove = &floater_move_stand1;
@@ -500,7 +500,7 @@ mframe_t floater_frames_walk[] = {
 };
 
 mmove_t floater_move_walk = {
-	FRAME_stand101, 
+	FRAME_stand101,
 	FRAME_stand152,
    	floater_frames_walk,
    	NULL
@@ -570,12 +570,12 @@ mmove_t floater_move_run = {
 
 void
 floater_run(edict_t *self)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->monsterinfo.aiflags & AI_STAND_GROUND)
 	{
 		self->monsterinfo.currentmove = &floater_move_stand1;
@@ -588,12 +588,12 @@ floater_run(edict_t *self)
 
 void
 floater_walk(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &floater_move_walk;
 }
 
@@ -601,12 +601,12 @@ void
 floater_wham(edict_t *self)
 {
 	static vec3_t aim = {MELEE_DISTANCE, 0, 0};
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_WEAPON, sound_attack3, 1, ATTN_NORM, 0);
 	fire_hit(self, aim, 5 + rand() % 6, -50);
 }
@@ -618,12 +618,12 @@ floater_zap(edict_t *self)
 	vec3_t origin;
 	vec3_t dir;
 	vec3_t offset;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSubtract(self->enemy->s.origin, self->s.origin, dir);
 
 	AngleVectors(self->s.angles, forward, right, NULL);
@@ -647,23 +647,23 @@ floater_zap(edict_t *self)
 
 void
 floater_attack(edict_t *self)
-{  
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	self->monsterinfo.currentmove = &floater_move_attack1;
 }
 
 void
 floater_melee(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (random() < 0.5)
 	{
 		self->monsterinfo.currentmove = &floater_move_attack3;
@@ -679,12 +679,12 @@ floater_pain(edict_t *self, edict_t *other /* unused */,
 	   	float kick /* unused */, int damage)
 {
 	int n;
-     
+
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (self->health < (self->max_health / 2))
 	{
 		self->s.skinnum = 1;
@@ -718,12 +718,12 @@ floater_pain(edict_t *self, edict_t *other /* unused */,
 
 void
 floater_dead(edict_t *self)
-{    
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	VectorSet(self->mins, -16, -16, -24);
 	VectorSet(self->maxs, 16, 16, -8);
 	self->movetype = MOVETYPE_TOSS;
@@ -735,12 +735,12 @@ floater_dead(edict_t *self)
 void
 floater_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
 		int damage /* unused */, vec3_t point /* unused */)
-{ 
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	gi.sound(self, CHAN_VOICE, sound_death1, 1, ATTN_NORM, 0);
 	BecomeExplosion1(self);
 }
@@ -750,12 +750,12 @@ floater_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /*
  */
 void
 SP_monster_floater(edict_t *self)
-{   
+{
   	if (!self)
 	{
 		return;
 	}
- 
+
 	if (deathmatch->value)
 	{
 		G_FreeEdict(self);

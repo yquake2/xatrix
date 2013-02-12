@@ -39,10 +39,10 @@ endif
 
 # ----------
 
-# Base CFLAGS. 
+# Base CFLAGS.
 #
 # -O2 are enough optimizations.
-# 
+#
 # -fno-strict-aliasing since the source doesn't comply
 #  with strict aliasing rules and it's next to impossible
 #  to get it there...
@@ -59,7 +59,7 @@ endif
 # -MMD to generate header dependencies.
 ifeq ($(OSTYPE), Darwin)
 CFLAGS := -O2 -fno-strict-aliasing -fomit-frame-pointer \
-		  -Wall -pipe -g -arch i386 -arch x86_64 
+		  -Wall -pipe -g -arch i386 -arch x86_64
 else
 CFLAGS := -O2 -fno-strict-aliasing -fomit-frame-pointer \
 		  -Wall -pipe -g -MMD
@@ -69,7 +69,7 @@ endif
 
 # Base LDFLAGS.
 ifeq ($(OSTYPE), Darwin)
-LDFLAGS := -shared -arch i386 -arch x86_64 
+LDFLAGS := -shared -arch i386 -arch x86_64
 else
 LDFLAGS := -shared
 endif
@@ -101,7 +101,7 @@ endif
 ifeq ($(OSTYPE), Windows)
 clean:
 	@echo "===> CLEAN"
-	@-rmdir /S /Q release build 
+	@-rmdir /S /Q release build
 else
 clean:
 	@echo "===> CLEAN"
@@ -134,7 +134,7 @@ build/%.o: %.c
 
 release/game.so : CFLAGS += -fPIC
 endif
- 
+
 # ----------
 
 XATRIX_OBJS_ = \
@@ -189,7 +189,7 @@ XATRIX_OBJS_ = \
 	src/savegame/savegame.o \
 	src/shared/flash.o \
 	src/shared/rand.o \
-	src/shared/shared.o 
+	src/shared/shared.o
 
 # ----------
 
@@ -217,5 +217,5 @@ release/game.so : $(XATRIX_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
 endif
- 
+
 # ----------

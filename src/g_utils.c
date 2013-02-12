@@ -508,12 +508,12 @@ G_TouchTriggers(edict_t *ent)
 {
 	int i, num;
 	edict_t *touch[MAX_EDICTS], *hit;
-     
+
 	if (!ent)
 	{
 		return;
 	}
-     
+
 	/* dead things don't activate triggers! */
 	if ((ent->client || (ent->svflags & SVF_MONSTER)) && (ent->health <= 0))
 	{
@@ -523,7 +523,7 @@ G_TouchTriggers(edict_t *ent)
 	num = gi.BoxEdicts(ent->absmin, ent->absmax, touch,
 			MAX_EDICTS, AREA_TRIGGERS);
 
-	/* be careful, it is possible to have an entity in this 
+	/* be careful, it is possible to have an entity in this
 	   list removed before we get to it (killtriggered) */
 	for (i = 0; i < num; i++)
 	{
@@ -552,16 +552,16 @@ G_TouchSolids(edict_t *ent)
 {
 	int i, num;
 	edict_t *touch[MAX_EDICTS], *hit;
-     
+
 	if (!ent)
 	{
 		return;
 	}
-     
+
 	num = gi.BoxEdicts(ent->absmin, ent->absmax, touch,
 			MAX_EDICTS, AREA_SOLID);
 
-	/* be careful, it is possible to have an entity in this 
+	/* be careful, it is possible to have an entity in this
 	   list removed before we get to it (killtriggered) */
 	for (i = 0; i < num; i++)
 	{
@@ -592,12 +592,12 @@ qboolean
 KillBox(edict_t *ent)
 {
 	trace_t tr;
-     
+
 	if (!ent)
 	{
 		return false;
 	}
-     
+
 	while (1)
 	{
 		tr = gi.trace(ent->s.origin, ent->mins, ent->maxs, ent->s.origin,

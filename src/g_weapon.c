@@ -60,12 +60,12 @@ fire_hit(edict_t *self, vec3_t aim, int damage, int kick)
 	vec3_t point;
 	float range;
 	vec3_t dir;
-     
+
 	if (!self)
 	{
 		return false;
 	}
-     
+
 	/* see if enemy is in range */
 	VectorSubtract(self->enemy->s.origin, self->s.origin, dir);
 	range = VectorLength(dir);
@@ -156,12 +156,12 @@ fire_lead(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick,
 	vec3_t water_start;
 	qboolean water = false;
 	int content_mask = MASK_SHOT | MASK_WATER;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	tr = gi.trace(self->s.origin, NULL, NULL, start, self, MASK_SHOT);
 
 	if (!(tr.fraction < 1.0))
@@ -310,12 +310,12 @@ fire_lead(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick,
 void
 fire_bullet(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int hspread, int vspread, int mod)
-{    
+{
 	if (!self)
 	{
 		return;
 	}
-     
+
 	fire_lead(self, start, aimdir, damage, kick, TE_GUNSHOT,
 			hspread, vspread, mod);
 }
@@ -328,12 +328,12 @@ fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int hspread, int vspread, int count, int mod)
 {
 	int i;
- 
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	for (i = 0; i < count; i++)
 	{
 		fire_lead(self, start, aimdir, damage, kick,
@@ -412,19 +412,19 @@ fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 {
 	edict_t *bolt;
 	trace_t tr;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	VectorNormalize(dir);
 
 	bolt = G_Spawn();
 	bolt->svflags = SVF_DEADMONSTER;
 
-	/* yes, I know it looks weird that projectiles are deadmonsters 
-	   what this means is that when prediction is used against the object 
+	/* yes, I know it looks weird that projectiles are deadmonsters
+	   what this means is that when prediction is used against the object
 	   (blaster/hyperblaster shots), the player won't be solid clipped against
 	   the object.  Right now trying to run into a firing hyperblaster
 	   is very jerky since you are predicted 'against' the shots. */
@@ -474,12 +474,12 @@ fire_blueblaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 {
 	edict_t *bolt;
 	trace_t tr;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	VectorNormalize(dir);
 
 	bolt = G_Spawn();
@@ -523,12 +523,12 @@ Grenade_Explode(edict_t *ent)
 {
 	vec3_t origin;
 	int mod;
-     
+
 	if (!ent)
 	{
 		return;
 	}
-     
+
 	if (ent->owner->client)
 	{
 		PlayerNoise(ent->owner, ent->s.origin, PNOISE_IMPACT);
@@ -661,12 +661,12 @@ fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	edict_t *grenade;
 	vec3_t dir;
 	vec3_t forward, right, up;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	vectoangles(aimdir, dir);
 	AngleVectors(dir, forward, right, up);
 
@@ -701,12 +701,12 @@ fire_grenade2(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	edict_t *grenade;
 	vec3_t dir;
 	vec3_t forward, right, up;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	vectoangles(aimdir, dir);
 	AngleVectors(dir, forward, right, up);
 
@@ -834,12 +834,12 @@ fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, float damage_radius, int radius_damage)
 {
 	edict_t *rocket;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	rocket = G_Spawn();
 	VectorCopy(start, rocket->s.origin);
 	VectorCopy(dir, rocket->movedir);
@@ -956,12 +956,12 @@ bfg_explode(edict_t *self)
 	float points;
 	vec3_t v;
 	float dist;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	if (self->s.frame == 0)
 	{
 		/* the BFG effect */
@@ -1082,12 +1082,12 @@ bfg_think(edict_t *self)
 	vec3_t end;
 	int dmg;
 	trace_t tr;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	if (deathmatch->value)
 	{
 		dmg = 5;
@@ -1181,12 +1181,12 @@ fire_bfg(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, float damage_radius)
 {
 	edict_t *bfg;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	bfg = G_Spawn();
 	VectorCopy(start, bfg->s.origin);
 	VectorCopy(dir, bfg->movedir);
@@ -1223,12 +1223,12 @@ fire_bfg(edict_t *self, vec3_t start, vec3_t dir, int damage,
 
 void
 ionripper_sparks(edict_t *self)
-{    
+{
 	if (!self)
 	{
 		return;
 	}
-     
+
 	gi.WriteByte(svc_temp_entity);
 	gi.WriteByte(TE_WELDING_SPARKS);
 	gi.WriteByte(0);
@@ -1283,12 +1283,12 @@ fire_ionripper(edict_t *self, vec3_t start, vec3_t dir, int damage,
 {
 	edict_t *ion;
 	trace_t tr;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	VectorNormalize(dir);
 
 	ion = G_Spawn();
@@ -1338,12 +1338,12 @@ heat_think(edict_t *self)
 	vec3_t vec;
 	int len;
 	int oldlen = 0;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	VectorClear(vec);
 
 	/* aquire new target */
@@ -1407,12 +1407,12 @@ fire_heat(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed,
 		float damage_radius, int radius_damage)
 {
 	edict_t *heat;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	heat = G_Spawn();
 	VectorCopy(start, heat->s.origin);
 	VectorCopy(dir, heat->movedir);
@@ -1448,7 +1448,7 @@ void
 plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
 	vec3_t origin;
-     
+
 	if (!ent || !other || !plane || !surf)
 	{
 		return;
@@ -1495,12 +1495,12 @@ fire_plasma(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, float damage_radius, int radius_damage)
 {
 	edict_t *plasma;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	plasma = G_Spawn();
 	VectorCopy(start, plasma->s.origin);
 	VectorCopy(dir, plasma->movedir);
@@ -1542,12 +1542,12 @@ Trap_Think(edict_t *ent)
 	int len, i;
 	int oldlen = 8000;
 	vec3_t forward, right, up;
-     
+
 	if (!ent)
 	{
 		return;
 	}
-     
+
 	if (ent->timestamp < level.time)
 	{
 		BecomeExplosion1(ent);
@@ -1778,12 +1778,12 @@ fire_trap(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	edict_t *trap;
 	vec3_t dir;
 	vec3_t forward, right, up;
-     
+
 	if (!self)
 	{
 		return;
 	}
-     
+
 	vectoangles(aimdir, dir);
 	AngleVectors(dir, forward, right, up);
 

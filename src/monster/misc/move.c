@@ -13,7 +13,7 @@
 int c_yes, c_no;
 
 /*
- * Returns false if any part of the bottom 
+ * Returns false if any part of the bottom
  * of the entity is off an edge that is not
  * a staircase.
  */
@@ -24,12 +24,12 @@ M_CheckBottom(edict_t *ent)
 	trace_t trace;
 	int x, y;
 	float mid, bottom;
-      
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	VectorAdd(ent->s.origin, ent->mins, mins);
 	VectorAdd(ent->s.origin, ent->maxs, maxs);
 
@@ -109,7 +109,7 @@ realcheck:
  * possible, no move is done, false is
  * returned, and pr_global_struct->trace_normal
  * is set to the normal of the blocking wall
- */ 
+ */
 qboolean
 SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 {
@@ -120,12 +120,12 @@ SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 	float stepsize;
 	vec3_t test;
 	int contents;
-          
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	/* try the move */
 	VectorCopy(ent->s.origin, oldorg);
 	VectorAdd(ent->s.origin, move, neworg);
@@ -354,7 +354,7 @@ SV_movestep(edict_t *ent, vec3_t move, qboolean relink)
 	if (!M_CheckBottom(ent))
 	{
 		if (ent->flags & FL_PARTIALGROUND)
-		{ 
+		{
 			/* entity had floor mostly pulled out
 			   from underneath it and is trying to
 			   correct */
@@ -399,12 +399,12 @@ M_ChangeYaw(edict_t *ent)
 	float current;
 	float move;
 	float speed;
-          
+
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	current = anglemod(ent->s.angles[YAW]);
 	ideal = ent->ideal_yaw;
 
@@ -458,12 +458,12 @@ SV_StepDirection(edict_t *ent, float yaw, float dist)
 {
 	vec3_t move, oldorigin;
 	float delta;
-          
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	ent->ideal_yaw = yaw;
 	M_ChangeYaw(ent);
 
@@ -479,7 +479,7 @@ SV_StepDirection(edict_t *ent, float yaw, float dist)
 		delta = ent->s.angles[YAW] - ent->ideal_yaw;
 
 		if ((delta > 45) && (delta < 315))
-		{       
+		{
 			/* not turned far enough, so don't take the step */
 			VectorCopy(oldorigin, ent->s.origin);
 		}
@@ -496,12 +496,12 @@ SV_StepDirection(edict_t *ent, float yaw, float dist)
 
 void
 SV_FixCheckBottom(edict_t *ent)
-{         
+{
   	if (!ent)
 	{
 		return;
 	}
- 
+
 	ent->flags |= FL_PARTIALGROUND;
 }
 
@@ -643,7 +643,7 @@ SV_CloseEnough(edict_t *ent, edict_t *goal, float dist)
     if (!ent || !goal)
 	{
 		return false;
-	} 
+	}
 
 	for (i = 0; i < 3; i++)
 	{
@@ -665,7 +665,7 @@ void
 M_MoveToGoal(edict_t *ent, float dist)
 {
 	edict_t *goal;
-         
+
   	if (!ent)
 	{
 		return;
@@ -698,12 +698,12 @@ qboolean
 M_walkmove(edict_t *ent, float yaw, float dist)
 {
 	vec3_t move;
-          
+
   	if (!ent)
 	{
 		return false;
 	}
- 
+
 	if (!ent->groundentity && !(ent->flags & (FL_FLY | FL_SWIM)))
 	{
 		return false;
