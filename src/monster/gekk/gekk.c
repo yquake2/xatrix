@@ -1621,6 +1621,8 @@ mframe_t gekk_frames_wdeath[] = {
 	{ai_move, 0.000, NULL}, /* frame 14 */
 	{ai_move, 0.000, NULL}, /* frame 15 */
 	{ai_move, 0.000, NULL}, /* frame 16 */
+	{ai_move, 0.000, NULL}, /* frame 17 */
+	{ai_move, 0.000, NULL}, /* frame 18 */
 	{ai_move, 0.000, NULL}, /* frame 19 */
 	{ai_move, 0.000, NULL}, /* frame 20 */
 	{ai_move, 0.000, NULL}, /* frame 21 */
@@ -1637,6 +1639,8 @@ mframe_t gekk_frames_wdeath[] = {
 	{ai_move, 0.000, NULL}, /* frame 32 */
 	{ai_move, 0.000, NULL}, /* frame 33 */
 	{ai_move, 0.000, NULL}, /* frame 34 */
+	{ai_move, 0.000, NULL}, /* frame 35 */
+	{ai_move, 0.000, NULL}, /* frame 36 */
 	{ai_move, 0.000, NULL}, /* frame 37 */
 	{ai_move, 0.000, NULL}, /* frame 38 */
 	{ai_move, 0.000, NULL}, /* frame 39 */
