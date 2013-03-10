@@ -1,0 +1,13 @@
+Maps with broken single player spawn point:
+ - None :)
+
+Maps with broken coop spawnpoints:
+ - xware: The info_player_start is at the same place as the first
+          info_coop_start. So the second player is placed in the same
+          place as the first one... This only happens when the map is
+          loaded by console, not when entering from xreactor. Possible
+          solutions: 1) mapquirk, move the first info_coop_start out
+          of the way. 2) logic quirk, simulate entering from xreactor.
+ - xship: Has only one info_player_start and no info_coop_start. The
+          solution is to synthesize 3 info_coop_start by map quirks,
+          but there's hardly any room for them...
