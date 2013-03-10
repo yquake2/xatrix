@@ -1035,6 +1035,10 @@ void
 SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 {
 	edict_t *spot = NULL;
+	edict_t *coopspot = NULL;
+	int index;
+	int counter = 0;
+	vec3_t d;
 
   	if (!ent)
 	{
@@ -1082,6 +1086,44 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 			if (!spot)
 			{
 				gi.error("Couldn't find spawn point %s\n", game.spawnpoint);
+			}
+		}
+	}
+
+	/* If we are in coop and we didn't find a coop
+	   spawnpoint due to map bugs (not correctly
+	   connected or the map was loaded via console
+	   and thus no previously map is known to the
+	   client) use one in 550 units radius. */
+	if (coop->value)
+	{
+		index = ent->client - game.clients;
+
+		if (Q_stricmp(spot->classname, "info_player_start") == 0 && index != 0)
+		{
+			while(counter < 3)
+			{
+				coopspot = G_Find(coopspot, FOFS(classname), "info_player_coop");
+
+				if (!coopspot)
+				{
+					break;
+				}
+
+				VectorSubtract(coopspot->s.origin, spot->s.origin, d);
+
+				if ((VectorLength(d) < 550))
+				{
+					if (index == counter)
+					{
+						spot = coopspot;
+						break;
+					}
+					else
+					{
+						counter++;
+					}
+				}
 			}
 		}
 	}
