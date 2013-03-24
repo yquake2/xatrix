@@ -1,3 +1,10 @@
+The Reckoning 1.09 to 2.00RC:
+- Cleanup of the whole source, nearly every line
+  was audited and touched.
+- Add sanity checks to all function.
+- Fix all known bugs.
+- Merge all missing changes from baseq2.
+
 The Reckoning 1.08 to 1.09
 - Port 'The Reckoning' to Mac OS X.
 
