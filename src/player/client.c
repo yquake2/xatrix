@@ -15,7 +15,21 @@ void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 void
 SP_FixCoopSpots(edict_t *self)
 {
-	/* Necessary for savegame compatiblity */
+	/* Entity number 292 is an unnamed info_player_start
+	   next to a named info_player_start. Delete it, if
+	   we're in coop since it screws up the spawnpoint
+	   selection heuristic in SelectCoopSpawnPoint(). 
+	   This unnamed info_player_start is selected as
+	   spawnpoint for player 0, therefor none of the
+	   named info_coop_start() matches... */
+	if(Q_stricmp(level.mapname, "xware") == 0)
+	{
+		if (self->s.number == 292)
+		{
+			G_FreeEdict(self);
+			self = NULL;
+		}
+	}
 }
 
 void
@@ -46,6 +60,9 @@ SP_info_player_start(edict_t *self)
 	{
 		return;
 	}
+
+	/* Fix coop spawn points */
+	SP_FixCoopSpots(self);
 }
 
 /*
