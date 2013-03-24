@@ -1,7 +1,0 @@
-Maps with broken single player spawn point:
- - None :)
-
-Maps with broken coop spawnpoints:
- - xship: Has only one info_player_start and no info_coop_start. The
-          solution is to synthesize 3 info_coop_start by map quirks,
-          but there's hardly any room for them...
