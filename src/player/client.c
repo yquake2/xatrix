@@ -1053,6 +1053,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 {
 	edict_t *spot = NULL;
 	edict_t *coopspot = NULL;
+	int dist;
 	int index;
 	int counter = 0;
 	vec3_t d;
@@ -1129,7 +1130,19 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 
 				VectorSubtract(coopspot->s.origin, spot->s.origin, d);
 
-				if ((VectorLength(d) < 550))
+				/* In xship the coop spawnpoints are farther
+				   away than in other maps. Quirk around this.
+				   Oh well... */
+				if (Q_stricmp(level.mapname, "xship") == 0)
+				{
+					dist = 2500;
+				}
+				else
+				{
+					dist = 550;
+				}
+
+				if ((VectorLength(d) < dist))
 				{
 					if (index == counter)
 					{
