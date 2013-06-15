@@ -1,3 +1,6 @@
+The reckoning 2.00 to 2.01:
+- Fix a progress stopper in xware.bsp
+
 The Reckoning 2.00RC to 2.00:
 - Updates to the opened inventory screen
   were fixed. (By svdijk, merged from

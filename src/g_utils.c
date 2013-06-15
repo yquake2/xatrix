@@ -179,11 +179,11 @@ Think_Delay(edict_t *ent)
  * match (string)self.target and call their .use function
  */
 void
-G_UseTargets(edict_t *ent, edict_t *activator)
+G_UseTargets(edict_t *ent, edict_t *activator /* may be NULL */)
 {
 	edict_t *t;
 
-	if (!ent || !activator)
+	if (!ent)
 	{
 		return;
 	}

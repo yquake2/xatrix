@@ -266,9 +266,10 @@ SP_trigger_once(edict_t *ent)
  * it can only be fired by other events.
  */
 void
-trigger_relay_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
+trigger_relay_use(edict_t *self, edict_t *other /* unused */, 
+		edict_t *activator /* may be NULL */)
 {
-	if (!self || !activator)
+	if (!self)
 	{
 		return;
 	}
