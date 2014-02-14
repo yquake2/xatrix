@@ -12,6 +12,8 @@
 # Platforms:                                            #
 # - FreeBSD                                             #
 # - Linux                                               #
+# - Mac OS X                                            #
+# - OpenBSD                                             #
 # - Windows                                             #
 # ----------------------------------------------------- #
 
@@ -21,7 +23,12 @@ OSTYPE := Windows
 else
 OSTYPE := $(shell uname -s)
 endif
-
+ 
+# Special case for MinGW
+ifneq (,$(findstring MINGW,$(OSTYPE)))
+OSTYPE := Windows
+endif
+ 
 # Detect the architecture
 ifeq ($(OSTYPE), Windows)
 # At this time only i386 is supported on Windows
@@ -98,15 +105,9 @@ endif
 # ----------
 
 # Cleanup
-ifeq ($(OSTYPE), Windows)
-clean:
-	@echo "===> CLEAN"
-	@-rmdir /S /Q release build
-else
 clean:
 	@echo "===> CLEAN"
 	${Q}rm -Rf build release
-endif
 
 # ----------
 
@@ -114,12 +115,12 @@ endif
 ifeq ($(OSTYPE), Windows)
 xatrix:
 	@echo "===> Building game.dll"
-	${Q}tools/mkdir.exe -p release
+	${Q}mkdir -p release
 	${MAKE} release/game.dll
 
 build/%.o: %.c
 	@echo "===> CC $<"
-	${Q}tools/mkdir.exe -p $(@D)
+	${Q}mkdir -p $(@D)
 	${Q}$(CC) -c $(CFLAGS) -o $@ $<
 else
 xatrix:
