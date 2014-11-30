@@ -1204,7 +1204,6 @@
 {"SelectPrevItem", (byte *)SelectPrevItem},
 {"SelectNextItem", (byte *)SelectNextItem},
 {"OnSameTeam", (byte *)OnSameTeam},
-{"ClientTeam", (byte *)ClientTeam},
 {"GetChaseTarget", (byte *)GetChaseTarget},
 {"ChasePrev", (byte *)ChasePrev},
 {"ChaseNext", (byte *)ChaseNext},
