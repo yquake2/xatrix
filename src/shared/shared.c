@@ -303,9 +303,6 @@ anglemod(float a)
 	return a;
 }
 
-int i;
-vec3_t corners[2];
-
 /*
  * This is the slow, general version
  */
