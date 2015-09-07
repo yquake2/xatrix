@@ -1,4 +1,8 @@
-The reckoning 2.00 to 2.01:
+The Reckoning 2.01 to 2.02:
+- Add CMake as an optional build system.
+- Fix bug with high velocities in vents in 32bit builds.
+
+The Reckoning 2.00 to 2.01:
 - Fix a progress stopper in xware.bsp
 
 The Reckoning 2.00RC to 2.00:
