@@ -7,8 +7,8 @@
 
 #include "header/local.h"
 
-int gibsthisframe = 0;
-int lastgibframe = 0;
+int gibsthisframe;
+int lastgibframe;
 
 /*
  * QUAKED func_group (0 0 0) ?
@@ -244,7 +244,7 @@ ThrowHead(edict_t *self, char *gibname, int damage, int type)
 	{
 		return;
 	}
-	
+
 	self->s.skinnum = 0;
 	self->s.frame = 0;
 	VectorClear(self->mins);
@@ -368,7 +368,7 @@ ThrowHeadACID(edict_t *self, char *gibname, int damage, int type)
 	{
 		return;
 	}
-	
+
 	self->s.skinnum = 0;
 	self->s.frame = 0;
 	VectorClear(self->mins);

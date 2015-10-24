@@ -249,12 +249,12 @@ typedef struct
 {
 	char helpmessage1[512];
 	char helpmessage2[512];
-	int helpchanged; /* flash F1 icon if non 0, play sound 
+	int helpchanged; /* flash F1 icon if non 0, play sound
 					    and increment only if 1, 2, or 3 */
 
 	gclient_t *clients; /* [maxclients] */
 
-	/* can't store spawnpoint in level, because 
+	/* can't store spawnpoint in level, because
 	   it would get overwritten by the savegame restore */
 	char spawnpoint[512]; /* needed for coop respawns */
 
@@ -428,6 +428,9 @@ extern spawn_temp_t st;
 extern int sm_meat_index;
 extern int snd_fry;
 
+extern int gibsthisframe;
+extern int lastgibframe;
+
 /* means of death */
 #define MOD_UNKNOWN 0
 #define MOD_BLASTER 1
@@ -525,14 +528,14 @@ extern cvar_t *sv_maplist;
  /* item spawnflags */
 #define ITEM_TRIGGER_SPAWN 0x00000001
 #define ITEM_NO_TOUCH 0x00000002
- /* 6 bits reserved for editor flags 
+ /* 6 bits reserved for editor flags
     8 bits used as power cube id bits
     for coop games */
 #define DROPPED_ITEM 0x00010000
 #define DROPPED_PLAYER_ITEM 0x00020000
 #define ITEM_TARGETS_USED 0x00040000
 
- /* fields are needed for spawning from the 
+ /* fields are needed for spawning from the
     entity string  and saving / loading games */
 #define FFL_SPAWNTEMP 1
 #define FFL_NOSPAWN 2
@@ -806,7 +809,7 @@ typedef struct
 	qboolean connected; /* a loadgame will leave valid entities that
 						   just don't have a connection yet */
 
-	/* values saved and restored from 
+	/* values saved and restored from
 	   edicts when changing levels */
 	int health;
 	int max_health;
@@ -848,8 +851,8 @@ typedef struct
 	qboolean spectator; /* client is a spectator */
 } client_respawn_t;
 
-/* this structure is cleared on each 
-   PutClientInServer(), except for 
+/* this structure is cleared on each
+   PutClientInServer(), except for
    'client->pers' */
 struct gclient_s
 {
@@ -877,7 +880,7 @@ struct gclient_s
 
 	gitem_t *newweapon;
 
-	/* sum up damage over an entire frame, so 
+	/* sum up damage over an entire frame, so
 	   shotgun blasts give a single big kick */
 	int damage_armor; /* damage absorbed by armor */
 	int damage_parmor; /* damage absorbed by power armor */
@@ -943,9 +946,9 @@ struct edict_s
 {
 	entity_state_t s;
 	struct gclient_s *client; /* NULL if not a player */
-							    
+
     /* the server expects the first part
-	   of gclient_s to be a player_state_t 
+	   of gclient_s to be a player_state_t
 	   but the rest of it is opaque */
 
 	qboolean inuse;
@@ -1003,7 +1006,7 @@ struct edict_s
 	vec3_t avelocity;
 	int mass;
 	float air_finished;
-	float gravity; /* per entity gravity multiplier (1.0 is 
+	float gravity; /* per entity gravity multiplier (1.0 is
 					  normal) use for lowgrav artifact, flares */
 
 	edict_t *goalentity;
