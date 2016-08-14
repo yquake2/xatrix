@@ -217,6 +217,10 @@ ifeq ($(OSTYPE), Windows)
 release/game.dll : $(XATRIX_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
+else ifeq ($(OSTYPE), Darwin)
+release/game.dylib : $(XATRIX_OBJS)
+	@echo "===> LD $@"
+	${Q}$(CC) $(LDFLAGS) -o $@ $(XATRIX_OBJS)
 else
 release/game.so : $(XATRIX_OBJS)
 	@echo "===> LD $@"
