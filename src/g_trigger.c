@@ -822,14 +822,13 @@ SP_trigger_gravity(edict_t *self)
 
 	if (st.gravity == 0)
 	{
-		gi.dprintf("trigger_gravity without gravity set at %s\n",
-				vtos(self->s.origin));
+		gi.dprintf("trigger_gravity without gravity set at %s\n", vtos(self->s.origin));
 		G_FreeEdict(self);
 		return;
 	}
 
 	InitTrigger(self);
-	self->gravity = atoi(st.gravity);
+	self->gravity = (int)strtol(st.gravity, (char **)NULL, 10);
 	self->touch = trigger_gravity_touch;
 }
 
