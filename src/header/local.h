@@ -1035,7 +1035,7 @@ struct edict_s
 	int max_health;
 	int gib_health;
 	int deadflag;
-	qboolean show_hostile;
+	int show_hostile;
 
 	float powerarmor_time;
 
