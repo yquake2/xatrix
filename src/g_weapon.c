@@ -66,6 +66,11 @@ fire_hit(edict_t *self, vec3_t aim, int damage, int kick)
 		return false;
 	}
 
+	if (!self->enemy)
+	{
+		return false;
+	}
+
 	/* see if enemy is in range */
 	VectorSubtract(self->enemy->s.origin, self->s.origin, dir);
 	range = VectorLength(dir);

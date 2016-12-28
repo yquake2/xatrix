@@ -469,6 +469,11 @@ gekk_swim(edict_t *self)
 		return;
 	}
 
+	if (!self->enemy)
+	{
+		return;
+	}
+
 	if (!self->enemy->waterlevel && (random() > 0.7))
 	{
 		water_to_land(self);
