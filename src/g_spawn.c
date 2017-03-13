@@ -283,6 +283,35 @@ spawn_t spawns[] = {
 	{NULL, NULL}
 };
 
+qboolean Spawn_CheckCoop_MapHacks (edict_t *ent)
+{
+	if(!coop->value || !ent)
+	{
+		return false;
+	}
+
+	if(!Q_stricmp(level.mapname, "xsewer1"))
+	{
+		if(ent->classname && !Q_stricmp(ent->classname, "trigger_relay") && ent->target && !Q_stricmp(ent->target, "t3") && ent->targetname && !Q_stricmp(ent->targetname, "t2"))
+		{
+			return true;
+		}
+		if(ent->classname && !Q_stricmp(ent->classname, "func_button") && ent->target && !Q_stricmp(ent->target, "t16") && ent->model && !Q_stricmp(ent->model, "*71"))
+		{
+			ent->message = "Overflow valve maintenance\nhatch A opened.";
+			return false;
+		}
+
+		if(ent->classname && !Q_stricmp(ent->classname, "trigger_once") && ent->model && !Q_stricmp(ent->model, "*3"))
+		{
+			ent->message = "Overflow valve maintenance\nhatch B opened.";
+			return false;
+		}
+	}
+
+	return false;
+}
+
 /*
  * Finds the spawn function for
  * the entity and calls it
@@ -688,14 +717,14 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 			}
 			else
 			{
-				if (
+				if (Spawn_CheckCoop_MapHacks(ent) || (
 					((skill->value == 0) &&
 					 (ent->spawnflags & SPAWNFLAG_NOT_EASY)) ||
 					((skill->value == 1) &&
 					 (ent->spawnflags & SPAWNFLAG_NOT_MEDIUM)) ||
 					(((skill->value == 2) ||
 					  (skill->value == 3)) &&
-					 (ent->spawnflags & SPAWNFLAG_NOT_HARD))
+					 (ent->spawnflags & SPAWNFLAG_NOT_HARD)))
 					)
 				{
 					G_FreeEdict(ent);
