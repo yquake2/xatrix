@@ -1,3 +1,11 @@
+The Reckoning 2.04 to 2.05:
+- Fix a lot of potential crashes. (reported by Maarakate)
+- Fix monsters running in place.
+- Fix monsters not recognizing the player under some
+  circumstances.
+- Fix a rare progress stopper in xsewer1 in coop. (by Maarakate)
+- Make Brains work again.
+
 The Reckoning 2.03 to 2.04:
 - Make gibs and debris SOLID_BBOX so they move on entities.
 - Switch from an arch whitelist to an "all archs are supported"
