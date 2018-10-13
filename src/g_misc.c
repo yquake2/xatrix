@@ -7,8 +7,8 @@
 
 #include "header/local.h"
 
+int debristhisframe;
 int gibsthisframe;
-int lastgibframe;
 
 /*
  * QUAKED func_group (0 0 0) ?
