@@ -237,6 +237,9 @@ extern int curtime; /* time returned by last Sys_Milliseconds */
 int Sys_Milliseconds(void);
 void Sys_Mkdir(char *path);
 char *strlwr(char *s);
+/* portable safe string copy/concatenate */
+int Q_strlcpy(char *dst, const char *src, int size);
+int Q_strlcat(char *dst, const char *src, int size);
 
 /* large block stack allocation routines */
 void *Hunk_Begin(int maxsize);
