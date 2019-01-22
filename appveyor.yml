@@ -15,4 +15,5 @@ artifacts:
  - path: cmake_build\Release\*.*
  - path: cmake_build\**\*.exe
  - path: cmake_build\**\*.lib
+ - path: cmake_build\**\*.zip
  
