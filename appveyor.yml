@@ -1,19 +1,15 @@
 image: Visual Studio 2017
 configuration: Release
 
-before_build:
-- cmd: |-
-    cd %APPVEYOR_BUILD_FOLDER%
-    mkdir cmake_build
-    cd cmake_build
-    cmake --version
+install:
+  ## Prepare .sln with cmake
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - mkdir cmake_build
+  - cd cmake_build
+  - cmake --version
+  - cmake c:\projects\xatrix
 
-build_script: cmake c:\projects\xatrix
+build_script: msbuild "C:\projects\xatrix\cmake_build\xatrix.sln"
 
 artifacts:
  - path: cmake_build\Release\**\*.*
- - path: cmake_build\Release\*.*
- - path: cmake_build\**\*.exe
- - path: cmake_build\**\*.lib
- - path: cmake_build\**\*.zip
- 
