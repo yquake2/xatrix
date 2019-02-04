@@ -51,7 +51,7 @@
 * load older savegames. This should be bumped if the files
 * in tables/ are changed, otherwise strange things may happen.
 */
-#define SAVEGAMEVER "YQ2-2"
+#define SAVEGAMEVER "YQ2-3"
 
 
 /*
@@ -711,7 +711,7 @@ WriteClient(FILE *f, gclient_t *client)
  * Read the client struct from a file
  */
 void
-ReadClient(FILE *f, gclient_t *client)
+ReadClient(FILE *f, gclient_t *client, short save_ver)
 {
 	field_t *field;
 
@@ -720,6 +720,16 @@ ReadClient(FILE *f, gclient_t *client)
 	for (field = clientfields; field->name; field++)
 	{
 		ReadField(f, field, (byte *)client);
+
+		if (field->save_ver <= save_ver)
+		{
+			ReadField(f, field, (byte *)client);
+		}
+	}
+
+	if(save_ver < 3)
+	{
+		InitClientResp(client);
 	}
 }
 
@@ -799,6 +809,7 @@ ReadGame(const char *filename)
 	char str_game[32];
 	char str_os[32];
 	char str_arch[32];
+	short save_ver = 0;
 
 	gi.FreeTags(TAG_GAME);
 
@@ -817,6 +828,28 @@ ReadGame(const char *filename)
 
 	if (!strcmp(str_ver, SAVEGAMEVER))
 	{
+		save_ver = 3;
+
+		if (strcmp(str_game, GAMEVERSION))
+		{
+			fclose(f);
+			gi.error("Savegame from an other game.so.\n");
+		}
+		else if (strcmp(str_os, OSTYPE))
+		{
+			fclose(f);
+			gi.error("Savegame from an other os.\n");
+		}
+		else if (strcmp(str_arch, ARCH))
+		{
+			fclose(f);
+			gi.error("Savegame from an other architecure.\n");
+		}
+	}
+	else if (!strcmp(str_ver, "YQ2-2"))
+	{
+		save_ver = 2;
+
 		if (strcmp(str_game, GAMEVERSION))
 		{
 			fclose(f);
@@ -835,6 +868,8 @@ ReadGame(const char *filename)
 	}
 	else if (!strcmp(str_ver, "YQ2-1"))
 	{
+		save_ver = 1;
+
 		if (strcmp(str_game, GAMEVERSION))
 		{
 			fclose(f);
@@ -879,7 +914,7 @@ ReadGame(const char *filename)
 
 	for (i = 0; i < game.maxclients; i++)
 	{
-		ReadClient(f, &game.clients[i]);
+		ReadClient(f, &game.clients[i], save_ver);
 	}
 
 	fclose(f);
