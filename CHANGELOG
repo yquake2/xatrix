@@ -1,3 +1,7 @@
+The Reckoning 2.05 to 2.06:
+- Small bugfixes and better support for the current version of the
+  Windows build environment.
+
 The Reckoning 2.04 to 2.05:
 - Fix a lot of potential crashes. (reported by Maarakate)
 - Fix monsters running in place.
