@@ -155,6 +155,16 @@ build/%.o: %.c
 	@echo "===> CC $<"
 	${Q}mkdir -p $(@D)
 	${Q}$(CC) -c $(CFLAGS) -o $@ $<
+else ifeq ($(OSTYPE), Darwin)
+xatrix:
+	@echo "===> Building game.dylib"
+	${Q}mkdir -p release
+	$(MAKE) release/game.dylib
+
+build/%.o: %.c
+	@echo "===> CC $<"
+	${Q}mkdir -p $(@D)
+	${Q}$(CC) -c $(CFLAGS) -o $@ $<
 else
 xatrix:
 	@echo "===> Building game.so"
