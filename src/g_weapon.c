@@ -1359,7 +1359,7 @@ heat_think(edict_t *self)
 			continue;
 		}
 
-		if (!(target->svflags & SVF_MONSTER))
+		if ((!target->svflags) & SVF_MONSTER)
 		{
 			continue;
 		}
