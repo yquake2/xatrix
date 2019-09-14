@@ -1614,6 +1614,7 @@ SP_monster_fixbot(edict_t *self)
 
 	self->health = 150;
 	self->mass = 150;
+	self->viewheight = 16;
 
 	self->pain = fixbot_pain;
 	self->die = fixbot_die;
