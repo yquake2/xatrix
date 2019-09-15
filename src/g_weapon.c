@@ -1341,25 +1341,18 @@ heat_think(edict_t *self)
 	edict_t *target = NULL;
 	edict_t *aquire = NULL;
 	vec3_t vec;
-	int len;
-	int oldlen = 0;
+	float len;
+	float oldlen = 0;
 
 	if (!self)
 	{
 		return;
 	}
 
-	VectorClear(vec);
-
 	/* aquire new target */
 	while ((target = findradius(target, self->s.origin, 1024)) != NULL)
 	{
 		if (self->owner == target)
-		{
-			continue;
-		}
-
-		if ((!target->svflags) & SVF_MONSTER)
 		{
 			continue;
 		}
@@ -1374,12 +1367,12 @@ heat_think(edict_t *self)
 			continue;
 		}
 
-		if (!visible(self, target))
+		if (!infront(self, target))
 		{
 			continue;
 		}
 
-		if (!infront(self, target))
+		if (!visible(self, target))
 		{
 			continue;
 		}
@@ -1387,20 +1380,18 @@ heat_think(edict_t *self)
 		VectorSubtract(self->s.origin, target->s.origin, vec);
 		len = VectorLength(vec);
 
-		if ((aquire == NULL) || (len < oldlen))
+		if ((!aquire) || (len < oldlen))
 		{
 			aquire = target;
-			self->target_ent = aquire;
 			oldlen = len;
 		}
 	}
 
-	if (aquire != NULL)
+	if (aquire)
 	{
 		VectorSubtract(aquire->s.origin, self->s.origin, vec);
 		vectoangles(vec, self->s.angles);
 		VectorNormalize(vec);
-		VectorCopy(vec, self->movedir);
 		VectorScale(vec, 500, self->velocity);
 	}
 
