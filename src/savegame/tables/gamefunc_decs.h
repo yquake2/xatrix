@@ -570,6 +570,7 @@ extern void flipper_run ( edict_t * self ) ;
 extern void flipper_run_loop ( edict_t * self ) ;
 extern void flipper_stand ( edict_t * self ) ;
 extern void SP_monster_fixbot ( edict_t * self ) ;
+extern void bot_goal_think ( edict_t *self ) ;
 extern void fixbot_die ( edict_t * self , edict_t * inflictor , edict_t * attacker , int damage , vec3_t point ) ;
 extern void fixbot_dead ( edict_t * self ) ;
 extern void fixbot_pain ( edict_t * self , edict_t * other , float kick , int damage ) ;

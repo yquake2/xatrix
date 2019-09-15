@@ -570,6 +570,7 @@
 {"flipper_run_loop", (byte *)flipper_run_loop},
 {"flipper_stand", (byte *)flipper_stand},
 {"SP_monster_fixbot", (byte *)SP_monster_fixbot},
+{"bot_goal_think", (byte *)bot_goal_think},
 {"fixbot_die", (byte *)fixbot_die},
 {"fixbot_dead", (byte *)fixbot_dead},
 {"fixbot_pain", (byte *)fixbot_pain},

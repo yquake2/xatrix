@@ -149,6 +149,42 @@ fixbot_search(edict_t *self)
 }
 
 void
+bot_goal_think(edict_t *self)
+{
+	if (!self)
+	{
+		return;
+	}
+
+	/* clean up the bot_goal if the fixbot loses it (to avoid entity leaks) */
+	if (!self->owner || !self->owner->inuse || self->owner->goalentity != self)
+	{
+		G_FreeEdict(self);
+	}
+	else
+	{
+		self->nextthink = level.time + FRAMETIME;
+	}
+}
+
+static edict_t *
+make_bot_goal(edict_t *self)
+{
+	edict_t *ent = G_Spawn();
+
+	ent->classname = "bot_goal";
+	ent->solid = SOLID_BBOX;
+	ent->owner = self;
+
+	ent->think = bot_goal_think;
+	ent->nextthink = level.time + FRAMETIME;
+
+	gi.linkentity(ent);
+
+	return ent;
+}
+
+void
 landing_goal(edict_t *self)
 {
 	trace_t tr;
@@ -161,11 +197,7 @@ landing_goal(edict_t *self)
 		return;
 	}
 
-	ent = G_Spawn();
-	ent->classname = "bot_goal";
-	ent->solid = SOLID_BBOX;
-	ent->owner = self;
-	gi.linkentity(ent);
+	ent = make_bot_goal(self);
 
 	VectorSet(ent->mins, -32, -32, -24);
 	VectorSet(ent->maxs, 32, 32, 24);
@@ -196,11 +228,7 @@ takeoff_goal(edict_t *self)
 		return;
 	}
 
-	ent = G_Spawn();
-	ent->classname = "bot_goal";
-	ent->solid = SOLID_BBOX;
-	ent->owner = self;
-	gi.linkentity(ent);
+	ent = make_bot_goal(self);
 
 	VectorSet(ent->mins, -32, -32, -24);
 	VectorSet(ent->maxs, 32, 32, 24);
@@ -283,11 +311,7 @@ roam_goal(edict_t *self)
 	whichvec[1] = 0;
 	whichvec[2] = 0;
 
-	ent = G_Spawn();
-	ent->classname = "bot_goal";
-	ent->solid = SOLID_BBOX;
-	ent->owner = self;
-	gi.linkentity(ent);
+	ent = make_bot_goal(self);
 
 	oldlen = 0;
 
