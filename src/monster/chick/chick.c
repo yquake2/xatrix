@@ -631,7 +631,7 @@ ChickRocket(edict_t *self)
 	VectorSubtract(vec, start, dir);
 	VectorNormalize(dir);
 
-	if (self->s.skinnum > 1)
+	if (!strcmp(self->classname, "monster_chick_heat"))
 	{
 		monster_fire_heat(self, start, dir, 50, 500, MZ2_CHICK_ROCKET_1);
 	}
@@ -949,5 +949,10 @@ SP_monster_chick_heat(edict_t *self)
 	}
 
 	SP_monster_chick(self);
-	self->s.skinnum = 3;
+
+	/* have to check this since the regular spawn function can free the entity */
+	if (self->inuse)
+	{
+		self->s.skinnum = 3;
+	}
 }
