@@ -38,7 +38,6 @@ void gekk_swim(edict_t *self);
 void gekk_jump_takeoff(edict_t *self);
 void gekk_jump_takeoff2(edict_t *self);
 void gekk_check_landing(edict_t *self);
-void gekk_check_landing2(edict_t *self);
 void gekk_stop_skid(edict_t *self);
 void water_to_land(edict_t *self);
 void land_to_water(edict_t *self);
@@ -1112,7 +1111,7 @@ void
 gekk_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unsued */,
 		csurface_t *surf /* unused */)
 {
-  	if (!self || !other)
+  	if (!self)
 	{
 		return;
 	}
@@ -1123,7 +1122,7 @@ gekk_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unsued */,
 		return;
 	}
 
-	if (other->takedamage)
+	if (other && other->takedamage)
 	{
 		if (VectorLength(self->velocity) > 200)
 		{
@@ -1145,12 +1144,14 @@ gekk_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unsued */,
 		if (self->groundentity)
 		{
 			self->monsterinfo.nextframe = FRAME_leapatk_11;
+			self->monsterinfo.aiflags &= ~AI_IGNORE_PAIN;
 			self->touch = NULL;
 		}
 
 		return;
 	}
 
+	self->monsterinfo.aiflags &= ~AI_IGNORE_PAIN;
 	self->touch = NULL;
 }
 
@@ -1181,7 +1182,7 @@ gekk_jump_takeoff(edict_t *self)
 	}
 
 	self->groundentity = NULL;
-	self->monsterinfo.aiflags |= AI_DUCKED;
+	self->monsterinfo.aiflags |= AI_IGNORE_PAIN;
 	self->monsterinfo.attack_finished = level.time + 3;
 	self->touch = gekk_jump_touch;
 }
@@ -1212,7 +1213,7 @@ gekk_jump_takeoff2(edict_t *self)
 	}
 
 	self->groundentity = NULL;
-	self->monsterinfo.aiflags |= AI_DUCKED;
+	self->monsterinfo.aiflags |= AI_IGNORE_PAIN;
 	self->monsterinfo.attack_finished = level.time + 3;
 	self->touch = gekk_jump_touch;
 }
@@ -1243,7 +1244,7 @@ gekk_check_landing(edict_t *self)
 	{
 		gi.sound(self, CHAN_WEAPON, sound_thud, 1, ATTN_NORM, 0);
 		self->monsterinfo.attack_finished = 0;
-		self->monsterinfo.aiflags &= ~AI_DUCKED;
+		self->monsterinfo.aiflags &= ~AI_IGNORE_PAIN;
 
 		VectorClear(self->velocity);
 
