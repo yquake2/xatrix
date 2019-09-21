@@ -8,6 +8,8 @@
 #include "../../header/local.h"
 #include "gekk.h"
 
+#define SPAWNFLAG_CHANT	8
+
 static int sound_swing;
 static int sound_hit;
 static int sound_hit2;
@@ -25,7 +27,6 @@ static int sound_chanthigh;
 
 mmove_t gekk_move_attack1;
 mmove_t gekk_move_attack2;
-mmove_t gekk_move_chant;
 mmove_t gekk_move_swim_start;
 mmove_t gekk_move_swim_loop;
 mmove_t gekk_move_spit;
@@ -224,7 +225,7 @@ gekk_search(edict_t *self)
 		return;
 	}
 
-	if (self->spawnflags & 8)
+	if (self->spawnflags & SPAWNFLAG_CHANT)
 	{
 		r = random();
 
@@ -297,7 +298,7 @@ ai_stand2(edict_t *self, float dist)
 		return;
 	}
 
-	if (self->spawnflags & 8)
+	if (self->spawnflags & SPAWNFLAG_CHANT)
 	{
 		ai_move(self, dist);
 
@@ -314,6 +315,10 @@ ai_stand2(edict_t *self, float dist)
 				self->monsterinfo.idle_time = level.time + random() * 15;
 			}
 		}
+	}
+	else if (self->enemy)
+	{
+		ai_move(self, dist);
 	}
 	else
 	{
@@ -499,17 +504,6 @@ gekk_stand(edict_t *self)
 }
 
 void
-gekk_chant(edict_t *self)
-{
-  	if (!self)
-	{
-		return;
-	}
-
-	self->monsterinfo.currentmove = &gekk_move_chant;
-}
-
-void
 gekk_idle_loop(edict_t *self)
 {
   	if (!self)
@@ -573,51 +567,6 @@ mmove_t gekk_move_idle2 = {
    	FRAME_idle_32,
    	gekk_frames_idle,
    	gekk_face
-};
-
-mframe_t gekk_frames_idle2[] = {
-	{ai_move, 0, gekk_search},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-	{ai_move, 0, NULL},
-
-	{ai_move, 0, NULL},
-	{ai_move, 0, gekk_idle_loop}
-};
-
-mmove_t gekk_move_chant = {
-	FRAME_idle_01,
-   	FRAME_idle_32,
-   	gekk_frames_idle2,
-   	gekk_chant
 };
 
 void
@@ -1415,9 +1364,9 @@ gekk_pain(edict_t *self, edict_t *other /* unused */,
 		return;
 	}
 
-	if (self->spawnflags & 8)
+	if (self->spawnflags & SPAWNFLAG_CHANT)
 	{
-		self->spawnflags &= ~8;
+		self->spawnflags &= ~SPAWNFLAG_CHANT;
 		return;
 	}
 
@@ -2018,11 +1967,6 @@ SP_monster_gekk(edict_t *self)
 
 	self->monsterinfo.scale = MODEL_SCALE;
 	walkmonster_start(self);
-
-	if (self->spawnflags & 8)
-	{
-		self->monsterinfo.currentmove = &gekk_move_chant;
-	}
 }
 
 void

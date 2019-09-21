@@ -506,7 +506,6 @@ extern void gekk_run_start ( edict_t * self ) ;
 extern void gekk_walk ( edict_t * self ) ;
 extern void gekk_idle ( edict_t * self ) ;
 extern void gekk_idle_loop ( edict_t * self ) ;
-extern void gekk_chant ( edict_t * self ) ;
 extern void gekk_stand ( edict_t * self ) ;
 extern void gekk_swim ( edict_t * self ) ;
 extern void gekk_swim_loop ( edict_t * self ) ;
