@@ -1099,8 +1099,7 @@ mmove_t fixbot_move_attack1 = {
 int
 check_telefrag(edict_t *self)
 {
-	vec3_t start = {0, 0, 0};
-	vec3_t forward, right, up;
+	vec3_t end, up;
 	trace_t tr;
 
   	if (!self)
@@ -1108,14 +1107,20 @@ check_telefrag(edict_t *self)
 		return 0;
 	}
 
-	AngleVectors(self->enemy->s.angles, forward, right, up);
-	VectorMA(start, 48, up, start);
-	tr = gi.trace(self->enemy->s.origin, self->enemy->mins, self->enemy->maxs,
-			start, self, MASK_MONSTERSOLID);
+	AngleVectors(self->enemy->s.angles, NULL, NULL, up);
+	VectorMA(self->enemy->s.origin, 48, up, end);
 
-	if (tr.ent->takedamage)
+	tr = gi.trace(self->enemy->s.origin, self->enemy->mins, self->enemy->maxs,
+			end, self, MASK_MONSTERSOLID);
+
+	if (tr.ent && tr.ent->takedamage)
 	{
-		tr.ent->health = -1000;
+		tr.ent->health = 0;
+
+		T_Damage(tr.ent, self, self,
+			vec3_origin, vec3_origin, vec3_origin,
+			10000, 0, 0, MOD_UNKNOWN);
+
 		return 0;
 	}
 
