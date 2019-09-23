@@ -859,7 +859,7 @@ fire_rocket(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	rocket->s.modelindex = gi.modelindex("models/objects/rocket/tris.md2");
 	rocket->owner = self;
 	rocket->touch = rocket_touch;
-	rocket->nextthink = level.time + 8000 / speed;
+	rocket->nextthink = level.time + (8000.0f / (float)speed);
 	rocket->think = G_FreeEdict;
 	rocket->dmg = damage;
 	rocket->radius_dmg = radius_damage;
@@ -1206,7 +1206,7 @@ fire_bfg(edict_t *self, vec3_t start, vec3_t dir, int damage,
 	bfg->s.modelindex = gi.modelindex("sprites/s_bfg1.sp2");
 	bfg->owner = self;
 	bfg->touch = bfg_touch;
-	bfg->nextthink = level.time + 8000 / speed;
+	bfg->nextthink = level.time + (8000.0f / (float)speed);
 	bfg->think = G_FreeEdict;
 	bfg->radius_dmg = damage;
 	bfg->dmg_radius = damage_radius;
@@ -1248,7 +1248,7 @@ ionripper_sparks(edict_t *self)
 void
 ionripper_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-	if (!self || !other || !plane || !surf)
+	if (!self || !other || !plane)
 	{
 		return;
 	}
@@ -1273,13 +1273,9 @@ ionripper_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf
 	{
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
 				plane->normal, self->dmg, 1, DAMAGE_ENERGY, MOD_RIPPER);
-	}
-	else
-	{
-		return;
-	}
 
-	G_FreeEdict(self);
+		G_FreeEdict(self);
+	}
 }
 
 void
@@ -1445,7 +1441,7 @@ plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
 	vec3_t origin;
 
-	if (!ent || !other || !plane || !surf)
+	if (!ent || !other || !plane)
 	{
 		return;
 	}
@@ -1511,7 +1507,7 @@ fire_plasma(edict_t *self, vec3_t start, vec3_t dir, int damage,
 
 	plasma->owner = self;
 	plasma->touch = plasma_touch;
-	plasma->nextthink = level.time + 8000 / speed;
+	plasma->nextthink = level.time + (8000.0f / (float)speed);
 	plasma->think = G_FreeEdict;
 	plasma->dmg = damage;
 	plasma->radius_dmg = radius_damage;
