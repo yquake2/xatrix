@@ -506,7 +506,6 @@
 {"gekk_walk", (byte *)gekk_walk},
 {"gekk_idle", (byte *)gekk_idle},
 {"gekk_idle_loop", (byte *)gekk_idle_loop},
-{"gekk_chant", (byte *)gekk_chant},
 {"gekk_stand", (byte *)gekk_stand},
 {"gekk_swim", (byte *)gekk_swim},
 {"gekk_swim_loop", (byte *)gekk_swim_loop},
