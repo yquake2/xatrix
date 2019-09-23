@@ -1131,11 +1131,13 @@ walkmonster_start_go(edict_t *self)
 		self->viewheight = 25;
 	}
 
-	monster_start_go(self);
-
 	if (self->spawnflags & 2)
 	{
 		monster_triggered_start(self);
+	}
+	else
+	{
+		monster_start_go(self);
 	}
 }
 
@@ -1174,11 +1176,13 @@ flymonster_start_go(edict_t *self)
 		self->viewheight = 25;
 	}
 
-	monster_start_go(self);
-
 	if (self->spawnflags & 2)
 	{
 		monster_triggered_start(self);
+	}
+	else
+	{
+		monster_start_go(self);
 	}
 }
 
@@ -1213,11 +1217,13 @@ swimmonster_start_go(edict_t *self)
 		self->viewheight = 10;
 	}
 
-	monster_start_go(self);
-
 	if (self->spawnflags & 2)
 	{
 		monster_triggered_start(self);
+	}
+	else
+	{
+		monster_start_go(self);
 	}
 }
 
