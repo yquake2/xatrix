@@ -56,7 +56,7 @@ gekk_check_melee(edict_t *self)
 		return false;
 	}
 
-	if (!self->enemy && (self->enemy->health <= 0))
+	if (!self->enemy || (self->enemy->health <= 0))
 	{
 		return false;
 	}
@@ -761,7 +761,7 @@ gekk_check_refire(edict_t *self)
 void
 loogie_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-  	if (!self || !other || !plane || !surf)
+  	if (!self || !other || !plane)
 	{
 		return;
 	}
