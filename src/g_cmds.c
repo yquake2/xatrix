@@ -1215,7 +1215,7 @@ Cmd_Say_f(edict_t *ent, qboolean team, qboolean arg0)
 void
 Cmd_PlayerList_f(edict_t *ent)
 {
-	int i;
+	int i, text_len;
 	char st[80];
 	char text[1400];
 	edict_t *e2;
@@ -1226,7 +1226,7 @@ Cmd_PlayerList_f(edict_t *ent)
 	}
 
 	/* connect time, ping, score, name */
-	*text = 0;
+	*text = '\0';
 
 	for (i = 0, e2 = g_edicts + 1; i < maxclients->value; i++, e2++)
 	{
@@ -1242,9 +1242,11 @@ Cmd_PlayerList_f(edict_t *ent)
 				e2->client->pers.netname,
 				e2->client->resp.spectator ? " (spectator)" : "");
 
-		if (strlen(text) + strlen(st) > sizeof(text) - 50)
+		text_len = strlen(text);
+
+		if ((text_len + strlen(st)) > (sizeof(text) - 50))
 		{
-			sprintf(text + strlen(text), "And more...\n");
+			snprintf(text + text_len, sizeof(text) - text_len, "And more...\n");
 			gi.cprintf(ent, PRINT_HIGH, "%s", text);
 			return;
 		}
