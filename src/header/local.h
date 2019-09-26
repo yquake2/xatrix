@@ -128,6 +128,7 @@ typedef enum
 #define AI_COMBAT_POINT 0x00001000
 #define AI_MEDIC 0x00002000
 #define AI_RESURRECTING 0x00004000
+#define AI_IGNORE_PAIN 0x00008000
 
 /* monster attack state */
 #define AS_STRAIGHT 1
