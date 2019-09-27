@@ -574,6 +574,7 @@ gunner_dodge(edict_t *self, edict_t *attacker, float eta /* unsued */)
 	if (!self->enemy)
 	{
 		self->enemy = attacker;
+		FoundTarget(self);
 	}
 
 	self->monsterinfo.currentmove = &gunner_move_duck;
