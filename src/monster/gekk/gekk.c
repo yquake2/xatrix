@@ -1793,6 +1793,7 @@ gekk_dodge(edict_t *self, edict_t *attacker, float eta)
 	if (!self->enemy)
 	{
 		self->enemy = attacker;
+		FoundTarget(self);
 	}
 
 	if (self->waterlevel)
