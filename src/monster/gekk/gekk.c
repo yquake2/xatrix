@@ -761,7 +761,9 @@ gekk_check_refire(edict_t *self)
 void
 loogie_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-  	if (!self || !other || !plane)
+	vec3_t normal;
+
+  	if (!self || !other)
 	{
 		return;
 	}
@@ -784,8 +786,10 @@ loogie_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 
 	if (other->takedamage)
 	{
+		get_normal_vector(plane, normal);
+
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, self->dmg, 1, DAMAGE_ENERGY,
+				normal, self->dmg, 1, DAMAGE_ENERGY,
 				MOD_GEKK);
 	}
 
