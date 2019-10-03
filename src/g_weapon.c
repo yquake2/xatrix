@@ -9,19 +9,6 @@
 
 extern void SP_item_foodcube(edict_t *best);
 
-static void
-get_normal_vector(const cplane_t *p, vec3_t normal)
-{
-	if (p)
-	{
-		VectorCopy(p->normal, normal);
-	}
-	else
-	{
-		VectorCopy(vec3_origin, normal);
-	}
-}
-
 /*
  * This is a support routine used when a client is firing
  * a non-instant attack weapon.  It checks to see if a
