@@ -9,6 +9,19 @@
 
 extern void SP_item_foodcube(edict_t *best);
 
+static void
+get_normal_vector(const cplane_t *p, vec3_t normal)
+{
+	if (p)
+	{
+		VectorCopy(p->normal, normal);
+	}
+	else
+	{
+		VectorCopy(vec3_origin, normal);
+	}
+}
+
 /*
  * This is a support routine used when a client is firing
  * a non-instant attack weapon.  It checks to see if a
@@ -353,6 +366,7 @@ void
 blaster_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
 	int mod;
+	vec3_t normal;
 
 	if (!self || !other)
 	{
@@ -376,6 +390,8 @@ blaster_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 		PlayerNoise(self->owner, self->s.origin, PNOISE_IMPACT);
 	}
 
+	get_normal_vector(plane, normal);
+
 	if (other->takedamage)
 	{
 		if (self->spawnflags & 1)
@@ -388,23 +404,14 @@ blaster_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 		}
 
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, self->dmg, 1, DAMAGE_ENERGY, mod);
+				normal, self->dmg, 1, DAMAGE_ENERGY, mod);
 	}
 	else
 	{
 		gi.WriteByte(svc_temp_entity);
 		gi.WriteByte(TE_BLASTER);
 		gi.WritePosition(self->s.origin);
-
-		if (!plane)
-		{
-			gi.WriteDir(vec3_origin);
-		}
-		else
-		{
-			gi.WriteDir(plane->normal);
-		}
-
+		gi.WriteDir(normal);
 		gi.multicast(self->s.origin, MULTICAST_PVS);
 	}
 
@@ -763,6 +770,7 @@ void
 rocket_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
 	vec3_t origin;
+	vec3_t normal;
 	int n;
 
 	if (!ent || !other)
@@ -792,8 +800,10 @@ rocket_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 
 	if (other->takedamage)
 	{
+		get_normal_vector(plane, normal);
+
 		T_Damage(other, ent, ent->owner, ent->velocity, ent->s.origin,
-				plane->normal, ent->dmg, 0, 0, MOD_ROCKET);
+				normal, ent->dmg, 0, 0, MOD_ROCKET);
 	}
 	else
 	{
@@ -1026,6 +1036,8 @@ bfg_explode(edict_t *self)
 void
 bfg_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
+	vec3_t normal;
+
 	if (!self || !other)
 	{
 		G_FreeEdict(self);
@@ -1051,8 +1063,10 @@ bfg_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 	/* core explosion - prevents firing it into the wall/floor */
 	if (other->takedamage)
 	{
+		get_normal_vector(plane, normal);
+
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, 200, 0, 0, MOD_BFG_BLAST);
+				normal, 200, 0, 0, MOD_BFG_BLAST);
 	}
 
 	T_RadiusDamage(self, self->owner, 200, other, 100, MOD_BFG_BLAST);
@@ -1248,7 +1262,9 @@ ionripper_sparks(edict_t *self)
 void
 ionripper_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
-	if (!self || !other || !plane)
+	vec3_t normal;
+
+	if (!self || !other)
 	{
 		return;
 	}
@@ -1271,8 +1287,10 @@ ionripper_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf
 
 	if (other->takedamage)
 	{
+		get_normal_vector(plane, normal);
+
 		T_Damage(other, self, self->owner, self->velocity, self->s.origin,
-				plane->normal, self->dmg, 1, DAMAGE_ENERGY, MOD_RIPPER);
+				normal, self->dmg, 1, DAMAGE_ENERGY, MOD_RIPPER);
 
 		G_FreeEdict(self);
 	}
@@ -1440,8 +1458,9 @@ void
 plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 {
 	vec3_t origin;
+	vec3_t normal;
 
-	if (!ent || !other || !plane)
+	if (!ent || !other)
 	{
 		return;
 	}
@@ -1467,8 +1486,10 @@ plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 
 	if (other->takedamage)
 	{
+		get_normal_vector(plane, normal);
+
 		T_Damage(other, ent, ent->owner, ent->velocity, ent->s.origin,
-				plane->normal, ent->dmg, 0, 0, MOD_PHALANX);
+				normal, ent->dmg, 0, 0, MOD_PHALANX);
 	}
 
 	T_RadiusDamage(ent, ent->owner, ent->radius_dmg, other,
