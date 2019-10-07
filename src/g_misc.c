@@ -124,12 +124,12 @@ gib_think(edict_t *self)
 void
 gib_touch(edict_t *self, edict_t *other /* unused */, cplane_t *plane, csurface_t *surf /* unused */)
 {
-	if (!self || !plane)
+	vec3_t normal_angles, right;
+
+	if (!self)
 	{
 		return;
 	}
-
-	vec3_t normal_angles, right;
 
 	if (!self->groundentity)
 	{
@@ -1002,12 +1002,6 @@ func_object_touch(edict_t *self, edict_t *other, cplane_t *plane,
 		return;
 	}
 
-	/* only squash thing we fall on top of */
-	if (!plane)
-	{
-		return;
-	}
-
 	if (plane->normal[2] < 1.0)
 	{
 		return;
@@ -1357,7 +1351,7 @@ barrel_explode(edict_t *self)
 	ThrowDebris(self, "models/objects/debris3/tris.md2", spd, org);
 
 	/* a bunch of little chunks */
-	spd = 2 * self->dmg / 200;
+	spd = (float)(2 * self->dmg / 200);
 	org[0] = self->s.origin[0] + crandom() * self->size[0];
 	org[1] = self->s.origin[1] + crandom() * self->size[1];
 	org[2] = self->s.origin[2] + crandom() * self->size[2];

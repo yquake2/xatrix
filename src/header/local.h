@@ -616,6 +616,7 @@ char *G_CopyString(char *in);
 
 float *tv(float x, float y, float z);
 char *vtos(vec3_t v);
+void get_normal_vector(const cplane_t *p, vec3_t normal);
 
 float vectoyaw(vec3_t vec);
 void vectoangles(vec3_t vec, vec3_t angles);
@@ -641,7 +642,6 @@ void T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage,
 #define DEFAULT_BULLET_VSPREAD 500
 #define DEFAULT_SHOTGUN_HSPREAD 1000
 #define DEFAULT_SHOTGUN_VSPREAD 500
-#define DEFAULT_DEATHMATCH_SHOTGUN_COUNT 12
 #define DEFAULT_SHOTGUN_COUNT 12
 #define DEFAULT_SSHOTGUN_COUNT 20
 
