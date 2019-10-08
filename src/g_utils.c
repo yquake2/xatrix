@@ -321,6 +321,19 @@ vtos(vec3_t v)
 	return s;
 }
 
+void
+get_normal_vector(const cplane_t *p, vec3_t normal)
+{
+	if (p)
+	{
+		VectorCopy(p->normal, normal);
+	}
+	else
+	{
+		VectorCopy(vec3_origin, normal);
+	}
+}
+
 vec3_t VEC_UP = {0, -1, 0};
 vec3_t MOVEDIR_UP = {0, 0, 1};
 vec3_t VEC_DOWN = {0, -2, 0};

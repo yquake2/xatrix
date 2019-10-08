@@ -265,7 +265,6 @@ change_to_roam(edict_t *self)
 	{
 		landing_goal(self);
 		self->monsterinfo.currentmove = &fixbot_move_landing;
-		self->spawnflags &= ~16;
 		self->spawnflags = 32;
 	}
 
@@ -273,14 +272,12 @@ change_to_roam(edict_t *self)
 	{
 		takeoff_goal(self);
 		self->monsterinfo.currentmove = &fixbot_move_takeoff;
-		self->spawnflags &= ~8;
 		self->spawnflags = 32;
 	}
 
 	if (self->spawnflags & 4)
 	{
 		self->monsterinfo.currentmove = &fixbot_move_roamgoal;
-		self->spawnflags &= ~4;
 		self->spawnflags = 32;
 	}
 

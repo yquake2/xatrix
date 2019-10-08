@@ -770,10 +770,6 @@ M_CheckAttack(edict_t *self)
 	{
 		chance = 0.4;
 	}
-	else if (enemy_range == RANGE_MELEE)
-	{
-		chance = 0.2;
-	}
 	else if (enemy_range == RANGE_NEAR)
 	{
 		chance = 0.1;
@@ -1277,9 +1273,5 @@ ai_run(edict_t *self, float dist)
 
 	G_FreeEdict(tempgoal);
 
-	if (self)
-	{
-		self->goalentity = save;
-	}
+	self->goalentity = save;
 }
-
