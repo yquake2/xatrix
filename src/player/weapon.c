@@ -298,16 +298,11 @@ NoAmmoWeaponChange(edict_t *ent)
 		return;
 	}
 
-	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("mag slug"))] &&
-		ent->client->pers.inventory[ITEM_INDEX(FindItem("phalanx"))])
-	{
-		ent->client->newweapon = FindItem("phalanx");
-	}
-
-	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("cells"))] &&
+	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("cells"))] > 1 &&
 		ent->client->pers.inventory[ITEM_INDEX(FindItem("ionripper"))])
 	{
-		ent->client->newweapon = FindItem("ionrippergun");
+		ent->client->newweapon = FindItem("ionripper");
+		return;
 	}
 
 	if (ent->client->pers.inventory[ITEM_INDEX(FindItem("cells"))] &&
