@@ -350,57 +350,63 @@ void
 use_scanner(edict_t *self)
 {
 	edict_t *ent = NULL;
-	float radius = 1024;
 	vec3_t vec;
-	int len;
 
   	if (!self)
 	{
 		return;
 	}
 
-	while ((ent = findradius(ent, self->s.origin, radius)) != NULL)
+	if (self->fly_sound_debounce_time < level.time &&
+		strcmp(self->goalentity->classname, "object_repair") != 0)
 	{
-		if (ent->health >= 100)
+		while ((ent = findradius(ent, self->s.origin, 1024)) != NULL)
 		{
-			if (strcmp(ent->classname, "object_repair") == 0)
+			if (strcmp(ent->classname, "object_repair") != 0)
 			{
-				if (visible(self, ent))
-				{
-					/* remove the old one */
-					if (strcmp(self->goalentity->classname, "bot_goal") == 0)
-					{
-						self->goalentity->nextthink = level.time + 0.1;
-						self->goalentity->think = G_FreeEdict;
-					}
-
-					self->goalentity = self->enemy = ent;
-
-					VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
-					len = VectorNormalize(vec);
-
-					if (len < 32)
-					{
-						self->monsterinfo.currentmove = &fixbot_move_weld_start;
-						return;
-					}
-
-					return;
-				}
+				continue;
 			}
+
+			if (ent->health < 100)
+			{
+				continue;
+			}
+
+			if (!visible(self, ent))
+			{
+				continue;
+			}
+
+			/* remove the old one */
+			if (strcmp(self->goalentity->classname, "bot_goal") == 0)
+			{
+				self->goalentity->nextthink = level.time + 0.1;
+				self->goalentity->think = G_FreeEdict;
+			}
+
+			self->goalentity = self->enemy = ent;
+
+			break;
 		}
 	}
 
-	VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
-	len = VectorLength(vec);
-
-	if (len < 32)
+	if (strcmp(self->goalentity->classname, "object_repair") == 0)
 	{
-		if (strcmp(self->goalentity->classname, "object_repair") == 0)
+		VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
+
+		if (VectorLength(vec) < 56)
 		{
 			self->monsterinfo.currentmove = &fixbot_move_weld_start;
 		}
-		else
+
+		return;
+	}
+
+	if (strcmp(self->goalentity->classname, "bot_goal") == 0)
+	{
+		VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
+
+		if (VectorLength(vec) < 32)
 		{
 			self->goalentity->nextthink = level.time + 0.1;
 			self->goalentity->think = G_FreeEdict;
@@ -412,22 +418,29 @@ use_scanner(edict_t *self)
 	}
 
 	VectorSubtract(self->s.origin, self->s.old_origin, vec);
-	len = VectorLength(vec);
 
-	/* bot is stuck get new goalentity */
-	if (len == 0)
+	if (VectorLength(vec) > 0)
 	{
-		if (strcmp(self->goalentity->classname, "object_repair") == 0)
-		{
-			self->monsterinfo.currentmove = &fixbot_move_stand;
-		}
-		else
+		self->touch_debounce_time = level.time + 1;
+	}
+
+	if (self->touch_debounce_time < level.time)
+	{
+		/* bot is stuck, get new goalentity */
+
+		if (strcmp(self->goalentity->classname, "bot_goal") == 0)
 		{
 			self->goalentity->nextthink = level.time + 0.1;
 			self->goalentity->think = G_FreeEdict;
 			self->goalentity = self->enemy = NULL;
-			self->monsterinfo.currentmove = &fixbot_move_stand;
 		}
+		else if (strcmp(self->goalentity->classname, "object_repair") == 0)
+		{
+			/* don't try to go for welding targets again for a while */
+			self->fly_sound_debounce_time = level.time + 10;
+		}
+
+		self->monsterinfo.currentmove = &fixbot_move_stand;
 	}
 }
 

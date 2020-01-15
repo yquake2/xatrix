@@ -3167,8 +3167,6 @@ SP_object_repair(edict_t *ent)
 	ent->movetype = MOVETYPE_NONE;
 	ent->solid = SOLID_BBOX;
 	ent->classname = "object_repair";
-	VectorSet(ent->mins, -8, -8, 8);
-	VectorSet(ent->maxs, 8, 8, 8);
 	ent->think = object_repair_sparks;
 	ent->nextthink = level.time + 1.0;
 	ent->health = 100;
@@ -3177,5 +3175,7 @@ SP_object_repair(edict_t *ent)
 	{
 		ent->delay = 1.0;
 	}
+
+	gi.linkentity(ent);
 }
 
