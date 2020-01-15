@@ -397,12 +397,10 @@ use_scanner(edict_t *self)
 		if (VectorLength(vec) < 56)
 		{
 			self->monsterinfo.currentmove = &fixbot_move_weld_start;
+			return;
 		}
-
-		return;
 	}
-
-	if (strcmp(self->goalentity->classname, "bot_goal") == 0)
+	else if (strcmp(self->goalentity->classname, "bot_goal") == 0)
 	{
 		VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
 
@@ -411,10 +409,11 @@ use_scanner(edict_t *self)
 			self->goalentity->nextthink = level.time + 0.1;
 			self->goalentity->think = G_FreeEdict;
 			self->goalentity = self->enemy = NULL;
-			self->monsterinfo.currentmove = &fixbot_move_stand;
-		}
 
-		return;
+			self->monsterinfo.currentmove = &fixbot_move_stand;
+
+			return;
+		}
 	}
 
 	VectorSubtract(self->s.origin, self->s.old_origin, vec);
