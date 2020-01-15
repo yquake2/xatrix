@@ -1,4 +1,4 @@
-/* =======================================================================
+/* ==============================================================
  *
  * Fixbot
  *
@@ -9,6 +9,10 @@
 #include "fixbot.h"
 
 #define MZ2_fixbot_BLASTER_1 MZ2_HOVER_BLASTER_1
+
+#define FIXBOT_MAX_STUCK_FRAMES		10
+#define FIXBOT_GOAL_TIMEOUT			15
+#define FIXBOT_WELD_GOAL_TIMEOUT	15
 
 qboolean visible(edict_t *self, edict_t *other);
 qboolean infront(edict_t *self, edict_t *other);
@@ -178,8 +182,7 @@ make_bot_goal(edict_t *self)
 
 	ent->think = bot_goal_think;
 	ent->nextthink = level.time + FRAMETIME;
-
-	gi.linkentity(ent);
+	ent->touch_debounce_time = level.time + FIXBOT_GOAL_TIMEOUT;
 
 	return ent;
 }
@@ -198,9 +201,9 @@ landing_goal(edict_t *self)
 	}
 
 	ent = make_bot_goal(self);
-
 	VectorSet(ent->mins, -32, -32, -24);
 	VectorSet(ent->maxs, 32, 32, 24);
+	gi.linkentity(ent);
 
 	AngleVectors(self->s.angles, forward, right, up);
 	VectorMA(self->s.origin, 32, forward, end);
@@ -210,6 +213,7 @@ landing_goal(edict_t *self)
 			end, self, MASK_MONSTERSOLID);
 
 	VectorCopy(tr.endpos, ent->s.origin);
+	gi.linkentity(ent);
 
 	self->goalentity = self->enemy = ent;
 	self->monsterinfo.currentmove = &fixbot_move_landing;
@@ -232,6 +236,7 @@ takeoff_goal(edict_t *self)
 
 	VectorSet(ent->mins, -32, -32, -24);
 	VectorSet(ent->maxs, 32, 32, 24);
+	gi.linkentity(ent);
 
 	AngleVectors(self->s.angles, forward, right, up);
 	VectorMA(self->s.origin, 32, forward, end);
@@ -241,6 +246,7 @@ takeoff_goal(edict_t *self)
 			end, self, MASK_MONSTERSOLID);
 
 	VectorCopy(tr.endpos, ent->s.origin);
+	gi.linkentity(ent);
 
 	self->goalentity = self->enemy = ent;
 	self->monsterinfo.currentmove = &fixbot_move_takeoff;
@@ -291,7 +297,7 @@ void
 roam_goal(edict_t *self)
 {
 	trace_t tr;
-	vec3_t forward, right, up;
+	vec3_t forward;
 	vec3_t end;
 	edict_t *ent;
 	vec3_t dang;
@@ -304,11 +310,7 @@ roam_goal(edict_t *self)
 		return;
 	}
 
-	whichvec[0] = 0;
-	whichvec[1] = 0;
-	whichvec[2] = 0;
-
-	ent = make_bot_goal(self);
+	VectorClear(whichvec);
 
 	oldlen = 0;
 
@@ -325,13 +327,13 @@ roam_goal(edict_t *self)
 			dang[YAW] -= 30 * (i - 6);
 		}
 
-		AngleVectors(dang, forward, right, up);
+		AngleVectors(dang, forward, NULL, NULL);
 		VectorMA(self->s.origin, 8192, forward, end);
 
 		tr = gi.trace(self->s.origin, NULL, NULL, end, self, MASK_SHOT);
 
 		VectorSubtract(self->s.origin, tr.endpos, vec);
-		len = VectorNormalize(vec);
+		len = VectorLength(vec);
 
 		if (len > oldlen)
 		{
@@ -340,7 +342,10 @@ roam_goal(edict_t *self)
 		}
 	}
 
+	ent = make_bot_goal(self);
 	VectorCopy(whichvec, ent->s.origin);
+	gi.linkentity(ent);
+
 	self->goalentity = self->enemy = ent;
 
 	self->monsterinfo.currentmove = &fixbot_move_turn;
@@ -404,7 +409,7 @@ use_scanner(edict_t *self)
 	{
 		VectorSubtract(self->s.origin, self->goalentity->s.origin, vec);
 
-		if (VectorLength(vec) < 32)
+		if (self->goalentity->touch_debounce_time < level.time || VectorLength(vec) < 32)
 		{
 			self->goalentity->nextthink = level.time + 0.1;
 			self->goalentity->think = G_FreeEdict;
@@ -418,14 +423,20 @@ use_scanner(edict_t *self)
 
 	VectorSubtract(self->s.origin, self->s.old_origin, vec);
 
-	if (VectorLength(vec) > 0)
+	if (VectorLength(vec) == 0)
 	{
-		self->touch_debounce_time = level.time + 1;
+		self->count++;
+	}
+	else
+	{
+		self->count = 0;
 	}
 
-	if (self->touch_debounce_time < level.time)
+	if (self->count > FIXBOT_MAX_STUCK_FRAMES)
 	{
 		/* bot is stuck, get new goalentity */
+
+		self->count = 0;
 
 		if (strcmp(self->goalentity->classname, "bot_goal") == 0)
 		{
@@ -436,7 +447,7 @@ use_scanner(edict_t *self)
 		else if (strcmp(self->goalentity->classname, "object_repair") == 0)
 		{
 			/* don't try to go for welding targets again for a while */
-			self->fly_sound_debounce_time = level.time + 10;
+			self->fly_sound_debounce_time = level.time + FIXBOT_WELD_GOAL_TIMEOUT;
 		}
 
 		self->monsterinfo.currentmove = &fixbot_move_stand;
