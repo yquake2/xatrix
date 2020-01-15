@@ -1031,10 +1031,11 @@ struct edict_s
 	void (*die)(edict_t *self, edict_t *inflictor, edict_t *attacker,
 			int damage, vec3_t point);
 
-	float touch_debounce_time;
+	float touch_debounce_time;		/* now also used by fixbots for timeouts when getting stuck */
 	float pain_debounce_time;
 	float damage_debounce_time;
 	float fly_sound_debounce_time;	/* now also used by insane marines to store pain sound timeout */
+									/* and by fixbots for storing object_repair timeout when getting stuck */
 	float last_move_time;
 
 	int health;
