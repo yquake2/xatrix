@@ -720,12 +720,12 @@ SpawnEntities(const char *mapname, char *entities, const char *spawnpoint)
 			else
 			{
 				if (Spawn_CheckCoop_MapHacks(ent) || (
-					((skill->value == 0) &&
+					((skill->value == SKILL_EASY) &&
 					 (ent->spawnflags & SPAWNFLAG_NOT_EASY)) ||
-					((skill->value == 1) &&
+					((skill->value == SKILL_MEDIUM) &&
 					 (ent->spawnflags & SPAWNFLAG_NOT_MEDIUM)) ||
-					(((skill->value == 2) ||
-					  (skill->value == 3)) &&
+					(((skill->value == SKILL_HARD) ||
+					  (skill->value == SKILL_HARDPLUS)) &&
 					 (ent->spawnflags & SPAWNFLAG_NOT_HARD)))
 					)
 				{

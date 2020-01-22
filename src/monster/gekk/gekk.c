@@ -1806,7 +1806,7 @@ gekk_dodge(edict_t *self, edict_t *attacker, float eta)
 		return;
 	}
 
-	if (skill->value == 0)
+	if (skill->value == SKILL_EASY)
 	{
 		r = random();
 
@@ -1825,7 +1825,7 @@ gekk_dodge(edict_t *self, edict_t *attacker, float eta)
 	self->monsterinfo.pausetime = level.time + eta + 0.3;
 	r = random();
 
-	if (skill->value == 1)
+	if (skill->value == SKILL_MEDIUM)
 	{
 		if (r > 0.33)
 		{
@@ -1857,7 +1857,7 @@ gekk_dodge(edict_t *self, edict_t *attacker, float eta)
 		return;
 	}
 
-	if (skill->value == 2)
+	if (skill->value == SKILL_HARD)
 	{
 		if (r > 0.66)
 		{
