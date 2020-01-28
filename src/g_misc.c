@@ -2897,7 +2897,7 @@ amb4_think(edict_t *ent)
 		return;
 	}
 
-	ent->nextthink = level.time + 2.7;
+	ent->nextthink = level.time + 2.0;
 	gi.sound(ent, CHAN_VOICE, amb4sound, 1, ATTN_NONE, 0);
 }
 
