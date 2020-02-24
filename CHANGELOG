@@ -1,3 +1,6 @@
+The Reckoning 2.07 to 2.08:
+- Several fixes for subtile bugs (by BjossiAlfreds)
+
 The Reckoning 2.06 to 2.07:
 - New commands: 'listentities' allows listing of entities. 'teleport'
   teleports the player to the given coordinates.
