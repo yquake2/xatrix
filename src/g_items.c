@@ -1272,31 +1272,21 @@ Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 		{
 			if ((((int)dmflags->value & DF_INSTANT_ITEMS) &&
 				 (ent->item->flags & IT_INSTANT_USE)) ||
-				((ent->item->use == Use_Quad) &&
+				(((ent->item->use == Use_Quad) || (ent->item->use == Use_QuadFire)) &&
 				 (ent->spawnflags & DROPPED_PLAYER_ITEM)))
 			{
-				if ((ent->item->use == Use_Quad) &&
-					(ent->spawnflags & DROPPED_PLAYER_ITEM))
+				if (ent->spawnflags & DROPPED_PLAYER_ITEM)
 				{
-					quad_drop_timeout_hack =
-						(ent->nextthink - level.time) / FRAMETIME;
-				}
-
-				if (ent->item->use)
-				{
-					ent->item->use(other, ent->item);
-				}
-			}
-			else if ((((int)dmflags->value & DF_INSTANT_ITEMS) &&
-					  (ent->item->flags & IT_INSTANT_USE)) ||
-					 ((ent->item->use == Use_QuadFire) &&
-					  (ent->spawnflags & DROPPED_PLAYER_ITEM)))
-			{
-				if ((ent->item->use == Use_QuadFire) &&
-					(ent->spawnflags & DROPPED_PLAYER_ITEM))
-				{
-					quad_fire_drop_timeout_hack =
-						(ent->nextthink - level.time) / FRAMETIME;
+					if (ent->item->use == Use_Quad)
+					{
+						quad_drop_timeout_hack =
+							(ent->nextthink - level.time) / FRAMETIME;
+					}
+					else if (ent->item->use == Use_QuadFire)
+					{
+						quad_fire_drop_timeout_hack =
+							(ent->nextthink - level.time) / FRAMETIME;
+					}
 				}
 
 				if (ent->item->use)
