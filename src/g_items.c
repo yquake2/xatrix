@@ -205,33 +205,6 @@ Pickup_Powerup(edict_t *ent, edict_t *other)
 		{
 			SetRespawn(ent, ent->item->quantity);
 		}
-
-		if (((int)dmflags->value & DF_INSTANT_ITEMS) ||
-			((ent->item->use == Use_Quad) &&
-			 (ent->spawnflags & DROPPED_PLAYER_ITEM)))
-		{
-			if ((ent->item->use == Use_Quad) &&
-				(ent->spawnflags & DROPPED_PLAYER_ITEM))
-			{
-				quad_drop_timeout_hack =
-					(ent->nextthink - level.time) / FRAMETIME;
-			}
-
-			ent->item->use(other, ent->item);
-		}
-		else if (((int)dmflags->value & DF_INSTANT_ITEMS) ||
-				 ((ent->item->use == Use_QuadFire) &&
-				  (ent->spawnflags & DROPPED_PLAYER_ITEM)))
-		{
-			if ((ent->item->use == Use_QuadFire) &&
-				(ent->spawnflags & DROPPED_PLAYER_ITEM))
-			{
-				quad_fire_drop_timeout_hack =
-					(ent->nextthink - level.time) / FRAMETIME;
-			}
-
-			ent->item->use(other, ent->item);
-		}
 	}
 
 	return true;
@@ -1291,6 +1264,36 @@ Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 		{
 			gi.sound(other, CHAN_ITEM, gi.soundindex(
 							ent->item->pickup_sound), 1, ATTN_NORM, 0);
+		}
+
+		/* activate item instantly if appropriate */
+		/* moved down here so activation sounds override the pickup sound */
+		if (deathmatch->value)
+		{
+			if ((((int)dmflags->value & DF_INSTANT_ITEMS) &&
+				 (ent->item->flags & IT_INSTANT_USE)) ||
+				(((ent->item->use == Use_Quad) || (ent->item->use == Use_QuadFire)) &&
+				 (ent->spawnflags & DROPPED_PLAYER_ITEM)))
+			{
+				if (ent->spawnflags & DROPPED_PLAYER_ITEM)
+				{
+					if (ent->item->use == Use_Quad)
+					{
+						quad_drop_timeout_hack =
+							(ent->nextthink - level.time) / FRAMETIME;
+					}
+					else if (ent->item->use == Use_QuadFire)
+					{
+						quad_fire_drop_timeout_hack =
+							(ent->nextthink - level.time) / FRAMETIME;
+					}
+				}
+
+				if (ent->item->use)
+				{
+					ent->item->use(other, ent->item);
+				}
+			}
 		}
 	}
 
@@ -2393,7 +2396,7 @@ gitem_t itemlist[] = {
 		2,
 		60,
 		NULL,
-		IT_POWERUP,
+		IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
@@ -2418,7 +2421,7 @@ gitem_t itemlist[] = {
 		2,
 		60,
 		NULL,
-		IT_POWERUP,
+		IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
@@ -2442,7 +2445,7 @@ gitem_t itemlist[] = {
 		2,
 		300,
 		NULL,
-		IT_POWERUP,
+		IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
@@ -2466,7 +2469,7 @@ gitem_t itemlist[] = {
 		2,
 		60,
 		NULL,
-		IT_POWERUP,
+		IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
@@ -2490,7 +2493,7 @@ gitem_t itemlist[] = {
 		2,
 		60,
 		NULL,
-		IT_STAY_COOP | IT_POWERUP,
+		IT_STAY_COOP | IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
@@ -2514,7 +2517,7 @@ gitem_t itemlist[] = {
 		2,
 		60,
 		NULL,
-		IT_STAY_COOP | IT_POWERUP,
+		IT_STAY_COOP | IT_POWERUP | IT_INSTANT_USE,
 		0,
 		NULL,
 		0,
