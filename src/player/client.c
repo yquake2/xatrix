@@ -18,7 +18,7 @@ SP_FixCoopSpots(edict_t *self)
 	/* Entity number 292 is an unnamed info_player_start
 	   next to a named info_player_start. Delete it, if
 	   we're in coop since it screws up the spawnpoint
-	   selection heuristic in SelectCoopSpawnPoint(). 
+	   selection heuristic in SelectCoopSpawnPoint().
 	   This unnamed info_player_start is selected as
 	   spawnpoint for player 0, therefor none of the
 	   named info_coop_start() matches... */
@@ -112,7 +112,7 @@ SP_info_player_coop(edict_t *self)
  * roll as well as yaw.  'pitch yaw roll'
  */
 void
-SP_info_player_intermission(void)
+SP_info_player_intermission(edict_t *ent)
 {
 	/* This function cannot be removed
 	 * since the info_player_intermission
