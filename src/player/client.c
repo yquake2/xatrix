@@ -663,9 +663,8 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 
 	if (self->health < -40)
 	{
-		/* gib */
-		gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"),
-			   	1, ATTN_NORM, 0);
+		/* gib (sound played at end of server frame) */
+		self->sounds = gi.soundindex("misc/udeath.wav");
 
 		for (n = 0; n < 4; n++)
 		{
@@ -713,8 +712,12 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 				}
 			}
 
-			gi.sound(self, CHAN_VOICE, gi.soundindex(va("*death%i.wav",
-									(rand() % 4) + 1)), 1, ATTN_NORM, 0);
+			/* sound played at end of server frame */
+			if (!self->sounds)
+			{
+				self->sounds = gi.soundindex(va("*death%i.wav",
+									(rand() % 4) + 1));
+			}
 		}
 	}
 
