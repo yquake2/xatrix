@@ -3200,7 +3200,7 @@ soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
 		return;
 	}
 
-	n = rand() % 5;
+	n = (self->s.skinnum < 4) ? (rand() % 5) : (1 + (rand() % 4));
 
 	if (n == 0)
 	{
