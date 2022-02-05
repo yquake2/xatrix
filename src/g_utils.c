@@ -210,7 +210,7 @@ G_UseTargets(edict_t *ent, edict_t *activator /* may be NULL */)
 	}
 
 	/* print the message */
-	if ((ent->message) && !(activator->svflags & SVF_MONSTER))
+	if (activator && (ent->message) && !(activator->svflags & SVF_MONSTER))
 	{
 		gi.centerprintf(activator, "%s", ent->message);
 
