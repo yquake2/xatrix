@@ -261,6 +261,10 @@ ThrowHead(edict_t *self, char *gibname, int damage, int type)
 	self->takedamage = DAMAGE_YES;
 	self->die = gib_die;
 
+	// The entity still has the monsters clipmaks.
+	// Reset it to MASK_SHOT to be on the save side.
+	self->clipmask = MASK_SHOT;
+
 	if (type == GIB_ORGANIC)
 	{
 		self->movetype = MOVETYPE_TOSS;
@@ -441,6 +445,10 @@ ThrowClientHead(edict_t *self, int damage)
 	self->s.effects = EF_GIB;
 	self->s.sound = 0;
 	self->flags |= FL_NO_KNOCKBACK;
+
+	// The entity still has the monsters clipmaks.
+	// Reset it to MASK_SHOT to be on the save side.
+	self->clipmask = MASK_SHOT;
 
 	self->movetype = MOVETYPE_BOUNCE;
 	VelocityForDamage(damage, vd);
