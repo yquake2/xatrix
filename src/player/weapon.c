@@ -2159,6 +2159,17 @@ weapon_phalanx_fire(edict_t *ent)
 		v[ROLL] = ent->client->v_angle[ROLL];
 		AngleVectors(v, forward, right, up);
 
+		if (aimfix->value)
+		{
+			AngleVectors(v, forward, right, NULL);
+
+			VectorScale(forward, -2, ent->client->kick_origin);
+			ent->client->kick_angles[0] = -2;
+
+			VectorSet(offset, 0, 8, ent->viewheight - 8);
+			P_ProjectSource(ent, offset, forward, right, start);
+		}
+		
 		radius_damage = 30;
 		damage_radius = 120;
 
@@ -2176,6 +2187,18 @@ weapon_phalanx_fire(edict_t *ent)
 		v[YAW] = ent->client->v_angle[YAW] + 1.5;
 		v[ROLL] = ent->client->v_angle[ROLL];
 		AngleVectors(v, forward, right, up);
+		
+		if (aimfix->value)
+		{
+			AngleVectors(v, forward, right, NULL);
+
+			VectorScale(forward, -2, ent->client->kick_origin);
+			ent->client->kick_angles[0] = -2;
+
+			VectorSet(offset, 0, 8, ent->viewheight - 8);
+			P_ProjectSource(ent, offset, forward, right, start);
+		}
+		
 		fire_plasma(ent, start, forward, damage, 725,
 				damage_radius, radius_damage);
 
