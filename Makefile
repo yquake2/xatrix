@@ -6,8 +6,8 @@
 #                                                       #
 # Dependencies:                                         #
 # - None, but you need a Quake II to play.              #
-#   While in theorie every one should work              #
-#   Yamagi Quake II ist recommended.                    #
+#   While in theory every one should work               #
+#   Yamagi Quake II is recommended.                     #
 #                                                       #
 # Platforms:                                            #
 # - FreeBSD                                             #
@@ -276,7 +276,7 @@ XATRIX_OBJS_ = \
 
 # ----------
 
-# Rewrite pathes to our object directory
+# Rewrite paths to our object directory
 XATRIX_OBJS = $(patsubst %,build/%,$(XATRIX_OBJS_))
 
 # ----------
