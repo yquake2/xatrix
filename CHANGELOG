@@ -1,3 +1,13 @@
+The Reckoning 2.11 to 2.12:
+- Relicense under GPL2.
+- Implement `g_swap_speed`. This allows to skip frames of "putting down
+  weapon" and "raising weapon" animations, speeding them up. (by Jaime
+  Moreira)
+- Several fixes to makron (by BjossiAlfreds)
+- Fixed stand-ground gladiators not attacking at certain range. (by
+  BjossiAlfreds)
+- Fixed monsters seeing players during intermissions. (by BjossiAlfreds)
+
 The Reckoning 2.10 to 2.11:
 - Implement faster weapon switching with the new 'cycleweap' command.
   (by protocultor).
