@@ -1,8 +1,8 @@
 The Reckoning 2.11 to 2.12:
 - Relicense under GPL2.
 - Implement `g_swap_speed`. This allows to skip frames of "putting down
-  weapon" and "raising weapon" animations, speeding them up. (by Jaime
-  Moreira)
+  weapon" and "raising weapon" animations, speeding them up. (by
+  protocultor)
 - Several fixes to makron (by BjossiAlfreds)
 - Fixed stand-ground gladiators not attacking at certain range. (by
   BjossiAlfreds)
