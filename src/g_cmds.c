@@ -795,6 +795,12 @@ Cmd_WeapPrev_f(edict_t *ent)
 
 		if (cl->newweapon == it)
 		{
+			if (g_quick_weap->value)
+			{
+				cl->ps.stats[STAT_PICKUP_ICON] = gi.imageindex(cl->newweapon->icon);
+				cl->ps.stats[STAT_PICKUP_STRING] = CS_ITEMS + ITEM_INDEX(cl->newweapon);
+				cl->pickup_msg_time = level.time + 0.9f;
+			}
 			return;
 		}
 	}
@@ -851,6 +857,12 @@ Cmd_WeapNext_f(edict_t *ent)
 
 		if (cl->newweapon == it)
 		{
+			if (g_quick_weap->value)
+			{
+				cl->ps.stats[STAT_PICKUP_ICON] = gi.imageindex(cl->newweapon->icon);
+				cl->ps.stats[STAT_PICKUP_STRING] = CS_ITEMS + ITEM_INDEX(cl->newweapon);
+				cl->pickup_msg_time = level.time + 0.9f;
+			}
 			return;
 		}
 	}
