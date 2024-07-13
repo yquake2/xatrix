@@ -1,3 +1,6 @@
+The Reckoning 2.12 to 2.13:
+- Faster `weapprev` and `weapnext` behavior. (by protocultor)
+
 The Reckoning 2.11 to 2.12:
 - Relicense under GPL2.
 - Implement `g_swap_speed`. This allows to skip frames of "putting down
