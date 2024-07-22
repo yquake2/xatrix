@@ -4,6 +4,7 @@ The Reckoning 2.12 to 2.13:
   possible to skip weapons by quickly tapping one of these keys. (by
   protocultor)
 - Work around naggy help icons. (by BjossiAlfreds)
+- Implement `g_monsterfootsteps`. (by 0lvin)
 
 The Reckoning 2.11 to 2.12:
 - Relicense under GPL2.
