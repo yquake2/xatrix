@@ -1,3 +1,7 @@
+The Reckoning 2.15 to 2.16:
+- Fix monsters acting confused while following combat points. (by
+  BjossiAlfreds)
+
 The Reckoning 2.14 to 2.15:
 - Fix savegame and mod incompatibilities when Yamagi Quake II is
   complied in C23 mode. With this fix applied savegames written by
