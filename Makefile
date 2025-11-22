@@ -17,6 +17,23 @@
 # - Windows                                             #
 # ----------------------------------------------------- #
 
+# Variables
+# ---------
+# DEBUG
+#   Builds a debug build, forces -O0 and adds debug symbols.
+# MINGW_CHOST
+#   If you use mingw this can specify architecture.
+#   Available values:
+#   x86_64-w64-mingw32 -> indicates x86_64
+#   i686-w64-mingw32   -> indicates i386
+# SOURCE_DATE_EPOCH
+#   For reproduceable builds, look here for details:
+#   https://reproducible-builds.org/specs/source-date-epoch/
+#   If set, adds a BUILD_DATE define to CFLAGS.
+# VERBOSE
+#   Prints full compile, linker and misc commands.
+# ----------
+
 # Detect the OS
 ifdef SystemRoot
 YQ2_OSTYPE ?= Windows
@@ -124,8 +141,6 @@ override CFLAGS += -DYQ2OSTYPE=\"$(YQ2_OSTYPE)\" -DYQ2ARCH=\"$(YQ2_ARCH)\"
 
 # ----------
 
-# For reproduceable builds, look here for details:
-# https://reproducible-builds.org/specs/source-date-epoch/
 ifdef SOURCE_DATE_EPOCH
 CFLAGS += -DBUILD_DATE=\"$(shell date --utc --date="@${SOURCE_DATE_EPOCH}" +"%b %_d %Y" | sed -e 's/ /\\ /g')\"
 endif
