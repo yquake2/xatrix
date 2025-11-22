@@ -117,6 +117,17 @@ endif
 
 # ----------
 
+# Set up build and bin output directories
+
+# Root dir names
+override BINROOT :=
+override BUILDROOT := build
+
+override BINDIR := $(BINROOT)release
+override BUILDDIR := $(BUILDROOT)
+
+# ----------
+
 # Base CFLAGS. These may be overridden by the environment.
 # Highest supported optimizations are -O2, higher levels
 # will likely break this crappy code.
@@ -244,23 +255,23 @@ clean:
 ifeq ($(YQ2_OSTYPE), Windows)
 xatrix:
 	@echo "===> Building game.dll"
-	${Q}mkdir -p release
-	${MAKE} release/game.dll
+	${Q}mkdir -p $(BINDIR)
+	${MAKE} $(BINDIR)/game.dll
 else ifeq ($(YQ2_OSTYPE), Darwin)
 xatrix:
 	@echo "===> Building game.dylib"
-	${Q}mkdir -p release
-	$(MAKE) release/game.dylib
+	${Q}mkdir -p $(BINDIR)
+	$(MAKE) $(BINDIR)/game.dylib
 else
 xatrix:
 	@echo "===> Building game.so"
-	${Q}mkdir -p release
-	$(MAKE) release/game.so
+	${Q}mkdir -p $(BINDIR)
+	$(MAKE) $(BINDIR)/game.so
 
-release/game.so : CFLAGS += -fPIC
+$(BINDIR)/game.so : CFLAGS += -fPIC
 endif
 
-build/%.o: %.c
+$(BUILDDIR)/%.o: %.c
 	@if [ -z $(QUIET) ]; then\
 		echo "===> CC $<";\
 	fi
@@ -326,7 +337,7 @@ XATRIX_OBJS_ = \
 # ----------
 
 # Rewrite paths to our object directory
-XATRIX_OBJS = $(patsubst %,build/%,$(XATRIX_OBJS_))
+XATRIX_OBJS = $(patsubst %,$(BUILDDIR)/%,$(XATRIX_OBJS_))
 
 # ----------
 
@@ -341,15 +352,15 @@ XATRIX_DEPS= $(XATRIX_OBJS:.o=.d)
 # ----------
 
 ifeq ($(YQ2_OSTYPE), Windows)
-release/game.dll : $(XATRIX_OBJS)
+$(BINDIR)/game.dll : $(XATRIX_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) -o $@ $(XATRIX_OBJS) $(LDFLAGS)
 else ifeq ($(YQ2_OSTYPE), Darwin)
-release/game.dylib : $(XATRIX_OBJS)
+$(BINDIR)/game.dylib : $(XATRIX_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) -o $@ $(XATRIX_OBJS) $(LDFLAGS)
 else
-release/game.so : $(XATRIX_OBJS)
+$(BINDIR)/game.so : $(XATRIX_OBJS)
 	@echo "===> LD $@"
 	${Q}$(CC) -o $@ $(XATRIX_OBJS) $(LDFLAGS)
 endif
