@@ -212,13 +212,20 @@ LDFLAGS ?=
 # It's a shared library.
 override LDFLAGS += -shared
 
-# Required libaries
+# Required libraries
 ifeq ($(YQ2_OSTYPE), Darwin)
 override LDFLAGS += -arch $(YQ2_ARCH)
 else ifeq ($(YQ2_OSTYPE), Windows)
 override LDFLAGS += -static-libgcc
 else
 override LDFLAGS += -lm
+endif
+
+# OSX and OpenBSD don't support --no-undefined at all.
+ifneq ($(YQ2_OSTYPE), Darwin)
+ifneq ($(YQ2_OSTYPE), OpenBSD)
+override LDFLAGS += -Wl,--no-undefined
+endif
 endif
 
 # ----------
