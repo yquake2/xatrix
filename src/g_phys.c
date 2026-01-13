@@ -46,7 +46,7 @@ SV_TestEntityPosition(edict_t *ent)
 	/* dead bodies are supposed to not be solid so lets
 	   ensure they only collide with BSP during pushmoves
 	*/
-	if (ent->clipmask && !(ent->svflags & SVF_MONSTER))
+	if (ent->clipmask && !(ent->svflags & SVF_DEADMONSTER))
 	{
 		mask = ent->clipmask;
 	}
