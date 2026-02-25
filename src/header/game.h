@@ -1,4 +1,23 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * Here are the client, server and game are tied together.
  *
@@ -50,7 +69,7 @@ typedef struct gclient_s gclient_t;
 
 struct gclient_s
 {
-	player_state_t ps; /* communicated by server to clients */
+	player_state_t ps;      /* communicated by server to clients */
 	int ping;
 	/* the game dll can add anything it wants
 	   after this point in the structure */
@@ -63,14 +82,14 @@ struct edict_s
 	qboolean inuse;
 	int linkcount;
 
-	link_t area; /* linked to a division node or leaf */
+	link_t area;                    /* linked to a division node or leaf */
 
-	int num_clusters; /* if -1, use headnode instead */
+	int num_clusters;               /* if -1, use headnode instead */
 	int clusternums[MAX_ENT_CLUSTERS];
-	int headnode;  /* unused if num_clusters != -1 */
+	int headnode;                   /* unused if num_clusters != -1 */
 	int areanum, areanum2;
 
-	int svflags; /* SVF_NOCLIENT, SVF_DEADMONSTER, SVF_MONSTER, etc */
+	int svflags;                    /* SVF_NOCLIENT, SVF_DEADMONSTER, SVF_MONSTER, etc */
 	vec3_t mins, maxs;
 	vec3_t absmin, absmax, size;
 	solid_t solid;
@@ -89,10 +108,10 @@ struct edict_s
 typedef struct
 {
 	/* special messages */
-	void (*bprintf)(int printlevel, char *fmt, ...);
-	void (*dprintf)(char *fmt, ...);
-	void (*cprintf)(edict_t *ent, int printlevel, char *fmt, ...);
-	void (*centerprintf)(edict_t *ent, char *fmt, ...);
+	void (*bprintf)(int printlevel, const char *fmt, ...);
+	void (*dprintf)(const char *fmt, ...);
+	void (*cprintf)(edict_t *ent, int printlevel, const char *fmt, ...);
+	void (*centerprintf)(edict_t *ent, const char *fmt, ...);
 	void (*sound)(edict_t *ent, int channel, int soundindex, float volume,
 			float attenuation, float timeofs);
 	void (*positioned_sound)(vec3_t origin, edict_t *ent, int channel,
@@ -104,7 +123,7 @@ typedef struct
 	   they connect, and changes are sent to all connected clients. */
 	void (*configstring)(int num, char *string);
 
-	YQ2_ATTR_NORETURN_FUNCPTR void (*error)(char *fmt, ...);
+	YQ2_ATTR_NORETURN_FUNCPTR void (*error)(const char *fmt, ...);
 
 	/* the *index functions create configstrings
 	   and some internal server state */
@@ -123,7 +142,7 @@ typedef struct
 	void (*SetAreaPortalState)(int portalnum, qboolean open);
 	qboolean (*AreasConnected)(int area1, int area2);
 
-    /* an entity will never be sent to a client or used for collision
+	/* an entity will never be sent to a client or used for collision
 	   if it is not passed to linkentity. If the size, position, or
 	   solidity changes, it must be relinked. */
 	void (*linkentity)(edict_t *ent);
@@ -151,9 +170,9 @@ typedef struct
 	void (*FreeTags)(int tag);
 
 	/* console variable interaction */
-	cvar_t *(*cvar)(char *var_name, char *value, int flags);
-	cvar_t *(*cvar_set)(char *var_name, char *value);
-	cvar_t *(*cvar_forceset)(char *var_name, char *value);
+	cvar_t *(*cvar)(const char *var_name, const char *value, int flags);
+	cvar_t *(*cvar_set)(const char *var_name, const char *value);
+	cvar_t *(*cvar_forceset)(const char *var_name, char *value);
 
 	/* ClientCommand and ServerCommand parameter access */
 	int (*argc)(void);
@@ -216,7 +235,7 @@ typedef struct
 	   The size will be fixed when ge->Init() is called */
 	struct edict_s *edicts;
 	int edict_size;
-	int num_edicts; /* current number, <= max_edicts */
+	int num_edicts;             /* current number, <= max_edicts */
 	int max_edicts;
 } game_export_t;
 
