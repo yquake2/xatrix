@@ -1538,7 +1538,6 @@ Info_ValueForKey(const char *s, const char *key)
 void
 Info_RemoveKey(char *s, const char *key)
 {
-	char *kstart;
 	size_t klen;
 
 	if (strchr(key, '\\'))
@@ -1550,6 +1549,7 @@ Info_RemoveKey(char *s, const char *key)
 
 	while (*s != '\0')
 	{
+		const char *kstart;
 		char *start;
 
 		start = s;
