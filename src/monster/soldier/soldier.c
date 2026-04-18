@@ -1511,7 +1511,7 @@ mmove_t soldier_move_death6 =
 void
 soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
 	int n;
 
@@ -2123,7 +2123,7 @@ mmove_t soldierh_move_pain4 = {
 
 void
 soldierh_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage /* unused */)
+		float kick /* unused */, int damage /* unused */)
 {
 	float r;
 	int n;
@@ -3266,7 +3266,7 @@ mmove_t soldierh_move_death6 = {
 
 void
 soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
-		edict_t *attacker /* unused */, int damage, vec3_t point)
+		edict_t *attacker /* unused */, int damage, const vec3_t point)
 {
 	int n;
 

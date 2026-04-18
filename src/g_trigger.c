@@ -96,8 +96,8 @@ Use_Multi(edict_t *ent, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-	   	csurface_t *surf /* unused */)
+Touch_Multi(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -157,7 +157,7 @@ Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
  */
 void
 trigger_enable(edict_t *self, edict_t *other /* unused */,
-	   	edict_t *activator /* unused */)
+		edict_t *activator /* unused */)
 {
   	if (!self)
 	{
@@ -266,7 +266,7 @@ SP_trigger_once(edict_t *ent)
  * it can only be fired by other events.
  */
 void
-trigger_relay_use(edict_t *self, edict_t *other /* unused */, 
+trigger_relay_use(edict_t *self, edict_t *other /* unused */,
 		edict_t *activator /* may be NULL */)
 {
 	if (!self)
@@ -514,7 +514,7 @@ SP_trigger_always(edict_t *ent)
 	{
 		return;
 	}
-	
+
 	/* we must have some delay to make
 	   sure our use targets are present */
 	if (ent->delay < 0.2)
@@ -527,8 +527,8 @@ SP_trigger_always(edict_t *ent)
 
 
 void
-trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+trigger_push_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -709,8 +709,8 @@ hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unuse
 }
 
 void
-hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+hurt_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	int dflags;
 
@@ -802,7 +802,7 @@ SP_trigger_hurt(edict_t *self)
  */
 void
 trigger_gravity_touch(edict_t *self, edict_t *other,
-		cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+		const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -841,7 +841,7 @@ SP_trigger_gravity(edict_t *self)
  */
 void
 trigger_monsterjump_touch(edict_t *self, edict_t *other,
-		cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+		const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{

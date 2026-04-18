@@ -700,7 +700,7 @@ insane_run(edict_t *self)
 
 void
 insane_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+		float kick /* unused */, int damage)
 {
 	int l, r;
 
@@ -879,7 +879,7 @@ insane_dead(edict_t *self)
 void
 insane_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
 	int n;
 

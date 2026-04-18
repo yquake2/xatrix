@@ -14,7 +14,6 @@
 #define FIXBOT_GOAL_TIMEOUT			15
 #define FIXBOT_WELD_GOAL_TIMEOUT	15
 
-qboolean visible(edict_t *self, edict_t *other);
 qboolean infront(edict_t *self, edict_t *other);
 
 static int sound_pain1;
@@ -30,7 +29,7 @@ void fixbot_attack(edict_t *self);
 void fixbot_fire_blaster(edict_t *self);
 void fixbot_fire_welder(edict_t *self);
 void fixbot_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point);
+		int damage, const vec3_t point);
 
 void M_MoveToGoal(edict_t *ent, float dist);
 
@@ -1169,7 +1168,7 @@ fixbot_fire_laser(edict_t *self)
 	}
 
 	gi.sound(self, CHAN_AUTO, gi.soundindex("misc/lasfly.wav"),
-		   	1, ATTN_STATIC, 0);
+			1, ATTN_STATIC, 0);
 
 	VectorCopy(self->s.origin, start);
 	VectorCopy(self->enemy->s.origin, end);
@@ -1571,7 +1570,7 @@ fixbot_attack(edict_t *self)
 
 void
 fixbot_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage /* unused */)
+		float kick /* unused */, int damage /* unused */)
 {
   	if (!self)
 	{
@@ -1618,7 +1617,7 @@ fixbot_dead(edict_t *self)
 
 void
 fixbot_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage /* unused */, vec3_t point /* unused */)
+		int damage /* unused */, const vec3_t point /* unused */)
 {
   	if (!self)
 	{
