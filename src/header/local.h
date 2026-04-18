@@ -10,16 +10,16 @@
 
 #include "shared.h"
 
- /* define GAME_INCLUDE so that game.h does not define the
+/* define GAME_INCLUDE so that game.h does not define the
    short, server-visible gclient_t and edict_t structures,
    because we define the full size ones in this file */
 #define GAME_INCLUDE
 #include "game.h"
 
- /* the "gameversion" client command will print this plus compile date */
+/* the "gameversion" client command will print this plus compile date */
 #define GAMEVERSION "xatrix"
 
- /* protocol bytes that can be directly added to messages */
+/* protocol bytes that can be directly added to messages */
 #define svc_muzzleflash 1
 #define svc_muzzleflash2 2
 #define svc_temp_entity 3
@@ -27,13 +27,13 @@
 #define svc_inventory 5
 #define svc_stufftext 11
 
- /* ================================================================== */
+/* ================================================================== */
 
- /* view pitching times */
+/* view pitching times */
 #define DAMAGE_TIME 0.5
 #define FALL_TIME 0.3
 
- /* these are set with checkboxes on each entity in the map editor */
+/* these are set with checkboxes on each entity in the map editor */
 #define SPAWNFLAG_NOT_EASY 0x00000100
 #define SPAWNFLAG_NOT_MEDIUM 0x00000200
 #define SPAWNFLAG_NOT_HARD 0x00000400
@@ -58,12 +58,11 @@
 
 #define FRAMETIME 0.1
 
- /* memory tags to allow dynamic memory to be cleaned up */
+/* memory tags to allow dynamic memory to be cleaned up */
 #define TAG_GAME 765 /* clear when unloading the dll */
 #define TAG_LEVEL 766 /* clear when loading a new level */
 
 #define MELEE_DISTANCE 80
-
 #define BODY_QUEUE_SIZE 8
 
 typedef enum
@@ -110,8 +109,11 @@ typedef enum
 #define RANGE_FAR 3
 
 /* gib types */
-#define GIB_ORGANIC 0
-#define GIB_METALLIC 1
+typedef enum
+{
+	GIB_ORGANIC,
+	GIB_METALLIC
+} gibtype_t;
 
 /* monster ai flags */
 #define AI_STAND_GROUND 0x00000001
@@ -550,18 +552,17 @@ extern cvar_t *g_swap_speed;
 
 #define world (&g_edicts[0])
 
- /* item spawnflags */
+/* item spawnflags */
 #define ITEM_TRIGGER_SPAWN 0x00000001
 #define ITEM_NO_TOUCH 0x00000002
- /* 6 bits reserved for editor flags
-    8 bits used as power cube id bits
-    for coop games */
+/* 6 bits reserved for editor flags */
+/* 8 bits used as power cube id bits for coop games */
 #define DROPPED_ITEM 0x00010000
 #define DROPPED_PLAYER_ITEM 0x00020000
 #define ITEM_TARGETS_USED 0x00040000
 
- /* fields are needed for spawning from the
-    entity string  and saving / loading games */
+/* fields are needed for spawning from the entity
+   string and saving / loading games */
 #define FFL_SPAWNTEMP 1
 #define FFL_NOSPAWN 2
 
@@ -818,7 +819,15 @@ void ChaseNext(edict_t *ent);
 void ChasePrev(edict_t *ent);
 void GetChaseTarget(edict_t *ent);
 
- /* ============================================================================ */
+/* savegame */
+void InitGame(void);
+void ReadLevel(const char *filename);
+void WriteLevel(const char *filename);
+void ReadGame(const char *filename);
+void WriteGame(const char *filename, qboolean autosave);
+void SpawnEntities(const char *mapname, char *entities, const char *spawnpoint);
+
+/* ============================================================================ */
 
 /* client_t->anim_priority */
 #define ANIM_BASIC 0 /* stand / run */
