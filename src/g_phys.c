@@ -1292,7 +1292,11 @@ G_RunEntity(edict_t *ent)
 			SV_Physics_Toss(ent);
 			break;
 		default:
-			gi.error("SV_Physics: bad movetype %i", (int)ent->movetype);
+			gi.dprintf("%s:%d has bad movetype: %d\n",
+				ent->classname, ent->s.number, ent->movetype);
+			ent->movetype = MOVETYPE_NONE;
+			SV_Physics_None(ent);
+			break;
 	}
 }
 
