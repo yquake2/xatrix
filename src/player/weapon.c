@@ -2373,7 +2373,7 @@ Weapon_Trap(edict_t *ent)
 			(ent->client->ps.gunframe == 39) ||
 			(ent->client->ps.gunframe == 48))
 		{
-			if (rand() & 15)
+			if (randk() & 15)
 			{
 				return;
 			}

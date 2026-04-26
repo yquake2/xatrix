@@ -55,7 +55,7 @@ void ED_CallSpawn(edict_t *ent);
 float
 crand(void)
 {
-	return (rand() & 32767) * (2.0 / 32767) - 1;
+	return (randk() & 32767) * (2.0 / 32767) - 1;
 }
 
 edict_t *
@@ -1414,7 +1414,7 @@ fixbot_fire_welder(edict_t *self)
 	gi.WriteByte(10);
 	gi.WritePosition(start);
 	gi.WriteDir(vec3_origin);
-	gi.WriteByte(0xe0 + (rand() & 7));
+	gi.WriteByte(0xe0 + (randk() & 7));
 	gi.multicast(self->s.origin, MULTICAST_PVS);
 
 	if (random() > 0.8)

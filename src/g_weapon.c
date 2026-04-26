@@ -800,7 +800,7 @@ rocket_touch(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface
 			if ((surf) && !(surf->flags &
 				(SURF_WARP | SURF_TRANS33 | SURF_TRANS66 | SURF_FLOWING)))
 			{
-				n = rand() % 5;
+				n = randk() % 5;
 
 				while (n--)
 				{
@@ -1249,7 +1249,7 @@ ionripper_sparks(edict_t *self)
 	gi.WriteByte(0);
 	gi.WritePosition(self->s.origin);
 	gi.WriteDir(vec3_origin);
-	gi.WriteByte(0xe4 + (rand() & 3));
+	gi.WriteByte(0xe4 + (randk() & 3));
 	gi.multicast(self->s.origin, MULTICAST_PVS);
 
 	G_FreeEdict(self);

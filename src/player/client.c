@@ -953,7 +953,7 @@ SelectRandomDeathmatchSpawnPoint(void)
 		count -= 2;
 	}
 
-	selection = rand() % count;
+	selection = randk() % count;
 
 	spot = NULL;
 
