@@ -16,7 +16,7 @@ static int windsound;
 void
 InitTrigger(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -39,7 +39,7 @@ InitTrigger(edict_t *self)
 void
 multi_wait(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -55,7 +55,7 @@ multi_wait(edict_t *ent)
 void
 multi_trigger(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -159,7 +159,7 @@ void
 trigger_enable(edict_t *self, edict_t *other /* unused */,
 		edict_t *activator /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -172,7 +172,7 @@ trigger_enable(edict_t *self, edict_t *other /* unused */,
 void
 SP_trigger_multiple(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -238,7 +238,7 @@ SP_trigger_multiple(edict_t *ent)
 void
 SP_trigger_once(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -280,7 +280,7 @@ trigger_relay_use(edict_t *self, edict_t *other /* unused */,
 void
 SP_trigger_relay(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -404,7 +404,7 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 void
 SP_trigger_key(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -488,7 +488,7 @@ trigger_counter_use(edict_t *self, edict_t *other /* unused */, edict_t *activat
 void
 SP_trigger_counter(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -510,7 +510,7 @@ SP_trigger_counter(edict_t *self)
 void
 SP_trigger_always(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -575,7 +575,7 @@ trigger_effect(edict_t *self)
 	vec3_t size;
 	int i;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -599,7 +599,7 @@ trigger_effect(edict_t *self)
 void
 trigger_push_inactive(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -620,7 +620,7 @@ trigger_push_inactive(edict_t *self)
 void
 trigger_push_active(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -642,7 +642,7 @@ trigger_push_active(edict_t *self)
 void
 SP_trigger_push(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -686,7 +686,7 @@ SP_trigger_push(edict_t *self)
 void
 hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -762,7 +762,7 @@ hurt_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
 void
 SP_trigger_hurt(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -815,7 +815,7 @@ trigger_gravity_touch(edict_t *self, edict_t *other,
 void
 SP_trigger_gravity(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -879,7 +879,7 @@ trigger_monsterjump_touch(edict_t *self, edict_t *other,
 void
 SP_trigger_monsterjump(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

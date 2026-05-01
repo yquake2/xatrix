@@ -1436,7 +1436,7 @@ PutClientInServer(edict_t *ent)
 	client_persistant_t saved;
 	client_respawn_t resp;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}

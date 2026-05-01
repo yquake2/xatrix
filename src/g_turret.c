@@ -104,7 +104,7 @@ turret_breach_fire(edict_t *self)
 	int damage;
 	int speed;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -128,7 +128,7 @@ turret_breach_think(edict_t *self)
 	vec3_t current_angles;
 	vec3_t delta;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -287,7 +287,7 @@ turret_breach_think(edict_t *self)
 void
 turret_breach_finish_init(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -314,7 +314,7 @@ turret_breach_finish_init(edict_t *self)
 void
 SP_turret_breach(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -371,7 +371,7 @@ SP_turret_breach(edict_t *self)
 void
 SP_turret_base(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -426,7 +426,7 @@ turret_driver_think(edict_t *self)
 	vec3_t dir;
 	float reaction_time;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -494,7 +494,7 @@ turret_driver_link(edict_t *self)
 	vec3_t vec;
 	edict_t *ent;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -534,7 +534,7 @@ turret_driver_link(edict_t *self)
 void
 SP_turret_driver(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

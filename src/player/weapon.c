@@ -1185,7 +1185,7 @@ Weapon_RocketLauncher(edict_t *ent)
 	static int pause_frames[] = {25, 33, 42, 50, 0};
 	static int fire_frames[] = {5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1965,7 +1965,7 @@ Weapon_Railgun(edict_t *ent)
 	Weapon_Generic(ent, 3, 18, 56, 61, pause_frames,
 			fire_frames, weapon_railgun_fire);
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2086,7 +2086,7 @@ weapon_ionripper_fire(edict_t *ent)
 	vec3_t tempang;
 	int damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2147,7 +2147,7 @@ Weapon_Ionripper(edict_t *ent)
 	static int pause_frames[] = {36, 0};
 	static int fire_frames[] = {5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2175,7 +2175,7 @@ weapon_phalanx_fire(edict_t *ent)
 	float damage_radius;
 	int radius_damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2266,7 +2266,7 @@ Weapon_Phalanx(edict_t *ent)
 	static int pause_frames[] = {29, 42, 55, 0};
 	static int fire_frames[] = {7, 8, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2294,7 +2294,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 	int speed;
 	float radius;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2312,7 +2312,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 
 	timer = ent->client->grenade_time - level.time;
 	speed = GRENADE_MINSPEED + (GRENADE_TIMER - timer) *
-	   	((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
+		((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
 	fire_trap(ent, start, forward, damage, speed, timer, radius, held);
 
 	ent->client->pers.inventory[ent->client->ammo_index]--;
@@ -2322,7 +2322,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 void
 Weapon_Trap(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2358,7 +2358,7 @@ Weapon_Trap(edict_t *ent)
 				if (level.time >= ent->pain_debounce_time)
 				{
 					gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-						   	1, ATTN_NORM, 0);
+							1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
 
@@ -2392,7 +2392,7 @@ Weapon_Trap(edict_t *ent)
 		if (ent->client->ps.gunframe == 5)
 		{
 			gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/trapcock.wav"),
-				   	1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 		}
 
 		if (ent->client->ps.gunframe == 11)

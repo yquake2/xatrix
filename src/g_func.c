@@ -119,7 +119,7 @@ void Think_AccelMove(edict_t *ent);
 void
 Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *))
 {
- 	if (!ent || !func)
+	if (!ent || !func)
 	{
 		return;
 	}
@@ -251,7 +251,7 @@ AngleMove_Begin(edict_t *ent)
 void
 AngleMove_Calc(edict_t *ent, void (*func)(edict_t *))
 {
- 	if (!ent || !func)
+	if (!ent || !func)
 	{
 		return;
 	}
@@ -1678,7 +1678,7 @@ door_killed(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
 void
 door_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
- 	if (!self || !other)
+	if (!self || !other)
 	{
 		return;
 	}

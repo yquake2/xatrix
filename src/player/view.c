@@ -567,7 +567,7 @@ SV_CalcBlend(edict_t *ent)
 		if (remaining == 30) /* beginning to fade */
 		{
 			gi.sound(ent, CHAN_ITEM, gi.soundindex("items/quadfire2.wav"),
-				   	1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 		}
 
 		if ((remaining > 30) || (remaining & 4))
