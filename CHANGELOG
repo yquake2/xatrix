@@ -1,3 +1,11 @@
+The Reckoning 2.16 to 2.17:
+- Several improvements to the build system, most notably separate dirs
+  for debug and release builds. (by BjossiAlfreds)
+- Huge stability and robustness improvements to the savegame system. (by
+  BjossiAlfreds)
+- A lot of smaller bug fixes, code cleanups and robustness improvements.
+  (by 0lvin and BjossiAlfreds)
+
 The Reckoning 2.15 to 2.16:
 - Fix monsters acting confused while following combat points. (by
   BjossiAlfreds)
