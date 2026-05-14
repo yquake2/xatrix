@@ -160,7 +160,6 @@
 {"CopyToBodyQue", (byte *)CopyToBodyQue},
 {"body_die", (byte *)body_die},
 {"InitBodyQue", (byte *)InitBodyQue},
-{"SelectSpawnPoint", (byte *)SelectSpawnPoint},
 {"SelectFarthestDeathmatchSpawnPoint", (byte *)SelectFarthestDeathmatchSpawnPoint},
 {"SelectRandomDeathmatchSpawnPoint", (byte *)SelectRandomDeathmatchSpawnPoint},
 {"PlayersRangeFromSpot", (byte *)PlayersRangeFromSpot},
