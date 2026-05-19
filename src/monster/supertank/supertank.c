@@ -9,7 +9,6 @@
 #include "../../header/local.h"
 #include "supertank.h"
 
-qboolean visible(edict_t *self, edict_t *other);
 static int sound_pain1;
 static int sound_pain2;
 static int sound_pain3;
@@ -547,7 +546,7 @@ supertank_reattack1(edict_t *self)
 
 void
 supertank_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+		float kick /* unused */, int damage)
 {
   	if (!self)
 	{
@@ -744,7 +743,7 @@ BossExplode(edict_t *self)
 
 	self->think = BossExplode;
 	VectorCopy(self->s.origin, org);
-	org[2] += 24 + (rand() & 15);
+	org[2] += 24 + (randk() & 15);
 
 	switch (self->count++)
 	{
@@ -810,7 +809,7 @@ BossExplode(edict_t *self)
 void
 supertank_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage /* unused */,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
   	if (!self)
 	{

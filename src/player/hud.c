@@ -1,4 +1,23 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * HUD, deathmatch scoreboard, help computer and intermission stuff.
  *
@@ -10,7 +29,7 @@
 void
 MoveClientToIntermission(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -62,10 +81,10 @@ MoveClientToIntermission(edict_t *ent)
 }
 
 void
-BeginIntermission(edict_t *targ)
+BeginIntermission(const edict_t *targ)
 {
-	int i, n;
-	edict_t *ent, *client;
+	int i;
+	edict_t *ent;
 
 	if (!targ)
 	{
@@ -82,6 +101,8 @@ BeginIntermission(edict_t *targ)
 	/* respawn any dead clients */
 	for (i = 0; i < maxclients->value; i++)
 	{
+		edict_t *client;
+
 		client = g_edicts + 1 + i;
 
 		if (!client->inuse)
@@ -104,6 +125,9 @@ BeginIntermission(edict_t *targ)
 		{
 			for (i = 0; i < maxclients->value; i++)
 			{
+				int n;
+				edict_t *client;
+
 				client = g_edicts + 1 + i;
 
 				if (!client->inuse)
@@ -151,7 +175,7 @@ BeginIntermission(edict_t *targ)
 	else
 	{
 		/* chose one of four spots */
-		i = rand() & 3;
+		i = randk() & 3;
 
 		while (i--)
 		{
@@ -170,6 +194,8 @@ BeginIntermission(edict_t *targ)
 	/* move all clients to the intermission point */
 	for (i = 0; i < maxclients->value; i++)
 	{
+		edict_t *client;
+
 		client = g_edicts + 1 + i;
 
 		if (!client->inuse)
@@ -182,21 +208,17 @@ BeginIntermission(edict_t *targ)
 }
 
 void
-DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
+DeathmatchScoreboardMessage(const edict_t *ent, const edict_t *killer)
 {
 	char entry[1024];
 	char string[1400];
-	int stringlength;
-	int i, j, k;
+	size_t stringlength;
+	int i;
 	int sorted[MAX_CLIENTS];
 	int sortedscores[MAX_CLIENTS];
-	int score, total;
-	int x, y;
-	gclient_t *cl;
-	edict_t *cl_ent;
-	char *tag;
+	int total;
 
-	if (!ent)
+	if (!ent) /* killer can be NULL */
 	{
 		return;
 	}
@@ -206,6 +228,9 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 
 	for (i = 0; i < game.maxclients; i++)
 	{
+		int k, j, score;
+		const edict_t *cl_ent;
+
 		cl_ent = g_edicts + 1 + i;
 
 		if (!cl_ent->inuse || game.clients[i].resp.spectator)
@@ -236,6 +261,7 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 
 	/* print level name and exit rules */
 	string[0] = 0;
+
 	stringlength = strlen(string);
 
 	/* add the clients in sorted order */
@@ -246,6 +272,12 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 
 	for (i = 0; i < total; i++)
 	{
+		char *tag;
+		int x, y;
+		size_t j;
+		gclient_t *cl;
+		const edict_t *cl_ent;
+
 		cl = &game.clients[sorted[i]];
 		cl_ent = g_edicts + 1 + sorted[i];
 
@@ -282,7 +314,8 @@ DeathmatchScoreboardMessage(edict_t *ent, edict_t *killer /* can be NULL */)
 		}
 
 		/* send the layout */
-		Com_sprintf(entry, sizeof(entry), "client %i %i %i %i %i %i ",
+		Com_sprintf(entry, sizeof(entry),
+				"client %i %i %i %i %i %i ",
 				x, y, sorted[i], cl->resp.score, cl->ping,
 				(level.framenum - cl->resp.enterframe) / 600);
 		j = strlen(entry);
@@ -306,7 +339,7 @@ HelpComputerMessage(edict_t *ent)
 	char string[1024];
 	char *sk;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -395,7 +428,7 @@ G_SetStats(edict_t *ent)
 	int index, cells = 0;
 	int power_armor_type;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -429,10 +462,10 @@ G_SetStats(edict_t *ent)
 
 		if (cells == 0)
 		{
-		  	/* ran out of cells for power armor */
+			/* ran out of cells for power armor */
 			ent->flags &= ~FL_POWER_ARMOR;
-			gi.sound(ent, CHAN_ITEM, gi.soundindex( "misc/power2.wav"),
-				   	1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_ITEM, gi.soundindex(
+							"misc/power2.wav"), 1, ATTN_NORM, 0);
 			power_armor_type = 0;
 		}
 	}
@@ -475,7 +508,7 @@ G_SetStats(edict_t *ent)
 	{
 		ent->client->ps.stats[STAT_TIMER_ICON] = gi.imageindex("p_quadfire");
 		ent->client->ps.stats[STAT_TIMER] = (ent->client->quadfire_framenum
-			   	- level.framenum) / 10;
+				- level.framenum) / 10;
 	}
 	else if (ent->client->invincible_framenum > level.framenum)
 	{
@@ -568,18 +601,19 @@ G_SetStats(edict_t *ent)
 }
 
 void
-G_CheckChaseStats(edict_t *ent)
+G_CheckChaseStats(const edict_t *ent)
 {
 	int i;
-	gclient_t *cl;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
 
 	for (i = 1; i <= maxclients->value; i++)
 	{
+		gclient_t *cl;
+
 		cl = g_edicts[i].client;
 
 		if (!g_edicts[i].inuse || (cl->chase_target != ent))
@@ -595,7 +629,7 @@ G_CheckChaseStats(edict_t *ent)
 void
 G_SetSpectatorStats(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}

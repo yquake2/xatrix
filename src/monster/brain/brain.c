@@ -496,7 +496,7 @@ brain_hit_right(edict_t *self)
 
 	VectorSet(aim, MELEE_DISTANCE, self->maxs[0], 8);
 
-	if (fire_hit(self, aim, (15 + (rand() % 5)), 40))
+	if (fire_hit(self, aim, (15 + (randk() % 5)), 40))
 	{
 		gi.sound(self, CHAN_WEAPON, sound_melee3, 1, ATTN_NORM, 0);
 	}
@@ -525,7 +525,7 @@ brain_hit_left(edict_t *self)
 
 	VectorSet(aim, MELEE_DISTANCE, self->mins[0], 8);
 
-	if (fire_hit(self, aim, (15 + (rand() % 5)), 40))
+	if (fire_hit(self, aim, (15 + (randk() % 5)), 40))
 	{
 		gi.sound(self, CHAN_WEAPON, sound_melee3, 1, ATTN_NORM, 0);
 	}
@@ -585,7 +585,7 @@ brain_tentacle_attack(edict_t *self)
 
 	VectorSet(aim, MELEE_DISTANCE, 0, 8);
 
-	if (fire_hit(self, aim, (10 + (rand() % 5)), -600) && (skill->value > SKILL_EASY))
+	if (fire_hit(self, aim, (10 + (randk() % 5)), -600) && (skill->value > SKILL_EASY))
 	{
 		self->spawnflags |= 65536;
 	}
@@ -804,7 +804,7 @@ brain_laserbeam(edict_t *self)
 	if (random() > 0.8)
 	{
 		gi.sound(self, CHAN_AUTO, gi.soundindex("misc/lasfly.wav"),
-			   	1, ATTN_STATIC, 0);
+				1, ATTN_STATIC, 0);
 	}
 
 	/* check for max distance */
@@ -1055,7 +1055,7 @@ brain_dead(edict_t *self)
 
 void
 brain_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point /* unused */)
+		int damage, const vec3_t point /* unused */)
 {
 	int n;
 
@@ -1071,7 +1071,7 @@ brain_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* u
 	if (self->health <= self->gib_health)
 	{
 		gi.sound(self, CHAN_VOICE, gi.soundindex("misc/udeath.wav"),
-			   	1, ATTN_NORM, 0);
+				1, ATTN_NORM, 0);
 
 		for (n = 0; n < 2; n++)
 		{

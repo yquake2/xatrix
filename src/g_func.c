@@ -119,7 +119,7 @@ void Think_AccelMove(edict_t *ent);
 void
 Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *))
 {
- 	if (!ent || !func)
+	if (!ent || !func)
 	{
 		return;
 	}
@@ -251,7 +251,7 @@ AngleMove_Begin(edict_t *ent)
 void
 AngleMove_Calc(edict_t *ent, void (*func)(edict_t *))
 {
- 	if (!ent || !func)
+	if (!ent || !func)
 	{
 		return;
 	}
@@ -626,8 +626,8 @@ wait_and_change(edict_t* ent, void (*afterwaitfunc)(edict_t *))
 }
 
 void
-Touch_Plat_Center(edict_t *ent, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+Touch_Plat_Center(edict_t *ent, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!ent || !other)
 	{
@@ -855,7 +855,7 @@ rotating_blocked(edict_t *self, edict_t *other)
 }
 
 void
-rotating_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+rotating_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1087,7 +1087,7 @@ button_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-button_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+button_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1110,7 +1110,7 @@ button_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurfa
 
 void
 button_killed(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unsued */,
-		int damage /* unused */, vec3_t point /* unused */)
+		int damage /* unused */, const vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -1453,8 +1453,8 @@ door_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-Touch_DoorTrigger(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+Touch_DoorTrigger(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -1657,7 +1657,7 @@ door_blocked(edict_t *self, edict_t *other)
 
 void
 door_killed(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
-		int damage /* unused */, vec3_t point /* unused */)
+		int damage /* unused */, const vec3_t point /* unused */)
 {
 	edict_t *ent;
 
@@ -1676,9 +1676,9 @@ door_killed(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
 }
 
 void
-door_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+door_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
- 	if (!self || !other)
+	if (!self || !other)
 	{
 		return;
 	}
@@ -2140,7 +2140,7 @@ train_blocked(edict_t *self, edict_t *other)
 		/* if it's still there, nuke it */
 		if (other->inuse)
 		{
-			/* Hack for entity without an origin near the model */			
+			/* Hack for entity without an origin near the model */
 			VectorMA (other->absmin, 0.5, other->size, other->s.origin);
 			BecomeExplosion1(other);
 		}
@@ -2867,7 +2867,7 @@ door_secret_blocked(edict_t *self, edict_t *other)
 
 void
 door_secret_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker,
-		int damage /* unused */, vec3_t point /* unused */)
+		int damage /* unused */, const vec3_t point /* unused */)
 {
 	if (!self || !attacker)
 	{
@@ -3038,7 +3038,7 @@ rotating_light_alarm(edict_t *self)
 void
 rotating_light_killed(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage /* unused */,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
 	if (!self)
 	{
@@ -3050,7 +3050,7 @@ rotating_light_killed(edict_t *self, edict_t *inflictor /* unused */,
 	gi.WriteByte(30);
 	gi.WritePosition(self->s.origin);
 	gi.WriteDir(vec3_origin);
-	gi.WriteByte(0xe0 + (rand() & 7));
+	gi.WriteByte(0xe0 + (randk() & 7));
 	gi.multicast(self->s.origin, MULTICAST_PVS);
 
 	self->s.effects &= ~EF_SPINNINGLIGHTS;
@@ -3062,7 +3062,7 @@ rotating_light_killed(edict_t *self, edict_t *inflictor /* unused */,
 
 void
 rotating_light_use(edict_t *self, edict_t *other /* unused */,
-	   	edict_t *activator /* unused */)
+		edict_t *activator /* unused */)
 {
 	if (!self)
 	{
@@ -3167,7 +3167,7 @@ object_repair_fx(edict_t *ent)
 		gi.WriteByte(10);
 		gi.WritePosition(ent->s.origin);
 		gi.WriteDir(vec3_origin);
-		gi.WriteByte(0xe0 + (rand() & 7));
+		gi.WriteByte(0xe0 + (randk() & 7));
 		gi.multicast(ent->s.origin, MULTICAST_PVS);
 	}
 }
@@ -3207,7 +3207,7 @@ object_repair_sparks(edict_t *ent)
 	gi.WriteByte(10);
 	gi.WritePosition(ent->s.origin);
 	gi.WriteDir(vec3_origin);
-	gi.WriteByte(0xe0 + (rand() & 7));
+	gi.WriteByte(0xe0 + (randk() & 7));
 	gi.multicast(ent->s.origin, MULTICAST_PVS);
 }
 

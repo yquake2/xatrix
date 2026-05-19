@@ -187,7 +187,7 @@ gekk_step(edict_t *self)
 		return;
 	}
 
-	n = (rand() + 1) % 3;
+	n = (randk() + 1) % 3;
 
 	if (n == 0)
 	{
@@ -697,7 +697,7 @@ gekk_hit_left(edict_t *self)
 
 	VectorSet(aim, MELEE_DISTANCE, self->mins[0], 8);
 
-	if (fire_hit(self, aim, (15 + (rand() % 5)), 100))
+	if (fire_hit(self, aim, (15 + (randk() % 5)), 100))
 	{
 		gi.sound(self, CHAN_WEAPON, sound_hit, 1, ATTN_NORM, 0);
 	}
@@ -719,7 +719,7 @@ gekk_hit_right(edict_t *self)
 
 	VectorSet(aim, MELEE_DISTANCE, self->maxs[0], 8);
 
-	if (fire_hit(self, aim, (15 + (rand() % 5)), 100))
+	if (fire_hit(self, aim, (15 + (randk() % 5)), 100))
 	{
 		gi.sound(self, CHAN_WEAPON, sound_hit2, 1, ATTN_NORM, 0);
 	}
@@ -759,7 +759,7 @@ gekk_check_refire(edict_t *self)
 }
 
 void
-loogie_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+loogie_touch(edict_t *self, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	vec3_t normal;
 
@@ -1112,8 +1112,8 @@ gekk_melee(edict_t *self)
 }
 
 void
-gekk_jump_touch(edict_t *self, edict_t *other, cplane_t *plane /* unsued */,
-		csurface_t *surf /* unused */)
+gekk_jump_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unsued */,
+		const csurface_t *surf /* unused */)
 {
   	if (!self)
 	{
@@ -1619,7 +1619,7 @@ mmove_t gekk_move_wdeath = {
 
 void
 gekk_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* unused */,
-		int damage, vec3_t point /* unused */)
+		int damage, const vec3_t point /* unused */)
 {
 	float r;
 

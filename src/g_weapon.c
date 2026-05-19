@@ -350,7 +350,7 @@ fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
  * Fires a single blaster bolt. Used by the blaster and hyper blaster.
  */
 void
-blaster_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+blaster_touch(edict_t *self, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	int mod;
 	vec3_t normal;
@@ -606,7 +606,7 @@ Grenade_Explode(edict_t *ent)
 }
 
 void
-Grenade_Touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+Grenade_Touch(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	if (!ent || !other)
 	{
@@ -632,18 +632,18 @@ Grenade_Touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if (random() > 0.5)
 			{
 				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/hgrenb1a.wav"),
-					   	1, ATTN_NORM, 0);
+						1, ATTN_NORM, 0);
 			}
 			else
 			{
 				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/hgrenb2a.wav"),
-					   	1, ATTN_NORM, 0);
+						1, ATTN_NORM, 0);
 			}
 		}
 		else
 		{
 			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/grenlb1b.wav"),
-				   	1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 		}
 
 		return;
@@ -748,13 +748,13 @@ fire_grenade2(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 	else
 	{
 		gi.sound(self, CHAN_WEAPON, gi.soundindex("weapons/hgrent1a.wav"),
-			   	1, ATTN_NORM, 0);
+				1, ATTN_NORM, 0);
 		gi.linkentity(grenade);
 	}
 }
 
 void
-rocket_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+rocket_touch(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	vec3_t origin;
 	vec3_t normal;
@@ -800,7 +800,7 @@ rocket_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 			if ((surf) && !(surf->flags &
 				(SURF_WARP | SURF_TRANS33 | SURF_TRANS66 | SURF_FLOWING)))
 			{
-				n = rand() % 5;
+				n = randk() % 5;
 
 				while (n--)
 				{
@@ -1021,7 +1021,7 @@ bfg_explode(edict_t *self)
 }
 
 void
-bfg_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+bfg_touch(edict_t *self, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	vec3_t normal;
 
@@ -1249,14 +1249,14 @@ ionripper_sparks(edict_t *self)
 	gi.WriteByte(0);
 	gi.WritePosition(self->s.origin);
 	gi.WriteDir(vec3_origin);
-	gi.WriteByte(0xe4 + (rand() & 3));
+	gi.WriteByte(0xe4 + (randk() & 3));
 	gi.multicast(self->s.origin, MULTICAST_PVS);
 
 	G_FreeEdict(self);
 }
 
 void
-ionripper_touch(edict_t *self, edict_t *other, cplane_t *plane, csurface_t *surf)
+ionripper_touch(edict_t *self, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	vec3_t normal;
 
@@ -1451,7 +1451,7 @@ fire_heat(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed,
 }
 
 void
-plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
+plasma_touch(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface_t *surf)
 {
 	vec3_t origin;
 	vec3_t normal;
@@ -1460,7 +1460,7 @@ plasma_touch(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf)
 	{
 		return;
 	}
-	
+
 	if (other == ent->owner)
 	{
 		return;
@@ -1587,7 +1587,7 @@ Trap_Think(edict_t *ent)
 			if (ent->wait == 64)
 			{
 				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/trapdown.wav"),
-					   	1, ATTN_IDLE, 0);
+						1, ATTN_IDLE, 0);
 			}
 
 			ent->wait -= 2;

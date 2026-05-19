@@ -1,4 +1,22 @@
 /*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
  * =======================================================================
  *
  * Combat code like damage, death and so on.
@@ -9,8 +27,9 @@
 #include "header/local.h"
 
 /*
- * Returns true if the inflictor can directly damage the
- * target. Used for explosions and melee attacks.
+ * Returns true if the inflictor can
+ * directly damage the target.  Used for
+ * explosions and melee attacks.
  */
 qboolean
 CanDamage(edict_t *targ, edict_t *inflictor)
@@ -99,9 +118,9 @@ CanDamage(edict_t *targ, edict_t *inflictor)
 	return false;
 }
 
-void
+static void
 Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point)
+		int damage, const vec3_t point)
 {
 	if (!targ || !inflictor || !attacker)
 	{
@@ -131,7 +150,7 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 
 	if ((targ->movetype == MOVETYPE_PUSH) ||
 		(targ->movetype == MOVETYPE_STOP) ||
-	   	(targ->movetype == MOVETYPE_NONE))
+		(targ->movetype == MOVETYPE_NONE))
 	{
 		/* doors, triggers, etc */
 		targ->die(targ, inflictor, attacker, damage, point);
@@ -147,14 +166,14 @@ Killed(edict_t *targ, edict_t *inflictor, edict_t *attacker,
 	targ->die(targ, inflictor, attacker, damage, point);
 }
 
-void
-SpawnDamage(int type, vec3_t origin, vec3_t normal, int damage)
+static void
+SpawnDamage(int type, const vec3_t origin, const vec3_t normal)
 {
-	gi.WriteByte (svc_temp_entity);
-	gi.WriteByte (type);
-	gi.WritePosition (origin);
-	gi.WriteDir (normal);
-	gi.multicast (origin, MULTICAST_PVS);
+	gi.WriteByte(svc_temp_entity);
+	gi.WriteByte(type);
+	gi.WritePosition(origin);
+	gi.WriteDir(normal);
+	gi.multicast(origin, MULTICAST_PVS);
 }
 
 /*
@@ -178,8 +197,8 @@ SpawnDamage(int type, vec3_t origin, vec3_t normal, int damage)
  *  DAMAGE_NO_PROTECTION	kills godmode, armor, everything
  * ============
  */
-int
-CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal,
+static int
+CheckPowerArmor(edict_t *ent, const vec3_t point, const vec3_t normal,
 		int damage, int dflags)
 {
 	gclient_t *client;
@@ -281,7 +300,7 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal,
 		save = damage;
 	}
 
-	SpawnDamage(pa_te_type, point, normal, save);
+	SpawnDamage(pa_te_type, point, normal);
 	ent->powerarmor_time = level.time + 0.2;
 
 	power_used = save / damagePerCell;
@@ -298,14 +317,14 @@ CheckPowerArmor(edict_t *ent, vec3_t point, vec3_t normal,
 	return save;
 }
 
-int
-CheckArmor(edict_t *ent, vec3_t point, vec3_t normal,
-		int damage, int te_sparks, int dflags)
+static int
+CheckArmor(edict_t *ent, vec3_t point, const vec3_t normal, int damage,
+		int te_sparks, int dflags)
 {
 	gclient_t *client;
 	int save;
 	int index;
-	gitem_t *armor;
+	const gitem_t *armor;
 
 	if (!ent)
 	{
@@ -358,7 +377,7 @@ CheckArmor(edict_t *ent, vec3_t point, vec3_t normal,
 	}
 
 	client->pers.inventory[index] -= save;
-	SpawnDamage(te_sparks, point, normal, save);
+	SpawnDamage(te_sparks, point, normal);
 
 	return save;
 }
@@ -370,7 +389,7 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker)
 	{
 		return;
 	}
-	
+
 	if (targ->health <= 0)
 	{
 		return;
@@ -386,8 +405,8 @@ M_ReactToDamage(edict_t *targ, edict_t *attacker)
 		return;
 	}
 
-	/* if we are a good guy monster and our attacker is a
-	   player or another good guy, do not get mad at them */
+	/* if we are a good guy monster and our attacker is a player
+	   or another good guy, do not get mad at them */
 	if (targ->monsterinfo.aiflags & AI_GOOD_GUY)
 	{
 		if (attacker->client || (attacker->monsterinfo.aiflags & AI_GOOD_GUY))
@@ -501,7 +520,7 @@ apply_knockback(edict_t *targ, vec3_t dir, float knockback, float scale)
 
 void
 T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
-		vec3_t point, vec3_t normal, int damage, int knockback, int dflags,
+		vec3_t point, const vec3_t normal, int damage, int knockback, int dflags,
 		int mod)
 {
 	gclient_t *client;
@@ -596,7 +615,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	{
 		take = 0;
 		save = damage;
-		SpawnDamage(te_sparks, point, normal, save);
+		SpawnDamage(te_sparks, point, normal);
 	}
 
 	/* check for invincibility */
@@ -630,16 +649,16 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 		{
 			if (strcmp(targ->classname, "monster_gekk") == 0)
 			{
-				SpawnDamage(TE_GREENBLOOD, point, normal, take);
+				SpawnDamage(TE_GREENBLOOD, point, normal);
 			}
 			else
 			{
-				SpawnDamage(TE_BLOOD, point, normal, take);
+				SpawnDamage(TE_BLOOD, point, normal);
 			}
 		}
 		else
 		{
-			SpawnDamage(te_sparks, point, normal, take);
+			SpawnDamage(te_sparks, point, normal);
 		}
 
 		targ->health = targ->health - take;
@@ -701,7 +720,7 @@ T_Damage(edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 
 void
 T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage,
-		edict_t *ignore, float radius, int mod)
+		const edict_t *ignore, float radius, int mod)
 {
 	float points;
 	edict_t *ent = NULL;
@@ -747,4 +766,3 @@ T_RadiusDamage(edict_t *inflictor, edict_t *attacker, float damage,
 		}
 	}
 }
-

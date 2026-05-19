@@ -442,7 +442,7 @@ mmove_t parasite_move_pain1 =
 
 void
 parasite_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage /* unused */)
+		float kick /* unused */, int damage /* unused */)
 {
 	if (!self)
 	{
@@ -696,7 +696,7 @@ mmove_t parasite_move_death =
 void
 parasite_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
 	int n;
 

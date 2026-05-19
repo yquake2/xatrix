@@ -16,7 +16,6 @@ static int sound_search1;
 static int sound_search2;
 static int tread_sound;
 
-qboolean visible(edict_t *self, edict_t *other);
 void BossExplode2(edict_t *self);
 void boss5_dead(edict_t *self);
 void boss5Rocket(edict_t *self);
@@ -548,7 +547,7 @@ boss5_reattack1(edict_t *self)
 
 void
 boss5_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+		float kick /* unused */, int damage)
 {
   	if (!self)
 	{
@@ -743,7 +742,7 @@ BossExplode2(edict_t *self)
 
 	self->think = BossExplode2;
 	VectorCopy(self->s.origin, org);
-	org[2] += 24 + (rand() & 15);
+	org[2] += 24 + (randk() & 15);
 
 	switch (self->count++)
 	{
@@ -813,7 +812,7 @@ BossExplode2(edict_t *self)
 void
 boss5_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage /* unused */,
-	   	vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
   	if (!self)
 	{

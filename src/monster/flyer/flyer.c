@@ -8,8 +8,6 @@
 #include "../../header/local.h"
 #include "flyer.h"
 
-qboolean visible(edict_t *self, edict_t *other);
-
 static int nextmove; /* Used for start/stop frames */
 static int sound_sight;
 static int sound_idle;
@@ -713,7 +711,7 @@ flyer_check_melee(edict_t *self)
 
 void
 flyer_pain(edict_t *self, edict_t *other /* unused */,
-	   	float kick /* unused */, int damage)
+		float kick /* unused */, int damage)
 {
 	int n;
 
@@ -739,7 +737,7 @@ flyer_pain(edict_t *self, edict_t *other /* unused */,
 		return; /* no pain anims in nightmare */
 	}
 
-	n = rand() % 3;
+	n = randk() % 3;
 
 	if (n == 0)
 	{
@@ -761,7 +759,7 @@ flyer_pain(edict_t *self, edict_t *other /* unused */,
 void
 flyer_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage /* unused */,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
   	if (!self)
 	{

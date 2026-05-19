@@ -32,7 +32,7 @@ void
 monster_fire_shotgun(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int hspread, int vspread, int count, int flashtype)
 {
- 	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -50,7 +50,7 @@ void
 monster_fire_blaster(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, int flashtype, int effect)
 {
- 	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -84,7 +84,7 @@ void
 monster_fire_ionripper(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, int flashtype, int effect)
 {
- 	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -101,7 +101,7 @@ void
 monster_fire_heat(edict_t *self, vec3_t start, vec3_t dir, int damage,
 		int speed, int flashtype)
 {
- 	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -122,7 +122,7 @@ dabeam_hit(edict_t *self)
 	vec3_t end;
 	trace_t tr;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -194,7 +194,7 @@ monster_dabeam(edict_t *self)
 	vec3_t last_movedir;
 	vec3_t point;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -252,7 +252,7 @@ void
 monster_fire_grenade(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int speed, int flashtype)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -269,7 +269,7 @@ void
 monster_fire_rocket(edict_t *self, vec3_t start, vec3_t dir,
 		int damage, int speed, int flashtype)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -286,7 +286,7 @@ void
 monster_fire_railgun(edict_t *self, vec3_t start, vec3_t aimdir,
 		int damage, int kick, int flashtype)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -303,7 +303,7 @@ void
 monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int speed, int kick, float damage_radius, int flashtype)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -321,7 +321,7 @@ monster_fire_bfg(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 void
 M_FliesOff(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -333,7 +333,7 @@ M_FliesOff(edict_t *self)
 void
 M_FliesOn(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -352,7 +352,7 @@ M_FliesOn(edict_t *self)
 void
 M_FlyCheck(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -374,7 +374,7 @@ M_FlyCheck(edict_t *self)
 void
 AttackFinished(edict_t *self, float time)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -388,7 +388,7 @@ M_CheckGround(edict_t *ent)
 	vec3_t point;
 	trace_t trace;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -435,7 +435,7 @@ M_CatagorizePosition(edict_t *ent)
 	vec3_t point;
 	int cont;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -478,7 +478,7 @@ M_WorldEffects(edict_t *ent)
 {
 	int dmg;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -540,7 +540,7 @@ M_WorldEffects(edict_t *ent)
 		if (ent->flags & FL_INWATER)
 		{
 			gi.sound(ent, CHAN_BODY, gi.soundindex( "player/watr_out.wav"),
-				   	1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 			ent->flags &= ~FL_INWATER;
 		}
 
@@ -576,23 +576,23 @@ M_WorldEffects(edict_t *ent)
 				if (random() <= 0.5)
 				{
 					gi.sound(ent, CHAN_BODY, gi.soundindex( "player/lava1.wav"),
-						   	1, ATTN_NORM, 0);
+							1, ATTN_NORM, 0);
 				}
 				else
 				{
 					gi.sound(ent, CHAN_BODY, gi.soundindex("player/lava2.wav"),
-						   	1, ATTN_NORM, 0);
+							1, ATTN_NORM, 0);
 				}
 			}
 			else if (ent->watertype & CONTENTS_SLIME)
 			{
 				gi.sound(ent, CHAN_BODY, gi.soundindex("player/watr_in.wav"),
-					   	1, ATTN_NORM, 0);
+						1, ATTN_NORM, 0);
 			}
 			else if (ent->watertype & CONTENTS_WATER)
 			{
 				gi.sound(ent, CHAN_BODY, gi.soundindex("player/watr_in.wav"),
-					   	1, ATTN_NORM, 0);
+						1, ATTN_NORM, 0);
 			}
 		}
 
@@ -607,7 +607,7 @@ M_droptofloor(edict_t *ent)
 	vec3_t end;
 	trace_t trace;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -634,7 +634,7 @@ M_droptofloor(edict_t *ent)
 void
 M_SetEffects(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -673,7 +673,7 @@ M_MoveFrame(edict_t *self)
 	mmove_t *move;
 	int index;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -764,7 +764,7 @@ M_MoveFrame(edict_t *self)
 void
 monster_think(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -823,7 +823,7 @@ monster_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 void
 monster_triggered_spawn(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -884,7 +884,7 @@ monster_triggered_spawn_use(edict_t *self, edict_t *other /* unused */, edict_t 
 void
 monster_triggered_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -903,7 +903,7 @@ monster_triggered_start(edict_t *self)
 void
 monster_death_use(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -933,7 +933,7 @@ monster_death_use(edict_t *self)
 qboolean
 monster_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return false;
 	}
@@ -1005,7 +1005,7 @@ monster_start(edict_t *self)
 	if (self->monsterinfo.currentmove)
 	{
 		self->s.frame = self->monsterinfo.currentmove->firstframe +
-						(rand() %
+						(randk() %
 						 (self->monsterinfo.currentmove->lastframe -
 		 self->monsterinfo.currentmove->firstframe + 1));
 	}
@@ -1018,7 +1018,7 @@ monster_start_go(edict_t *self)
 {
 	vec3_t v;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1125,7 +1125,7 @@ monster_start_go(edict_t *self)
 void
 walkmonster_start_go(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1167,7 +1167,7 @@ walkmonster_start_go(edict_t *self)
 void
 walkmonster_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1179,7 +1179,7 @@ walkmonster_start(edict_t *self)
 void
 flymonster_start_go(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1212,7 +1212,7 @@ flymonster_start_go(edict_t *self)
 void
 flymonster_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1225,7 +1225,7 @@ flymonster_start(edict_t *self)
 void
 swimmonster_start_go(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1253,7 +1253,7 @@ swimmonster_start_go(edict_t *self)
 void
 swimmonster_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}

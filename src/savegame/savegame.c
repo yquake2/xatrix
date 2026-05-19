@@ -1308,7 +1308,7 @@ ReadLevel(const char *filename)
 	}
 
 	/* free any dynamic memory allocated by
-	   loading the level  base state */
+	   loading the level base state */
 	gi.FreeTags(TAG_LEVEL);
 
 	/* wipe all the entities */

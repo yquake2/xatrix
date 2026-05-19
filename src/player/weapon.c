@@ -1,4 +1,23 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * Player weapons.
  *
@@ -39,7 +58,7 @@ P_ProjectSource(edict_t *ent, vec3_t distance,
 	float     *point  = ent->s.origin;
 	vec3_t     _distance;
 
-  	if (!client)
+	if (!client)
 	{
 		return;
 	}
@@ -325,15 +344,15 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 }
 
 /*
- * The old weapon has been dropped all the
- * way, so make the new one current
+ * The old weapon has been dropped all
+ * the way, so make the new one current
  */
 void
 ChangeWeapon(edict_t *ent)
 {
 	int i;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -455,7 +474,7 @@ NoAmmoWeaponChange(edict_t *ent)
 void
 Think_Weapon(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -515,7 +534,7 @@ Change_Weap_Animation(edict_t *ent)
  * Make the weapon ready if there is ammo
  */
 void
-Use_Weapon(edict_t *ent, gitem_t *item)
+Use_Weapon(edict_t *ent, const gitem_t *item)
 {
 	int ammo_index;
 	gitem_t *ammo_item;
@@ -556,7 +575,7 @@ Use_Weapon(edict_t *ent, gitem_t *item)
 }
 
 void
-Use_Weapon2(edict_t *ent, gitem_t *item)
+Use_Weapon2(edict_t *ent, const gitem_t *item)
 {
 	int ammo_index;
 	gitem_t *ammo_item;
@@ -640,7 +659,7 @@ Use_Weapon2(edict_t *ent, gitem_t *item)
 }
 
 void
-Drop_Weapon(edict_t *ent, gitem_t *item)
+Drop_Weapon(edict_t *ent, const gitem_t *item)
 {
 	int index;
 
@@ -670,7 +689,8 @@ Drop_Weapon(edict_t *ent, gitem_t *item)
 }
 
 /*
- * A generic function to handle the basics of weapon thinking
+ * A generic function to handle
+ * the basics of weapon thinking
  */
 void
 Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
@@ -772,8 +792,8 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 			{
 				if (level.time >= ent->pain_debounce_time)
 				{
-					gi.sound(ent, CHAN_VOICE,
-							gi.soundindex("weapons/noammo.wav"), 1, ATTN_NORM, 0);
+					gi.sound(ent, CHAN_VOICE, gi.soundindex(
+								"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
 
@@ -794,7 +814,7 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 				{
 					if (ent->client->ps.gunframe == pause_frames[n])
 					{
-						if (rand() & 15)
+						if (randk() & 15)
 						{
 							return;
 						}
@@ -815,8 +835,8 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 			{
 				if (ent->client->quad_framenum > level.framenum)
 				{
-					gi.sound(ent, CHAN_ITEM, gi.soundindex("items/damage3.wav"),
-						   	1, ATTN_NORM, 0);
+					gi.sound(ent, CHAN_ITEM, gi.soundindex(
+								"items/damage3.wav"), 1, ATTN_NORM, 0);
 				}
 
 				fire(ent);
@@ -836,6 +856,10 @@ Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 	}
 }
 
+/* ====================================================================== */
+
+/* GRENADE */
+
 void
 weapon_grenade_fire(edict_t *ent, qboolean held)
 {
@@ -847,7 +871,7 @@ weapon_grenade_fire(edict_t *ent, qboolean held)
 	int speed;
 	float radius;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -905,7 +929,7 @@ weapon_grenade_fire(edict_t *ent, qboolean held)
 void
 Weapon_Grenade(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -940,8 +964,8 @@ Weapon_Grenade(edict_t *ent)
 			{
 				if (level.time >= ent->pain_debounce_time)
 				{
-					gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-						   	1, ATTN_NORM, 0);
+					gi.sound(ent, CHAN_VOICE, gi.soundindex(
+								"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
 
@@ -956,7 +980,7 @@ Weapon_Grenade(edict_t *ent)
 			(ent->client->ps.gunframe == 39) ||
 			(ent->client->ps.gunframe == 48))
 		{
-			if (rand() & 15)
+			if (randk() & 15)
 			{
 				return;
 			}
@@ -974,8 +998,8 @@ Weapon_Grenade(edict_t *ent)
 	{
 		if (ent->client->ps.gunframe == 5)
 		{
-			gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/hgrena1b.wav"),
-				   	1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_WEAPON, gi.soundindex(
+							"weapons/hgrena1b.wav"), 1, ATTN_NORM, 0);
 		}
 
 		if (ent->client->ps.gunframe == 11)
@@ -983,7 +1007,8 @@ Weapon_Grenade(edict_t *ent)
 			if (!ent->client->grenade_time)
 			{
 				ent->client->grenade_time = level.time + GRENADE_TIMER + 0.2;
-				ent->client->weapon_sound = gi.soundindex("weapons/hgrenc1b.wav");
+				ent->client->weapon_sound = gi.soundindex(
+						"weapons/hgrenc1b.wav");
 			}
 
 			/* they waited too long, detonate it in their hand */
@@ -1036,6 +1061,8 @@ Weapon_Grenade(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* GRENADE LAUNCHER */
 
 void
@@ -1047,7 +1074,7 @@ weapon_grenadelauncher_fire(edict_t *ent)
 	int damage = 120;
 	float radius;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1099,6 +1126,8 @@ Weapon_GrenadeLauncher(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* ROCKET */
 
 void
@@ -1110,7 +1139,7 @@ Weapon_RocketLauncher_Fire(edict_t *ent)
 	float damage_radius;
 	int radius_damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1156,7 +1185,7 @@ Weapon_RocketLauncher(edict_t *ent)
 	static int pause_frames[] = {25, 33, 42, 50, 0};
 	static int fire_frames[] = {5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1171,6 +1200,8 @@ Weapon_RocketLauncher(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* BLASTER / HYPERBLASTER */
 
 void
@@ -1181,7 +1212,7 @@ Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage,
 	vec3_t start;
 	vec3_t offset;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1224,7 +1255,7 @@ Weapon_Blaster_Fire(edict_t *ent)
 {
 	int damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1248,7 +1279,7 @@ Weapon_Blaster(edict_t *ent)
 	static int pause_frames[] = {19, 32, 0};
 	static int fire_frames[] = {5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1271,7 +1302,7 @@ Weapon_HyperBlaster_Fire(edict_t *ent)
 	int effect;
 	int damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1288,8 +1319,8 @@ Weapon_HyperBlaster_Fire(edict_t *ent)
 		{
 			if (level.time >= ent->pain_debounce_time)
 			{
-				gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-					   	1, ATTN_NORM, 0);
+				gi.sound(ent, CHAN_VOICE, gi.soundindex(
+							"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 				ent->pain_debounce_time = level.time + 1;
 			}
 
@@ -1353,8 +1384,8 @@ Weapon_HyperBlaster_Fire(edict_t *ent)
 
 	if (ent->client->ps.gunframe == 12)
 	{
-		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/hyprbd1a.wav"),
-			   	1, ATTN_NORM, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex(
+						"weapons/hyprbd1a.wav"), 1, ATTN_NORM, 0);
 		ent->client->weapon_sound = 0;
 	}
 }
@@ -1365,7 +1396,7 @@ Weapon_HyperBlaster(edict_t *ent)
 	static int pause_frames[] = {0};
 	static int fire_frames[] = {6, 7, 8, 9, 10, 11, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1380,6 +1411,8 @@ Weapon_HyperBlaster(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* MACHINEGUN / CHAINGUN */
 
 void
@@ -1393,7 +1426,7 @@ Machinegun_Fire(edict_t *ent)
 	int kick = 2;
 	vec3_t offset;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1420,8 +1453,8 @@ Machinegun_Fire(edict_t *ent)
 
 		if (level.time >= ent->pain_debounce_time)
 		{
-			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-				   	1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_VOICE, gi.soundindex(
+						"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 			ent->pain_debounce_time = level.time + 1;
 		}
 
@@ -1495,7 +1528,7 @@ Weapon_Machinegun(edict_t *ent)
 	static int pause_frames[] = {23, 45, 0};
 	static int fire_frames[] = {4, 5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1522,7 +1555,7 @@ Chaingun_Fire(edict_t *ent)
 	int damage;
 	int kick = 2;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1538,8 +1571,8 @@ Chaingun_Fire(edict_t *ent)
 
 	if (ent->client->ps.gunframe == 5)
 	{
-		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/chngnu1a.wav"),
-			   	1, ATTN_IDLE, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex(
+					"weapons/chngnu1a.wav"), 1, ATTN_IDLE, 0);
 	}
 
 	if ((ent->client->ps.gunframe == 14) &&
@@ -1563,8 +1596,8 @@ Chaingun_Fire(edict_t *ent)
 	if (ent->client->ps.gunframe == 22)
 	{
 		ent->client->weapon_sound = 0;
-		gi.sound(ent, CHAN_AUTO, gi.soundindex("weapons/chngnd1a.wav"),
-			   	1, ATTN_IDLE, 0);
+		gi.sound(ent, CHAN_AUTO, gi.soundindex(
+					"weapons/chngnd1a.wav"), 1, ATTN_IDLE, 0);
 	}
 	else
 	{
@@ -1613,8 +1646,8 @@ Chaingun_Fire(edict_t *ent)
 	{
 		if (level.time >= ent->pain_debounce_time)
 		{
-			gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-				   	1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_VOICE, gi.soundindex(
+							"weapons/noammo.wav"), 1, ATTN_NORM, 0);
 			ent->pain_debounce_time = level.time + 1;
 		}
 
@@ -1641,11 +1674,12 @@ Chaingun_Fire(edict_t *ent)
 		r = 7 + crandom() * 4;
 		u = crandom() * 4;
 		VectorSet(offset, 0, r, u + ent->viewheight - 8);
-		P_ProjectSource(ent, offset, forward,
-				right, start);
+		P_ProjectSource(ent, offset,
+				forward, right, start);
 
-		fire_bullet(ent, start, forward, damage, kick, DEFAULT_BULLET_HSPREAD,
-				DEFAULT_BULLET_VSPREAD, MOD_CHAINGUN);
+		fire_bullet(ent, start, forward, damage, kick,
+				DEFAULT_BULLET_HSPREAD, DEFAULT_BULLET_VSPREAD,
+				MOD_CHAINGUN);
 	}
 
 	/* send muzzle flash */
@@ -1668,7 +1702,7 @@ Weapon_Chaingun(edict_t *ent)
 	static int pause_frames[] = {38, 43, 51, 61, 0};
 	static int fire_frames[] = {5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1682,6 +1716,8 @@ Weapon_Chaingun(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* SHOTGUN / SUPERSHOTGUN */
 
 void
@@ -1693,7 +1729,7 @@ weapon_shotgun_fire(edict_t *ent)
 	int damage = 4;
 	int kick = 8;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1742,7 +1778,7 @@ Weapon_Shotgun(edict_t *ent)
 	static int pause_frames[] = {22, 28, 34, 0};
 	static int fire_frames[] = {8, 9, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1767,7 +1803,7 @@ weapon_supershotgun_fire(edict_t *ent)
 	int damage = 6;
 	int kick = 12;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1802,8 +1838,9 @@ weapon_supershotgun_fire(edict_t *ent)
 		P_ProjectSource(ent, offset, forward, right, start);
 	}
 
-	fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD,
-			DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+	fire_shotgun(ent, start, forward, damage, kick,
+			DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD,
+			DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 
 	v[YAW] = ent->client->v_angle[YAW] + 5;
 	AngleVectors(v, forward, NULL, NULL);
@@ -1819,8 +1856,9 @@ weapon_supershotgun_fire(edict_t *ent)
 		P_ProjectSource(ent, offset, forward, right, start);
 	}
 
-	fire_shotgun(ent, start, forward, damage, kick, DEFAULT_SHOTGUN_HSPREAD,
-			DEFAULT_SHOTGUN_VSPREAD, DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
+	fire_shotgun(ent, start, forward, damage, kick,
+			DEFAULT_SHOTGUN_HSPREAD, DEFAULT_SHOTGUN_VSPREAD,
+			DEFAULT_SSHOTGUN_COUNT / 2, MOD_SSHOTGUN);
 
 	/* send muzzle flash */
 	gi.WriteByte(svc_muzzleflash);
@@ -1846,7 +1884,7 @@ Weapon_SuperShotgun(edict_t *ent)
 	Weapon_Generic(ent, 6, 17, 57, 61, pause_frames,
 			fire_frames, weapon_supershotgun_fire);
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1857,6 +1895,8 @@ Weapon_SuperShotgun(edict_t *ent)
 				fire_frames, weapon_supershotgun_fire);
 	}
 }
+
+/* ====================================================================== */
 
 /* RAILGUN */
 
@@ -1869,7 +1909,7 @@ weapon_railgun_fire(edict_t *ent)
 	int damage;
 	int kick;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1925,7 +1965,7 @@ Weapon_Railgun(edict_t *ent)
 	Weapon_Generic(ent, 3, 18, 56, 61, pause_frames,
 			fire_frames, weapon_railgun_fire);
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1937,17 +1977,18 @@ Weapon_Railgun(edict_t *ent)
 	}
 }
 
+/* ====================================================================== */
+
 /* BFG10K */
 
 void
 weapon_bfg_fire(edict_t *ent)
 {
-	vec3_t offset, start;
-	vec3_t forward, right;
-	int damage;
+	vec3_t offset, start, forward, right;
 	float damage_radius = 1000;
+	int damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2017,7 +2058,7 @@ Weapon_BFG(edict_t *ent)
 	static int pause_frames[] = {39, 45, 50, 55, 0};
 	static int fire_frames[] = {9, 17, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2045,7 +2086,7 @@ weapon_ionripper_fire(edict_t *ent)
 	vec3_t tempang;
 	int damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2106,7 +2147,7 @@ Weapon_Ionripper(edict_t *ent)
 	static int pause_frames[] = {36, 0};
 	static int fire_frames[] = {5, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2134,7 +2175,7 @@ weapon_phalanx_fire(edict_t *ent)
 	float damage_radius;
 	int radius_damage;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2225,7 +2266,7 @@ Weapon_Phalanx(edict_t *ent)
 	static int pause_frames[] = {29, 42, 55, 0};
 	static int fire_frames[] = {7, 8, 0};
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2253,7 +2294,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 	int speed;
 	float radius;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2271,7 +2312,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 
 	timer = ent->client->grenade_time - level.time;
 	speed = GRENADE_MINSPEED + (GRENADE_TIMER - timer) *
-	   	((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
+		((GRENADE_MAXSPEED - GRENADE_MINSPEED) / GRENADE_TIMER);
 	fire_trap(ent, start, forward, damage, speed, timer, radius, held);
 
 	ent->client->pers.inventory[ent->client->ammo_index]--;
@@ -2281,7 +2322,7 @@ weapon_trap_fire(edict_t *ent, qboolean held)
 void
 Weapon_Trap(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -2317,7 +2358,7 @@ Weapon_Trap(edict_t *ent)
 				if (level.time >= ent->pain_debounce_time)
 				{
 					gi.sound(ent, CHAN_VOICE, gi.soundindex("weapons/noammo.wav"),
-						   	1, ATTN_NORM, 0);
+							1, ATTN_NORM, 0);
 					ent->pain_debounce_time = level.time + 1;
 				}
 
@@ -2332,7 +2373,7 @@ Weapon_Trap(edict_t *ent)
 			(ent->client->ps.gunframe == 39) ||
 			(ent->client->ps.gunframe == 48))
 		{
-			if (rand() & 15)
+			if (randk() & 15)
 			{
 				return;
 			}
@@ -2351,7 +2392,7 @@ Weapon_Trap(edict_t *ent)
 		if (ent->client->ps.gunframe == 5)
 		{
 			gi.sound(ent, CHAN_WEAPON, gi.soundindex("weapons/trapcock.wav"),
-				   	1, ATTN_NORM, 0);
+					1, ATTN_NORM, 0);
 		}
 
 		if (ent->client->ps.gunframe == 11)

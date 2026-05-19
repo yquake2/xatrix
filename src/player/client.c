@@ -1,4 +1,23 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * Interface between client <-> game and client calculations.
  *
@@ -10,7 +29,7 @@
 
 void ClientUserinfoChanged(edict_t *ent, char *userinfo);
 void SP_misc_teleporter_dest(edict_t *ent);
-void Touch_Item(edict_t *ent, edict_t *other, cplane_t *plane, csurface_t *surf);
+void Touch_Item(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface_t *surf);
 
 void
 SP_FixCoopSpots(edict_t *self)
@@ -46,12 +65,13 @@ SP_CreateUnnamedSpawn(edict_t *self)
 
 /*
  * QUAKED info_player_start (1 0 0) (-16 -16 -24) (16 16 32)
+ *
  * The normal starting point for a level.
  */
 void
 SP_info_player_start(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -67,12 +87,13 @@ SP_info_player_start(edict_t *self)
 
 /*
  * QUAKED info_player_deathmatch (1 0 1) (-16 -16 -24) (16 16 32)
+ *
  * potential spawning position for deathmatch games
  */
 void
 SP_info_player_deathmatch(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -93,7 +114,7 @@ SP_info_player_deathmatch(edict_t *self)
 void
 SP_info_player_coop(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -112,7 +133,7 @@ SP_info_player_coop(edict_t *self)
  * roll as well as yaw.  'pitch yaw roll'
  */
 void
-SP_info_player_intermission(edict_t *ent)
+SP_info_player_intermission(edict_t *self)
 {
 	/* This function cannot be removed
 	 * since the info_player_intermission
@@ -123,7 +144,7 @@ SP_info_player_intermission(edict_t *ent)
 /* ======================================================================= */
 
 void
-player_pain(edict_t *self /* unsued */, edict_t *other /* unused */,
+player_pain(edict_t *self /* unused */, edict_t *other /* unused */,
 		float kick /* unused */, int damage /* unused */)
 {
 	/* Player pain is handled at the end
@@ -133,12 +154,12 @@ player_pain(edict_t *self /* unsued */, edict_t *other /* unused */,
 	 * a pain callback */
 }
 
-qboolean
+static qboolean
 IsFemale(edict_t *ent)
 {
 	char *info;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return false;
 	}
@@ -150,6 +171,11 @@ IsFemale(edict_t *ent)
 
 	info = Info_ValueForKey(ent->client->pers.userinfo, "gender");
 
+	if (strstr(info, "crakhor"))
+	{
+		return true;
+	}
+
 	if ((info[0] == 'f') || (info[0] == 'F'))
 	{
 		return true;
@@ -158,12 +184,12 @@ IsFemale(edict_t *ent)
 	return false;
 }
 
-qboolean
+static qboolean
 IsNeutral(edict_t *ent)
 {
 	char *info;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return false;
 	}
@@ -186,7 +212,7 @@ IsNeutral(edict_t *ent)
 
 void
 ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
-	   	edict_t *attacker)
+		edict_t *attacker)
 {
 	int mod;
 	char *message;
@@ -198,7 +224,7 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 		return;
 	}
 
-	if (coop->value && attacker->client)
+	if (coop->value && attacker && attacker->client)
 	{
 		meansOfDeath |= MOD_FRIENDLY_FIRE;
 	}
@@ -455,13 +481,13 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 void
 TossClientWeapon(edict_t *self)
 {
-	gitem_t *item;
+	const gitem_t *item;
 	edict_t *drop;
 	qboolean quad;
 	qboolean quadfire;
 	float spread;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -599,7 +625,7 @@ LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
 
 void
 player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
-		int damage, vec3_t point /* unused */)
+		int damage, const vec3_t point /* unused */)
 {
 	int n;
 
@@ -663,7 +689,7 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 
 	if (self->health < -40)
 	{
-		/* gib (sound played at end of server frame) */
+		/* gib (sound is played at end of server frame) */
 		self->sounds = gi.soundindex("misc/udeath.wav");
 
 		for (n = 0; n < 4; n++)
@@ -712,11 +738,11 @@ player_die(edict_t *self, edict_t *inflictor, edict_t *attacker,
 				}
 			}
 
-			/* sound played at end of server frame */
+			/* sound is played at end of server frame */
 			if (!self->sounds)
 			{
 				self->sounds = gi.soundindex(va("*death%i.wav",
-									(rand() % 4) + 1));
+								(randk() % 4) + 1));
 			}
 		}
 	}
@@ -813,10 +839,10 @@ SaveClientData(void)
 	}
 }
 
-void
+static void
 FetchClientEntData(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -834,8 +860,8 @@ FetchClientEntData(edict_t *ent)
 /* ======================================================================= */
 
 /*
- * Returns the distance to the nearest
- * player from the given spot
+ * Returns the distance to the
+ * nearest player from the given spot
  */
 float
 PlayersRangeFromSpot(edict_t *spot)
@@ -848,7 +874,7 @@ PlayersRangeFromSpot(edict_t *spot)
 
 	if (!spot)
 	{
-		return 0;
+		return 0.0;
 	}
 
 	bestplayerdistance = 9999999;
@@ -927,7 +953,7 @@ SelectRandomDeathmatchSpawnPoint(void)
 		count -= 2;
 	}
 
-	selection = rand() % count;
+	selection = randk() % count;
 
 	spot = NULL;
 
@@ -980,7 +1006,7 @@ SelectFarthestDeathmatchSpawnPoint(void)
 	return spot;
 }
 
-edict_t *
+static edict_t *
 SelectDeathmatchSpawnPoint(void)
 {
 	if ((int)(dmflags->value) & DF_SPAWN_FARTHEST)
@@ -993,14 +1019,13 @@ SelectDeathmatchSpawnPoint(void)
 	}
 }
 
-edict_t *
-SelectCoopSpawnPoint(edict_t *ent)
+static edict_t *
+SelectCoopSpawnPoint(const edict_t *ent)
 {
 	int index;
 	edict_t *spot = NULL;
-	char *target;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return NULL;
 	}
@@ -1018,6 +1043,8 @@ SelectCoopSpawnPoint(edict_t *ent)
 	/* assume there are four coop spots at each spawnpoint */
 	while (1)
 	{
+		const char *target;
+
 		spot = G_Find(spot, FOFS(classname), "info_player_coop");
 
 		if (!spot)
@@ -1034,8 +1061,8 @@ SelectCoopSpawnPoint(edict_t *ent)
 
 		if (Q_stricmp(game.spawnpoint, target) == 0)
 		{
-			/* this is a coop spawn point for
-			   one of the clients here */
+			/* this is a coop spawn point
+			   for one of the clients here */
 			index--;
 
 			if (!index)
@@ -1051,17 +1078,15 @@ SelectCoopSpawnPoint(edict_t *ent)
 /*
  * Chooses a player start, deathmatch start, coop start, etc
  */
-void
-SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
+static void
+SelectSpawnPoint(const edict_t *ent, vec3_t origin, vec3_t angles)
 {
 	edict_t *spot = NULL;
-	edict_t *coopspot = NULL;
-	int dist;
-	int index;
-	int counter = 0;
-	vec3_t d;
 
-  	if (!ent)
+	VectorClear(origin);
+	VectorClear(angles);
+
+	if (!ent)
 	{
 		return;
 	}
@@ -1107,6 +1132,7 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 			if (!spot)
 			{
 				gi.error("Couldn't find spawn point %s\n", game.spawnpoint);
+				return;
 			}
 		}
 	}
@@ -1118,12 +1144,20 @@ SelectSpawnPoint(edict_t *ent, vec3_t origin, vec3_t angles)
 	   client) use one in 550 units radius. */
 	if (coop->value)
 	{
+		int index;
+
 		index = ent->client - game.clients;
 
 		if (Q_stricmp(spot->classname, "info_player_start") == 0 && index != 0)
 		{
-			while(counter < 3)
+			int counter = 0;
+
+			while (counter < 3)
 			{
+				edict_t *coopspot = NULL;
+				float dist;
+				vec3_t d;
+
 				coopspot = G_Find(coopspot, FOFS(classname), "info_player_coop");
 
 				if (!coopspot)
@@ -1172,12 +1206,13 @@ void
 InitBodyQue(void)
 {
 	int i;
-	edict_t *ent;
 
 	level.body_que = 0;
 
 	for (i = 0; i < BODY_QUEUE_SIZE; i++)
 	{
+		edict_t *ent;
+
 		ent = G_Spawn();
 		ent->classname = "bodyque";
 	}
@@ -1185,20 +1220,20 @@ InitBodyQue(void)
 
 void
 body_die(edict_t *self, edict_t *inflictor /* unused */,
-	   	edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+		edict_t *attacker /* unused */, int damage,
+		const vec3_t point /* unused */)
 {
 	int n;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
 
 	if (self->health < -40)
 	{
-		gi.sound(self, CHAN_BODY, gi.soundindex("misc/udeath.wav"),
-				1, ATTN_NORM, 0);
+		gi.sound(self, CHAN_BODY, gi.soundindex(
+						"misc/udeath.wav"), 1, ATTN_NORM, 0);
 
 		for (n = 0; n < 4; n++)
 		{
@@ -1217,7 +1252,7 @@ CopyToBodyQue(edict_t *ent)
 {
 	edict_t *body;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1228,7 +1263,6 @@ CopyToBodyQue(edict_t *ent)
 
 	gi.unlinkentity(ent);
 	gi.unlinkentity(body);
-
 	body->s = ent->s;
 	body->s.number = body - g_edicts;
 
@@ -1252,7 +1286,7 @@ CopyToBodyQue(edict_t *ent)
 void
 respawn(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -1294,7 +1328,7 @@ spectator_respawn(edict_t *ent)
 {
 	int i, numspec;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1408,7 +1442,7 @@ PutClientInServer(edict_t *ent)
 	client_persistant_t saved;
 	client_respawn_t resp;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1585,7 +1619,7 @@ PutClientInServer(edict_t *ent)
 void
 ClientBeginDeathmatch(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1625,7 +1659,7 @@ ClientBegin(edict_t *ent)
 {
 	int i;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1710,7 +1744,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 
 	/* set name */
 	s = Info_ValueForKey(userinfo, "name");
-	strncpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname) - 1);
+	Q_strlcpy(ent->client->pers.netname, s, sizeof(ent->client->pers.netname));
 
 	/* set spectator */
 	s = Info_ValueForKey(userinfo, "spectator");
@@ -1762,8 +1796,7 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	}
 
 	/* save off the userinfo in case we want to check something later */
-	strncpy(ent->client->pers.userinfo, userinfo,
-			sizeof(ent->client->pers.userinfo) - 1);
+	Q_strlcpy(ent->client->pers.userinfo, userinfo, sizeof(ent->client->pers.userinfo));
 }
 
 /*
@@ -1875,7 +1908,7 @@ ClientDisconnect(edict_t *ent)
 {
 	int playernum;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -1906,11 +1939,13 @@ ClientDisconnect(edict_t *ent)
 
 /* ============================================================== */
 
-edict_t *pm_passent;
+static edict_t *pm_passent;
 
-/* pmove doesn't need to know
-   about passent and contentmask */
-trace_t
+/*
+ * pmove doesn't need to know
+ * about passent and contentmask
+ */
+static trace_t
 PM_trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 {
 	if (pm_passent->health > 0)
@@ -1968,7 +2003,6 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 	gclient_t *client;
 	edict_t *other;
 	int i, j;
-	pmove_t pm;
 
 	if (!ent || !ucmd)
 	{
@@ -2002,9 +2036,9 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 	}
 	else
 	{
-		/* set up for pmove */
-		memset(&pm, 0, sizeof(pm));
+		pmove_t pm = {0};
 
+		/* set up for pmove */
 		if (ent->movetype == MOVETYPE_NOCLIP)
 		{
 			client->ps.pmove.pm_type = PM_SPECTATOR;
@@ -2067,7 +2101,8 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 		if (ent->groundentity && !pm.groundentity && (pm.cmd.upmove >= 10) &&
 			(pm.waterlevel == 0))
 		{
-			gi.sound(ent, CHAN_VOICE, gi.soundindex("*jump1.wav"), 1, ATTN_NORM, 0);
+			gi.sound(ent, CHAN_VOICE, gi.soundindex(
+							"*jump1.wav"), 1, ATTN_NORM, 0);
 			PlayerNoise(ent, ent->s.origin, PNOISE_SELF);
 		}
 
@@ -2196,8 +2231,9 @@ ClientThink(edict_t *ent, usercmd_t *ucmd)
 }
 
 /*
- * This will be called once for each server frame,
- * before running any other entities in the world.
+ * This will be called once for each server
+ * frame, before running any other entities
+ * in the world.
  */
 void
 ClientBeginServerFrame(edict_t *ent)
@@ -2205,7 +2241,7 @@ ClientBeginServerFrame(edict_t *ent)
 	gclient_t *client;
 	int buttonMask;
 
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}

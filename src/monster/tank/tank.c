@@ -341,7 +341,7 @@ mmove_t tank_move_pain3 = {
 
 void
 tank_pain(edict_t *self, edict_t *other /* other */,
-	   	float kick /* other */, int damage)
+		float kick /* other */, int damage)
 {
   	if (!self)
 	{
@@ -975,7 +975,7 @@ mmove_t tank_move_death = {
 void
 tank_die(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker /* unused */, int damage,
-		vec3_t point /* unused */)
+		const vec3_t point /* unused */)
 {
 	int n;
 

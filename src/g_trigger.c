@@ -16,7 +16,7 @@ static int windsound;
 void
 InitTrigger(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -39,7 +39,7 @@ InitTrigger(edict_t *self)
 void
 multi_wait(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -55,7 +55,7 @@ multi_wait(edict_t *ent)
 void
 multi_trigger(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -96,8 +96,8 @@ Use_Multi(edict_t *ent, edict_t *other /* unused */, edict_t *activator)
 }
 
 void
-Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-	   	csurface_t *surf /* unused */)
+Touch_Multi(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -157,9 +157,9 @@ Touch_Multi(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
  */
 void
 trigger_enable(edict_t *self, edict_t *other /* unused */,
-	   	edict_t *activator /* unused */)
+		edict_t *activator /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -172,7 +172,7 @@ trigger_enable(edict_t *self, edict_t *other /* unused */,
 void
 SP_trigger_multiple(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -238,7 +238,7 @@ SP_trigger_multiple(edict_t *ent)
 void
 SP_trigger_once(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
@@ -266,7 +266,7 @@ SP_trigger_once(edict_t *ent)
  * it can only be fired by other events.
  */
 void
-trigger_relay_use(edict_t *self, edict_t *other /* unused */, 
+trigger_relay_use(edict_t *self, edict_t *other /* unused */,
 		edict_t *activator /* may be NULL */)
 {
 	if (!self)
@@ -280,7 +280,7 @@ trigger_relay_use(edict_t *self, edict_t *other /* unused */,
 void
 SP_trigger_relay(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -404,7 +404,7 @@ trigger_key_use(edict_t *self, edict_t *other /* unused */, edict_t *activator)
 void
 SP_trigger_key(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -488,7 +488,7 @@ trigger_counter_use(edict_t *self, edict_t *other /* unused */, edict_t *activat
 void
 SP_trigger_counter(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -510,11 +510,11 @@ SP_trigger_counter(edict_t *self)
 void
 SP_trigger_always(edict_t *ent)
 {
-  	if (!ent)
+	if (!ent)
 	{
 		return;
 	}
-	
+
 	/* we must have some delay to make
 	   sure our use targets are present */
 	if (ent->delay < 0.2)
@@ -527,8 +527,8 @@ SP_trigger_always(edict_t *ent)
 
 
 void
-trigger_push_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+trigger_push_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -575,7 +575,7 @@ trigger_effect(edict_t *self)
 	vec3_t size;
 	int i;
 
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -591,7 +591,7 @@ trigger_effect(edict_t *self)
 		gi.WriteByte(1);
 		gi.WritePosition(origin);
 		gi.WriteDir(vec3_origin);
-		gi.WriteByte(0x74 + (rand() & 7));
+		gi.WriteByte(0x74 + (randk() & 7));
 		gi.multicast(self->s.origin, MULTICAST_PVS);
 	}
 }
@@ -599,7 +599,7 @@ trigger_effect(edict_t *self)
 void
 trigger_push_inactive(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -620,7 +620,7 @@ trigger_push_inactive(edict_t *self)
 void
 trigger_push_active(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -642,7 +642,7 @@ trigger_push_active(edict_t *self)
 void
 SP_trigger_push(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -686,7 +686,7 @@ SP_trigger_push(edict_t *self)
 void
 hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unused */)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -709,8 +709,8 @@ hurt_use(edict_t *self, edict_t *other /* unused */, edict_t *activator /* unuse
 }
 
 void
-hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
-		csurface_t *surf /* unused */)
+hurt_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unused */,
+		const csurface_t *surf /* unused */)
 {
 	int dflags;
 
@@ -762,7 +762,7 @@ hurt_touch(edict_t *self, edict_t *other, cplane_t *plane /* unused */,
 void
 SP_trigger_hurt(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -802,7 +802,7 @@ SP_trigger_hurt(edict_t *self)
  */
 void
 trigger_gravity_touch(edict_t *self, edict_t *other,
-		cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+		const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -815,7 +815,7 @@ trigger_gravity_touch(edict_t *self, edict_t *other,
 void
 SP_trigger_gravity(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
@@ -841,7 +841,7 @@ SP_trigger_gravity(edict_t *self)
  */
 void
 trigger_monsterjump_touch(edict_t *self, edict_t *other,
-		cplane_t *plane /* unused */, csurface_t *surf /* unused */)
+		const cplane_t *plane /* unused */, const csurface_t *surf /* unused */)
 {
 	if (!self || !other)
 	{
@@ -879,7 +879,7 @@ trigger_monsterjump_touch(edict_t *self, edict_t *other,
 void
 SP_trigger_monsterjump(edict_t *self)
 {
-  	if (!self)
+	if (!self)
 	{
 		return;
 	}
