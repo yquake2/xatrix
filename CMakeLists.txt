@@ -127,6 +127,7 @@ set(Xatrix-Header
 	src/savegame/tables/gamemmove_decs.h
 	src/savegame/tables/gamemmove_list.h
 	src/savegame/tables/levelfields.h
+	src/savegame/tables/stfields.h
 	)
 
 # Build the xatrix dynamic library
