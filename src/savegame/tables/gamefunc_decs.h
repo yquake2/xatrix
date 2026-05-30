@@ -411,13 +411,17 @@ extern void boss2_search (edict_t *);
 extern void jorg_search (edict_t *);
 extern void boss5_search (edict_t *);
 extern void brain_search (edict_t *);
+extern void chick_search (edict_t *);
+extern void flipper_search (edict_t *);
 extern void gekk_search (edict_t *);
 extern void gladb_search (edict_t *);
 extern void gladiator_search (edict_t *);
 extern void gunner_search (edict_t *);
 extern void hover_search (edict_t *);
+extern void infantry_search (edict_t *);
 extern void medic_search (edict_t *);
 extern void mutant_search (edict_t *);
+extern void parasite_search (edict_t *);
 extern void supertank_search (edict_t *);
 // monsterinfo.sight
 extern void berserk_sight (edict_t *, edict_t *);
