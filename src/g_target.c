@@ -738,6 +738,14 @@ SP_target_crosslevel_target(edict_t *self)
 		self->delay = 1;
 	}
 
+	/* map hack for Inner Compound
+		make sure this trigger fires before player spawns in */
+	if (!strcmp(level.mapname, "xcompnd2") &&
+		self->target && !strcmp(self->target, "t210"))
+	{
+		self->delay = 0.1f;
+	}
+
 	self->svflags = SVF_NOCLIENT;
 
 	self->think = target_crosslevel_target_think;
