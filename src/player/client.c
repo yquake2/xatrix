@@ -1472,6 +1472,7 @@ PutClientInServer(edict_t *ent)
 	else
 	{
 		memset(&resp, 0, sizeof(resp));
+		ClientUserinfoChanged(ent, NULL);
 	}
 
 	/* clear everything but the persistant data */
@@ -1716,12 +1717,17 @@ ClientBegin(edict_t *ent)
 void
 ClientUserinfoChanged(edict_t *ent, char *userinfo)
 {
-	char *s;
+	const char *s;
 	int playernum;
 
-	if (!ent || !userinfo)
+	if (!ent)
 	{
 		return;
+	}
+
+	if (!userinfo)
+	{
+		userinfo = ent->client->pers.userinfo;
 	}
 
 	/* check for malformed or illegal info strings */
@@ -1784,7 +1790,10 @@ ClientUserinfoChanged(edict_t *ent, char *userinfo)
 	}
 
 	/* save off the userinfo in case we want to check something later */
-	Q_strlcpy(ent->client->pers.userinfo, userinfo, sizeof(ent->client->pers.userinfo));
+	if (userinfo != ent->client->pers.userinfo)
+	{
+		Q_strlcpy(ent->client->pers.userinfo, userinfo, sizeof(ent->client->pers.userinfo));
+	}
 }
 
 /*
