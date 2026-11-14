@@ -645,7 +645,7 @@ void G_ProjectSource(const vec3_t point, const vec3_t distance, const vec3_t for
 		const vec3_t right, vec3_t result);
 edict_t *G_Find(edict_t *from, int fieldofs, const char *match);
 edict_t *findradius(edict_t *from, const vec3_t org, float rad);
-edict_t *G_PickTarget(char *targetname);
+edict_t *G_PickTarget(const char *targetname);
 void G_UseTargets(edict_t *ent, edict_t *activator);
 void G_SetMovedir(vec3_t angles, vec3_t movedir);
 
@@ -659,8 +659,8 @@ void G_TouchSolids(edict_t *ent);
 
 char *G_CopyString(const char *in);
 
-float *tv(float x, float y, float z);
-char *vtos(vec3_t v);
+const float *tv(float x, float y, float z);
+const char *vtos(const vec3_t v);
 void get_normal_vector(const cplane_t *p, vec3_t normal);
 
 float vectoyaw(vec3_t vec);
