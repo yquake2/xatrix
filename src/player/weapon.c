@@ -296,7 +296,7 @@ Pickup_Weapon(edict_t *ent, edict_t *other)
 
 	if (!(ent->spawnflags & DROPPED_ITEM))
 	{
-		gitem_t *ammo;
+		const gitem_t *ammo;
 
 		/* give them some ammo with it */
 		ammo = FindItem(ent->item->ammo);
