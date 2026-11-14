@@ -49,7 +49,7 @@ static int  sound_step2;
 void brain_run(edict_t *self);
 void brain_dead(edict_t *self);
 
-void
+static void
 brain_footstep(edict_t *self)
 {
 	if (!g_monsterfootsteps->value)
@@ -345,7 +345,7 @@ mmove_t brain_move_pain1 =
 
 /* DUCK */
 
-void
+static void
 brain_duck_down(edict_t *self)
 {
 	if (!self)
@@ -364,7 +364,7 @@ brain_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 brain_duck_hold(edict_t *self)
 {
 	if (!self)
@@ -382,7 +382,7 @@ brain_duck_hold(edict_t *self)
 	}
 }
 
-void
+static void
 brain_duck_up(edict_t *self)
 {
 	if (!self)
@@ -485,7 +485,7 @@ mmove_t brain_move_death1 =
 
 /* MELEE */
 
-void
+static void
 brain_swing_right(edict_t *self)
 {
 	if (!self)
@@ -496,7 +496,7 @@ brain_swing_right(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_melee1, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 brain_hit_right(edict_t *self)
 {
 	vec3_t aim;
@@ -514,7 +514,7 @@ brain_hit_right(edict_t *self)
 	}
 }
 
-void
+static void
 brain_swing_left(edict_t *self)
 {
 	if (!self)
@@ -525,7 +525,7 @@ brain_swing_left(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_melee2, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 brain_hit_left(edict_t *self)
 {
 	vec3_t aim;
@@ -572,7 +572,7 @@ mmove_t brain_move_attack1 =
 	brain_run
 };
 
-void
+static void
 brain_chest_open(edict_t *self)
 {
 	if (!self)
@@ -585,7 +585,7 @@ brain_chest_open(edict_t *self)
 	gi.sound(self, CHAN_BODY, sound_chest_open, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 brain_tentacle_attack(edict_t *self)
 {
 	vec3_t aim;
@@ -605,7 +605,7 @@ brain_tentacle_attack(edict_t *self)
 	gi.sound(self, CHAN_WEAPON, sound_tentacles_retract, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 brain_chest_closed(edict_t *self)
 {
 	if (!self)
@@ -668,7 +668,7 @@ brain_melee(edict_t *self)
 	}
 }
 
-qboolean
+static qboolean
 brain_tounge_attack_ok(vec3_t start, vec3_t end)
 {
 	vec3_t dir, angles;
@@ -697,7 +697,7 @@ brain_tounge_attack_ok(vec3_t start, vec3_t end)
 	return true;
 }
 
-void
+static void
 brain_tounge_attack(edict_t *self)
 {
 	vec3_t offset, start, f, r, end, dir;
@@ -800,7 +800,7 @@ struct l_eyeball
 	{-4.332820, 9.444570, 33.526340}
 };
 
-void
+static void
 brain_laserbeam(edict_t *self)
 {
 	vec3_t forward, right, up;
@@ -858,7 +858,7 @@ brain_laserbeam(edict_t *self)
 	monster_dabeam(ent);
 }
 
-void
+static void
 brain_laserbeam_reattack(edict_t *self)
 {
   	if (!self)

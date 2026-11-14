@@ -116,7 +116,7 @@ Move_Begin(edict_t *ent)
 
 void Think_AccelMove(edict_t *ent);
 
-void
+static void
 Move_Calc(edict_t *ent, vec3_t dest, void (*func)(edict_t *))
 {
 	if (!ent || !func)
@@ -248,7 +248,7 @@ AngleMove_Begin(edict_t *ent)
 	ent->think = AngleMove_Final;
 }
 
-void
+static void
 AngleMove_Calc(edict_t *ent, void (*func)(edict_t *))
 {
 	if (!ent || !func)
@@ -278,7 +278,7 @@ AngleMove_Calc(edict_t *ent, void (*func)(edict_t *))
 
 #define AccelerationDistance(target, rate) (target * ((target / rate) + 1) / 2)
 
-void
+static void
 plat_CalcAcceleratedMove(moveinfo_t *moveinfo)
 {
 	float accel_dist;
@@ -312,7 +312,7 @@ plat_CalcAcceleratedMove(moveinfo_t *moveinfo)
 	moveinfo->decel_distance = decel_dist;
 }
 
-void
+static void
 plat_Accelerate(moveinfo_t *moveinfo)
 {
 	if (!moveinfo)
@@ -659,7 +659,7 @@ Touch_Plat_Center(edict_t *ent, edict_t *other, const cplane_t *plane /* unused 
 	}
 }
 
-void
+static void
 plat_spawn_inside_trigger(edict_t *ent)
 {
 	if (!ent)
@@ -1054,7 +1054,7 @@ button_wait(edict_t *self)
 	}
 }
 
-void
+static void
 button_fire(edict_t *self)
 {
 	if (!self)
@@ -1245,7 +1245,7 @@ void door_go_down(edict_t *self);
  *    4)	heavy
  */
 
-void
+static void
 door_use_areaportals(edict_t *self, qboolean open)
 {
 	edict_t *t = NULL;
@@ -1367,7 +1367,7 @@ door_go_down(edict_t *self)
 	}
 }
 
-void
+static void
 door_go_up(edict_t *self, edict_t *activator)
 {
 	if (!self)
@@ -2302,7 +2302,7 @@ again:
 	self->spawnflags |= TRAIN_START_ON;
 }
 
-void
+static void
 train_resume(edict_t *self)
 {
 	edict_t *ent;

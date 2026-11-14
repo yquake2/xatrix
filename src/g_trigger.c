@@ -52,7 +52,7 @@ multi_wait(edict_t *ent)
  * be set to the activator so it can be held through a delay
  * so wait for the delay time before firing
  */
-void
+static void
 multi_trigger(edict_t *ent)
 {
 	if (!ent)
@@ -568,7 +568,7 @@ trigger_push_touch(edict_t *self, edict_t *other, const cplane_t *plane /* unuse
  *
  * "speed"		defaults to 1000
  */
-void
+static void
 trigger_effect(edict_t *self)
 {
 	vec3_t origin;

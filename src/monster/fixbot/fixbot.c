@@ -52,13 +52,15 @@ extern mmove_t fixbot_move_turn;
 extern void roam_goal(edict_t *self);
 void ED_CallSpawn(edict_t *ent);
 
-float
+#if 0
+static float
 crand(void)
 {
 	return (randk() & 32767) * (2.0 / 32767) - 1;
 }
+#endif
 
-edict_t *
+static edict_t *
 fixbot_FindDeadMonster(edict_t *self)
 {
 	edict_t *ent = NULL;
@@ -123,7 +125,7 @@ fixbot_FindDeadMonster(edict_t *self)
 	return best;
 }
 
-int
+static int
 fixbot_search(edict_t *self)
 {
 	edict_t *ent;
@@ -186,7 +188,7 @@ make_bot_goal(edict_t *self)
 	return ent;
 }
 
-void
+static void
 landing_goal(edict_t *self)
 {
 	trace_t tr;
@@ -218,7 +220,7 @@ landing_goal(edict_t *self)
 	self->monsterinfo.currentmove = &fixbot_move_landing;
 }
 
-void
+static void
 takeoff_goal(edict_t *self)
 {
 	trace_t tr;
@@ -460,7 +462,7 @@ use_scanner(edict_t *self)
  *  decend translated along the z the current
  *  frames are at 10fps
  */
-void
+static void
 blastoff(edict_t *self, vec3_t start, vec3_t aimdir, int damage,
 		int kick, int te_impact, int hspread, int vspread)
 {
@@ -665,7 +667,7 @@ fly_vertical(edict_t *self)
 	}
 }
 
-void
+static void
 fly_vertical2(edict_t *self)
 {
 	vec3_t v;
@@ -881,7 +883,7 @@ mmove_t fixbot_move_roamgoal = {
    	NULL
 };
 
-void
+static void
 ai_facing(edict_t *self, float dist)
 {
 	vec3_t v;
@@ -914,7 +916,8 @@ mmove_t fixbot_move_turn = {
    	NULL
 };
 
-void
+#if 0
+static void
 go_roam(edict_t *self)
 {
   	if (!self)
@@ -924,6 +927,7 @@ go_roam(edict_t *self)
 
 	self->monsterinfo.currentmove = &fixbot_move_stand;
 }
+#endif
 
 /* takeoff */
 static mframe_t fixbot_frames_takeoff[] = {
@@ -1022,7 +1026,7 @@ mmove_t fixbot_move_land = {
    	NULL
 };
 
-void
+static void
 ai_movetogoal(edict_t *self, float dist)
 {
   	if (!self)
@@ -1115,7 +1119,7 @@ mmove_t fixbot_move_attack1 = {
    	NULL
 };
 
-int
+static int
 check_telefrag(edict_t *self)
 {
 	vec3_t end, up;
@@ -1146,7 +1150,7 @@ check_telefrag(edict_t *self)
 	return 1;
 }
 
-void
+static void
 fixbot_fire_laser(edict_t *self)
 {
 	vec3_t forward, right, up;
@@ -1279,7 +1283,7 @@ mmove_t fixbot_move_attack2 = {
    	fixbot_run
 };
 
-void
+static void
 weldstate(edict_t *self)
 {
   	if (!self)
@@ -1310,7 +1314,7 @@ weldstate(edict_t *self)
 	}
 }
 
-void
+static void
 ai_move2(edict_t *self, float dist)
 {
 	vec3_t v;
@@ -1521,7 +1525,8 @@ fixbot_walk(edict_t *self)
 	self->monsterinfo.currentmove = &fixbot_move_walk;
 }
 
-void
+#if 0
+static void
 fixbot_start_attack(edict_t *self)
 {
   	if (!self)
@@ -1531,6 +1536,7 @@ fixbot_start_attack(edict_t *self)
 
 	self->monsterinfo.currentmove = &fixbot_move_start_attack;
 }
+#endif
 
 void
 fixbot_attack(edict_t *self)

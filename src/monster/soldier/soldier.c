@@ -52,7 +52,7 @@ void soldierh_stand(edict_t *self);
 void soldierh_run(edict_t *self);
 extern void brain_dabeam(edict_t *self);
 
-void
+static void
 soldier_footstep(edict_t *self)
 {
 	if (!g_monsterfootsteps->value)
@@ -89,7 +89,7 @@ soldier_footstep(edict_t *self)
 }
 
 
-void
+static void
 soldier_idle(edict_t *self)
 {
 	if (!self)
@@ -103,7 +103,7 @@ soldier_idle(edict_t *self)
 	}
 }
 
-void
+static void
 soldier_cock(edict_t *self)
 {
 	if (!self)
@@ -236,7 +236,7 @@ soldier_stand(edict_t *self)
 	}
 }
 
-void
+static void
 soldier_walk1_random(edict_t *self)
 {
 	if (!self)
@@ -590,7 +590,7 @@ static int machinegun_flash[] =
 	MZ2_SOLDIER_MACHINEGUN_8
 };
 
-void
+static void
 soldier_fire(edict_t *self, int flash_number)
 {
 	vec3_t start;
@@ -676,7 +676,7 @@ soldier_fire(edict_t *self, int flash_number)
 	}
 }
 
-void
+static void
 soldier_fire1(edict_t *self)
 {
 	if (!self)
@@ -687,7 +687,7 @@ soldier_fire1(edict_t *self)
 	soldier_fire(self, 0);
 }
 
-void
+static void
 soldier_attack1_refire1(edict_t *self)
 {
 	if (!self)
@@ -716,7 +716,7 @@ soldier_attack1_refire1(edict_t *self)
 	}
 }
 
-void
+static void
 soldier_attack1_refire2(edict_t *self)
 {
 	if (!self)
@@ -764,7 +764,7 @@ mmove_t soldier_move_attack1 =
    	soldier_run
 };
 
-void
+static void
 soldier_fire2(edict_t *self)
 {
 	if (!self)
@@ -775,7 +775,7 @@ soldier_fire2(edict_t *self)
 	soldier_fire(self, 1);
 }
 
-void
+static void
 soldier_attack2_refire1(edict_t *self)
 {
 	if (!self)
@@ -809,7 +809,7 @@ soldier_attack2_refire1(edict_t *self)
 	}
 }
 
-void
+static void
 soldier_attack2_refire2(edict_t *self)
 {
 	if (!self)
@@ -868,7 +868,7 @@ mmove_t soldier_move_attack2 =
    	soldier_run
 };
 
-void
+static void
 soldier_duck_down(edict_t *self)
 {
 	if (!self)
@@ -888,7 +888,7 @@ soldier_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 soldier_duck_up(edict_t *self)
 {
 	if (!self)
@@ -902,7 +902,7 @@ soldier_duck_up(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 soldier_fire3(edict_t *self)
 {
 	if (!self)
@@ -914,7 +914,7 @@ soldier_fire3(edict_t *self)
 	soldier_fire(self, 2);
 }
 
-void
+static void
 soldier_attack3_refire(edict_t *self)
 {
 	if (!self)
@@ -948,7 +948,7 @@ mmove_t soldier_move_attack3 =
 	soldier_run
 };
 
-void
+static void
 soldier_fire4(edict_t *self)
 {
 	if (!self)
@@ -976,7 +976,7 @@ mmove_t soldier_move_attack4 =
    	soldier_run
 };
 
-void
+static void
 soldier_fire8(edict_t *self)
 {
 	if (!self)
@@ -987,7 +987,7 @@ soldier_fire8(edict_t *self)
 	soldier_fire(self, 7);
 }
 
-void
+static void
 soldier_attack6_refire(edict_t *self)
 {
 	if (!self)
@@ -1087,7 +1087,7 @@ soldier_sight(edict_t *self, edict_t *other /* unused */)
 	}
 }
 
-void
+static void
 soldier_duck_hold(edict_t *self)
 {
 	if (!self)
@@ -1184,7 +1184,7 @@ soldier_dodge(edict_t *self, edict_t *attacker, float eta)
 	self->monsterinfo.currentmove = &soldier_move_attack3;
 }
 
-void
+static void
 soldier_fire6(edict_t *self)
 {
 	if (!self)
@@ -1195,7 +1195,7 @@ soldier_fire6(edict_t *self)
 	soldier_fire(self, 5);
 }
 
-void
+static void
 soldier_fire7(edict_t *self)
 {
 	if (!self)
@@ -1206,7 +1206,7 @@ soldier_fire7(edict_t *self)
 	soldier_fire(self, 6);
 }
 
-void
+static void
 soldier_dead(edict_t *self)
 {
 	if (!self)
@@ -1593,7 +1593,7 @@ soldier_die(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 SP_monster_soldier_x(edict_t *self)
 {
 	if (!self)
@@ -1741,7 +1741,7 @@ SP_monster_soldier_ss(edict_t *self)
 	self->s.skinnum = 4;
 }
 
-void
+static void
 soldierh_idle(edict_t *self)
 {
   	if (!self)
@@ -1755,7 +1755,7 @@ soldierh_idle(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_cock(edict_t *self)
 {
   	if (!self)
@@ -1885,7 +1885,7 @@ soldierh_stand(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_walk1_random(edict_t *self)
 {
   	if (!self)
@@ -2195,7 +2195,7 @@ soldierh_pain(edict_t *self, edict_t *other /* unused */,
 	}
 }
 
-void
+static void
 soldierh_laserbeam(edict_t *self, int flash_index)
 {
 	vec3_t forward, right, up;
@@ -2249,7 +2249,7 @@ soldierh_laserbeam(edict_t *self, int flash_index)
 	monster_dabeam(ent);
 }
 
-void
+static void
 soldierh_fire(edict_t *self, int flash_number)
 {
 	vec3_t start;
@@ -2334,7 +2334,7 @@ soldierh_fire(edict_t *self, int flash_number)
 	}
 }
 
-void
+static void
 soldierh_hyper_refire1(edict_t *self)
 {
   	if (!self)
@@ -2359,7 +2359,7 @@ soldierh_hyper_refire1(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_ripper1(edict_t *self)
 {
   	if (!self)
@@ -2377,7 +2377,7 @@ soldierh_ripper1(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_fire1(edict_t *self)
 {
   	if (!self)
@@ -2388,7 +2388,7 @@ soldierh_fire1(edict_t *self)
 	soldierh_fire(self, 0);
 }
 
-void
+static void
 soldierh_attack1_refire1(edict_t *self)
 {
   	if (!self)
@@ -2416,7 +2416,7 @@ soldierh_attack1_refire1(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_attack1_refire2(edict_t *self)
 {
   	if (!self)
@@ -2440,7 +2440,7 @@ soldierh_attack1_refire2(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_hyper_sound(edict_t *self)
 {
   	if (!self)
@@ -2484,7 +2484,7 @@ mmove_t soldierh_move_attack1 = {
    	soldierh_run
 };
 
-void
+static void
 soldierh_hyper_refire2(edict_t *self)
 {
   	if (!self)
@@ -2509,7 +2509,7 @@ soldierh_hyper_refire2(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_ripper2(edict_t *self)
 {
   	if (!self)
@@ -2527,7 +2527,7 @@ soldierh_ripper2(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_fire2(edict_t *self)
 {
   	if (!self)
@@ -2538,7 +2538,7 @@ soldierh_fire2(edict_t *self)
 	soldierh_fire(self, 1);
 }
 
-void
+static void
 soldierh_attack2_refire1(edict_t *self)
 {
   	if (!self)
@@ -2566,7 +2566,7 @@ soldierh_attack2_refire1(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_attack2_refire2(edict_t *self)
 {
   	if (!self)
@@ -2620,7 +2620,7 @@ mmove_t soldierh_move_attack2 = {
    	soldierh_run
 };
 
-void
+static void
 soldierh_duck_down(edict_t *self)
 {
   	if (!self)
@@ -2640,7 +2640,7 @@ soldierh_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 soldierh_duck_up(edict_t *self)
 {
   	if (!self)
@@ -2654,7 +2654,7 @@ soldierh_duck_up(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 soldierh_fire3(edict_t *self)
 {
   	if (!self)
@@ -2666,7 +2666,7 @@ soldierh_fire3(edict_t *self)
 	soldierh_fire(self, 2);
 }
 
-void
+static void
 soldierh_attack3_refire(edict_t *self)
 {
   	if (!self)
@@ -2699,7 +2699,7 @@ mmove_t soldierh_move_attack3 = {
    	soldierh_run
 };
 
-void
+static void
 soldierh_fire4(edict_t *self)
 {
   	if (!self)
@@ -2726,7 +2726,7 @@ mmove_t soldierh_move_attack4 = {
    	soldierh_run
 };
 
-void
+static void
 soldierh_fire8(edict_t *self)
 {
   	if (!self)
@@ -2737,7 +2737,7 @@ soldierh_fire8(edict_t *self)
 	soldierh_fire(self, 7);
 }
 
-void
+static void
 soldierh_attack6_refire(edict_t *self)
 {
   	if (!self)
@@ -2843,7 +2843,7 @@ soldierh_sight(edict_t *self, edict_t *other /* unused */)
 	}
 }
 
-void
+static void
 soldierh_duck_hold(edict_t *self)
 {
   	if (!self)
@@ -2938,7 +2938,7 @@ soldierh_dodge(edict_t *self, edict_t *attacker, float eta)
 	self->monsterinfo.currentmove = &soldierh_move_attack3;
 }
 
-void
+static void
 soldierh_fire6(edict_t *self)
 {
   	if (!self)
@@ -2953,7 +2953,7 @@ soldierh_fire6(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_fire7(edict_t *self)
 {
   	if (!self)
@@ -2968,7 +2968,7 @@ soldierh_fire7(edict_t *self)
 	}
 }
 
-void
+static void
 soldierh_dead(edict_t *self)
 {
   	if (!self)
@@ -3346,7 +3346,7 @@ soldierh_die(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 SP_monster_soldier_h(edict_t *self)
 {
 	if (!self)

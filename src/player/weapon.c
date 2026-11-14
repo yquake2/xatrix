@@ -50,7 +50,7 @@ static byte is_silenced;
 void weapon_grenade_fire(edict_t *ent, qboolean held);
 void weapon_trap_fire(edict_t *ent, qboolean held);
 
-void
+static void
 P_ProjectSource(const edict_t *ent, const vec3_t distance,
 		vec3_t forward, const vec3_t right, vec3_t result)
 {
@@ -414,7 +414,7 @@ ChangeWeapon(edict_t *ent)
 	}
 }
 
-void
+static void
 NoAmmoWeaponChange(edict_t *ent)
 {
 	if (!ent)
@@ -705,7 +705,7 @@ Drop_Weapon(edict_t *ent, const gitem_t *item)
  * A generic function to handle
  * the basics of weapon thinking
  */
-void
+static void
 Weapon_Generic(edict_t *ent, int FRAME_ACTIVATE_LAST, int FRAME_FIRE_LAST,
 		int FRAME_IDLE_LAST, int FRAME_DEACTIVATE_LAST, const int *pause_frames,
 		const int *fire_frames, void (*fire)(edict_t *ent))
@@ -1078,7 +1078,7 @@ Weapon_Grenade(edict_t *ent)
 
 /* GRENADE LAUNCHER */
 
-void
+static void
 weapon_grenadelauncher_fire(edict_t *ent)
 {
 	vec3_t offset;
@@ -1148,7 +1148,7 @@ Weapon_GrenadeLauncher(edict_t *ent)
 
 /* ROCKET */
 
-void
+static void
 Weapon_RocketLauncher_Fire(edict_t *ent)
 {
 	vec3_t offset, start;
@@ -1222,7 +1222,7 @@ Weapon_RocketLauncher(edict_t *ent)
 
 /* BLASTER / HYPERBLASTER */
 
-void
+static void
 Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage,
 		qboolean hyper, int effect)
 {
@@ -1268,7 +1268,7 @@ Blaster_Fire(edict_t *ent, vec3_t g_offset, int damage,
 	PlayerNoise(ent, start, PNOISE_WEAPON);
 }
 
-void
+static void
 Weapon_Blaster_Fire(edict_t *ent)
 {
 	int damage;
@@ -1312,7 +1312,7 @@ Weapon_Blaster(edict_t *ent)
 	}
 }
 
-void
+static void
 Weapon_HyperBlaster_Fire(edict_t *ent)
 {
 	if (!ent)
@@ -1432,7 +1432,7 @@ Weapon_HyperBlaster(edict_t *ent)
 
 /* MACHINEGUN / CHAINGUN */
 
-void
+static void
 Machinegun_Fire(edict_t *ent)
 {
 	int i;
@@ -1560,7 +1560,7 @@ Weapon_Machinegun(edict_t *ent)
 	}
 }
 
-void
+static void
 Chaingun_Fire(edict_t *ent)
 {
 	int i;
@@ -1738,7 +1738,7 @@ Weapon_Chaingun(edict_t *ent)
 
 /* SHOTGUN / SUPERSHOTGUN */
 
-void
+static void
 weapon_shotgun_fire(edict_t *ent)
 {
 	vec3_t start;
@@ -1811,7 +1811,7 @@ Weapon_Shotgun(edict_t *ent)
 	}
 }
 
-void
+static void
 weapon_supershotgun_fire(edict_t *ent)
 {
 	vec3_t start;
@@ -1918,7 +1918,7 @@ Weapon_SuperShotgun(edict_t *ent)
 
 /* RAILGUN */
 
-void
+static void
 weapon_railgun_fire(edict_t *ent)
 {
 	vec3_t start;
@@ -1999,7 +1999,7 @@ Weapon_Railgun(edict_t *ent)
 
 /* BFG10K */
 
-void
+static void
 weapon_bfg_fire(edict_t *ent)
 {
 	vec3_t offset, start, forward, right;
@@ -2100,7 +2100,7 @@ Weapon_BFG(edict_t *ent)
 
 /* RipperGun */
 
-void
+static void
 weapon_ionripper_fire(edict_t *ent)
 {
 	vec3_t start;
@@ -2187,7 +2187,7 @@ Weapon_Ionripper(edict_t *ent)
 
 /*	Phalanx */
 
-void
+static void
 weapon_phalanx_fire(edict_t *ent)
 {
 	vec3_t start;

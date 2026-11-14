@@ -269,7 +269,7 @@ P_DamageFeedback(edict_t *player)
  *
  * damage = deltavelocity*deltavelocity  * 0.0001
  */
-void
+static void
 SV_CalcViewOffset(edict_t *ent)
 {
 	float *angles;
@@ -411,7 +411,7 @@ SV_CalcViewOffset(edict_t *ent)
 	VectorCopy(v, ent->client->ps.viewoffset);
 }
 
-void
+static void
 SV_CalcGunOffset(edict_t *ent)
 {
 	int i;
@@ -479,7 +479,7 @@ SV_CalcGunOffset(edict_t *ent)
 	}
 }
 
-void
+static void
 SV_AddBlend(float r, float g, float b, float a, float *v_blend)
 {
 	float a2, a3;
@@ -503,7 +503,7 @@ SV_AddBlend(float r, float g, float b, float a, float *v_blend)
 	v_blend[3] = a2;
 }
 
-void
+static void
 SV_CalcBlend(edict_t *ent)
 {
 	int contents;
@@ -654,7 +654,7 @@ SV_CalcBlend(edict_t *ent)
 	}
 }
 
-void
+static void
 P_FallingDamage(edict_t *ent)
 {
 	float delta;
@@ -766,7 +766,7 @@ P_FallingDamage(edict_t *ent)
 	}
 }
 
-void
+static void
 P_WorldEffects(void)
 {
 	qboolean breather;
@@ -976,7 +976,7 @@ P_WorldEffects(void)
 	}
 }
 
-void
+static void
 G_SetClientEffects(edict_t *ent)
 {
 	int pa_type;
@@ -1048,7 +1048,7 @@ G_SetClientEffects(edict_t *ent)
 	}
 }
 
-void
+static void
 G_SetClientEvent(edict_t *ent)
 {
 	if (!ent)
@@ -1095,7 +1095,7 @@ G_SetClientEvent(edict_t *ent)
 	}
 }
 
-void
+static void
 G_SetClientSound(edict_t *ent)
 {
 	const char *weap;
@@ -1155,7 +1155,7 @@ G_SetClientSound(edict_t *ent)
 	}
 }
 
-void
+static void
 G_SetClientFrame(edict_t *ent)
 {
 	gclient_t *client;

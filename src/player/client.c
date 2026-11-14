@@ -31,7 +31,7 @@ void ClientUserinfoChanged(edict_t *ent, char *userinfo);
 void SP_misc_teleporter_dest(edict_t *ent);
 void Touch_Item(edict_t *ent, edict_t *other, const cplane_t *plane, const csurface_t *surf);
 
-void
+static void
 SP_FixCoopSpots(edict_t *self)
 {
 	/* Entity number 292 is an unnamed info_player_start
@@ -198,7 +198,7 @@ IsNeutral(edict_t *ent)
 	return false;
 }
 
-void
+static void
 ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 		edict_t *attacker)
 {
@@ -466,7 +466,7 @@ ClientObituary(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 TossClientWeapon(edict_t *self)
 {
 	const gitem_t *item;
@@ -563,7 +563,7 @@ TossClientWeapon(edict_t *self)
 	}
 }
 
-void
+static void
 LookAtKiller(edict_t *self, edict_t *inflictor, edict_t *attacker)
 {
 	vec3_t dir;
@@ -851,7 +851,7 @@ FetchClientEntData(edict_t *ent)
  * Returns the distance to the
  * nearest player from the given spot
  */
-float
+static float
 PlayersRangeFromSpot(edict_t *spot)
 {
 	edict_t *player;
@@ -897,7 +897,7 @@ PlayersRangeFromSpot(edict_t *spot)
  * go to a random point, but NOT the two
  * points closest to other players
  */
-edict_t *
+static edict_t *
 SelectRandomDeathmatchSpawnPoint(void)
 {
 	edict_t *spot, *spot1, *spot2;
@@ -959,7 +959,7 @@ SelectRandomDeathmatchSpawnPoint(void)
 	return spot;
 }
 
-edict_t *
+static edict_t *
 SelectFarthestDeathmatchSpawnPoint(void)
 {
 	edict_t *bestspot;
@@ -1235,7 +1235,7 @@ body_die(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 CopyToBodyQue(edict_t *ent)
 {
 	edict_t *body;
@@ -1311,7 +1311,7 @@ respawn(edict_t *self)
  * note that resp.spectator should be the
  * opposite of pers.spectator here
  */
-void
+static void
 spectator_respawn(edict_t *ent)
 {
 	int i, numspec;
@@ -1605,7 +1605,7 @@ PutClientInServer(edict_t *ent)
  * deathmatch mode, so clear everything out before
  * starting them.
  */
-void
+static void
 ClientBeginDeathmatch(edict_t *ent)
 {
 	if (!ent)
@@ -1955,7 +1955,8 @@ PM_trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end)
 	}
 }
 
-unsigned
+#if 0
+static unsigned
 CheckBlock(void *b, int c)
 {
 	int v, i;
@@ -1975,7 +1976,7 @@ CheckBlock(void *b, int c)
 	return v;
 }
 
-void
+static void
 PrintPmove(pmove_t *pm)
 {
 	unsigned c1, c2;
@@ -1989,6 +1990,7 @@ PrintPmove(pmove_t *pm)
 	c2 = CheckBlock(&pm->cmd, sizeof(pm->cmd));
 	Com_Printf("sv %3i:%i %i\n", pm->cmd.impulse, c1, c2);
 }
+#endif
 
 /*
  * This will be called once for each client frame, which will

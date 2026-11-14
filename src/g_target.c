@@ -845,7 +845,7 @@ target_laser_think(edict_t *self)
 	self->nextthink = level.time + FRAMETIME;
 }
 
-void
+static void
 target_laser_on(edict_t *self)
 {
 	if (!self)
@@ -863,7 +863,7 @@ target_laser_on(edict_t *self)
 	target_laser_think(self);
 }
 
-void
+static void
 target_laser_off(edict_t *self)
 {
 	if (!self)
@@ -1002,7 +1002,7 @@ SP_target_laser(edict_t *self)
 /* QUAKED target_mal_laser (1 0 0) (-4 -4 -4) (4 4 4) START_ON RED GREEN BLUE YELLOW ORANGE FAT
  * Mal's laser
  */
-void
+static void
 target_mal_laser_on(edict_t *self)
 {
 	if (!self)
@@ -1020,7 +1020,7 @@ target_mal_laser_on(edict_t *self)
 	self->nextthink = level.time + self->wait + self->delay;
 }
 
-void
+static void
 target_mal_laser_off(edict_t *self)
 {
 	if (!self)

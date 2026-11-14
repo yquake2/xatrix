@@ -175,7 +175,6 @@
 {"gunner_move_pain1", &gunner_move_pain1},
 {"gunner_move_pain2", &gunner_move_pain2},
 {"gunner_move_pain3", &gunner_move_pain3},
-{"gunner_move_runandshoot", &gunner_move_runandshoot},
 {"gunner_move_run", &gunner_move_run},
 {"gunner_move_walk", &gunner_move_walk},
 {"gunner_move_stand", &gunner_move_stand},

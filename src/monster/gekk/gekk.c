@@ -48,7 +48,7 @@ void gekk_hit_right(edict_t *self);
 void gekk_run_start(edict_t *self);
 void gekk_walk(edict_t *self);
 
-qboolean
+static qboolean
 gekk_check_melee(edict_t *self)
 {
   	if (!self)
@@ -111,7 +111,7 @@ gekk_check_jump(edict_t *self)
 	return true;
 }
 
-qboolean
+static qboolean
 gekk_check_jump_close(edict_t *self)
 {
 	vec3_t v;
@@ -177,7 +177,7 @@ gekk_checkattack(edict_t *self)
 	return false;
 }
 
-void
+static void
 gekk_step(edict_t *self)
 {
 	int n;
@@ -267,7 +267,8 @@ gekk_search(edict_t *self)
 	}
 }
 
-void
+#if 0
+static void
 gekk_swing(edict_t *self)
 {
   	if (!self)
@@ -277,8 +278,9 @@ gekk_swing(edict_t *self)
 
 	gi.sound(self, CHAN_VOICE, sound_swing, 1, ATTN_NORM, 0);
 }
+#endif
 
-void
+static void
 gekk_face(edict_t *self)
 {
   	if (!self)
@@ -289,7 +291,7 @@ gekk_face(edict_t *self)
 	self->monsterinfo.currentmove = &gekk_move_run;
 }
 
-void
+static void
 ai_stand2(edict_t *self, float dist)
 {
   	if (!self)
@@ -393,7 +395,7 @@ mmove_t gekk_move_standunderwater = {
    	NULL
 };
 
-void
+static void
 gekk_swim_loop(edict_t *self)
 {
   	if (!self)
@@ -502,7 +504,7 @@ gekk_stand(edict_t *self)
 	}
 }
 
-void
+static void
 gekk_idle_loop(edict_t *self)
 {
   	if (!self)
@@ -631,7 +633,7 @@ gekk_run_start(edict_t *self)
 	}
 }
 
-void
+static void
 gekk_run(edict_t *self)
 {
   	if (!self)
@@ -729,7 +731,7 @@ gekk_hit_right(edict_t *self)
 	}
 }
 
-void
+static void
 gekk_check_refire(edict_t *self)
 {
   	if (!self)
@@ -796,7 +798,7 @@ loogie_touch(edict_t *self, edict_t *other, const cplane_t *plane, const csurfac
 	G_FreeEdict(self);
 }
 
-void
+static void
 fire_loogie(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed)
 {
 	edict_t *loogie;
@@ -839,7 +841,7 @@ fire_loogie(edict_t *self, vec3_t start, vec3_t dir, int damage, int speed)
 	}
 }
 
-void
+static void
 loogie(edict_t *self)
 {
 	vec3_t start;
@@ -872,7 +874,7 @@ loogie(edict_t *self)
 	fire_loogie(self, start, dir, 5, 550);
 }
 
-void
+static void
 reloogie(edict_t *self)
 {
   	if (!self)
@@ -1043,7 +1045,7 @@ gekk_bite(edict_t *self)
 	fire_hit(self, aim, 5, 0);
 }
 
-void
+static void
 gekk_preattack(edict_t *self)
 {
 	/* Unused but PITA to remove */
@@ -1417,7 +1419,7 @@ gekk_pain(edict_t *self, edict_t *other /* unused */,
 	}
 }
 
-void
+static void
 gekk_dead(edict_t *self)
 {
   	if (!self)
@@ -1441,7 +1443,7 @@ gekk_dead(edict_t *self)
 	}
 }
 
-void
+static void
 gekk_gibfest(edict_t *self)
 {
 	int damage = 20;
@@ -1466,7 +1468,7 @@ gekk_gibfest(edict_t *self)
 	self->deadflag = DEAD_DEAD;
 }
 
-void
+static void
 isgibfest(edict_t *self)
 {
   	if (!self)
@@ -1679,7 +1681,8 @@ gekk_die(edict_t *self, edict_t *inflictor /* unused */, edict_t *attacker /* un
 	}
 }
 
-void
+#if 0
+static void
 gekk_duck_down(edict_t *self)
 {
   	if (!self)
@@ -1699,7 +1702,7 @@ gekk_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 gekk_duck_up(edict_t *self)
 {
   	if (!self)
@@ -1713,7 +1716,7 @@ gekk_duck_up(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 gekk_duck_hold(edict_t *self)
 {
   	if (!self)
@@ -1730,6 +1733,7 @@ gekk_duck_hold(edict_t *self)
 		self->monsterinfo.aiflags |= AI_HOLD_FRAME;
 	}
 }
+#endif
 
 static mframe_t gekk_frames_lduck[] = {
 	{ai_move, 0.000, NULL}, /* frame 0 */
