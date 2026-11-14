@@ -1182,6 +1182,7 @@ struct edict_s
 #if DEBUG
 #include "../savegame/savegame.h"
 #include "../savegame/tables/gamefunc_decs.h"
+#include "../savegame/tables/spawnfunc_decs.h"
 #endif
 
 #endif /* XATRIX_LOCAL_H */
