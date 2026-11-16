@@ -13,7 +13,7 @@ void monster_use(edict_t *self, edict_t *other, edict_t *activator);
 
 qboolean FindTarget(edict_t *self);
 
-void
+static void
 AnglesNormalize(vec3_t vec)
 {
 	while (vec[0] > 360)
@@ -37,7 +37,7 @@ AnglesNormalize(vec3_t vec)
 	}
 }
 
-float
+static float
 SnapToEights(float x)
 {
 	x *= 8.0;
@@ -96,7 +96,7 @@ turret_blocked(edict_t *self, edict_t *other)
  * "minyaw"	    min acceptable yaw angle   : default 0
  * "maxyaw"	    max acceptable yaw angle   : default 360
  */
-void
+static void
 turret_breach_fire(edict_t *self)
 {
 	vec3_t f, r, u;

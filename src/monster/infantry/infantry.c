@@ -426,7 +426,7 @@ infantry_sight(edict_t *self, edict_t *other /* unused */)
 	gi.sound(self, CHAN_BODY, sound_sight, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 infantry_dead(edict_t *self)
 {
 	if (!self)
@@ -595,7 +595,7 @@ infantry_die(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 infantry_duck_down(edict_t *self)
 {
 	if (!self)
@@ -615,7 +615,7 @@ infantry_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 infantry_duck_hold(edict_t *self)
 {
 	if (!self)
@@ -633,7 +633,7 @@ infantry_duck_hold(edict_t *self)
 	}
 }
 
-void
+static void
 infantry_duck_up(edict_t *self)
 {
 	if (!self)
@@ -685,7 +685,7 @@ infantry_dodge(edict_t *self, edict_t *attacker, float eta /* unused */)
 	self->monsterinfo.currentmove = &infantry_move_duck;
 }
 
-void
+static void
 infantry_set_firetime(edict_t *self)
 {
 	int n;
@@ -699,7 +699,7 @@ infantry_set_firetime(edict_t *self)
 	self->monsterinfo.pausetime = level.time + n * FRAMETIME;
 }
 
-void
+static void
 infantry_cock_gun(edict_t *self)
 {
   	if (!self)
@@ -710,7 +710,7 @@ infantry_cock_gun(edict_t *self)
 	gi.sound(self, CHAN_WEAPON, sound_weapon_cock, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 infantry_fire(edict_t *self)
 {
 	if (!self)
@@ -756,7 +756,7 @@ mmove_t infantry_move_attack1 =
    	infantry_run
 };
 
-void
+static void
 infantry_swing(edict_t *self)
 {
 	if (!self)
@@ -767,7 +767,7 @@ infantry_swing(edict_t *self)
 	gi.sound(self, CHAN_WEAPON, sound_punch_swing, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 infantry_smack(edict_t *self)
 {
 	vec3_t aim;

@@ -1,4 +1,24 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ * Copyright (c) ZeniMax Media Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * Misc. utility functions for the game logic.
  *
@@ -28,7 +48,12 @@ G_ProjectSource(const vec3_t point, const vec3_t distance, const vec3_t forward,
 edict_t *
 G_Find(edict_t *from, int fieldofs, const char *match)
 {
-	char *s;
+	const char *s;
+
+	if (!match)
+	{
+		return NULL;
+	}
 
 	if (!from)
 	{
@@ -117,7 +142,7 @@ findradius(edict_t *from, const vec3_t org, float rad)
  * NULL will be returned if the end of the list is reached.
  */
 edict_t *
-G_PickTarget(char *targetname)
+G_PickTarget(const char *targetname)
 {
 	edict_t *ent = NULL;
 	int num_choices = 0;
@@ -282,7 +307,7 @@ G_UseTargets(edict_t *ent, edict_t *activator /* may be NULL */)
  * This is just a convenience function
  * for making temporary vectors for function calls
  */
-float *
+const float *
 tv(float x, float y, float z)
 {
 	static int index;
@@ -305,8 +330,8 @@ tv(float x, float y, float z)
  * This is just a convenience function
  * for printing vectors
  */
-char *
-vtos(vec3_t v)
+const char *
+vtos(const vec3_t v)
 {
 	static int index;
 	static char str[8][32];
@@ -392,7 +417,6 @@ vectoyaw(vec3_t vec)
 void
 vectoangles(const vec3_t value, vec3_t angles)
 {
-	float forward;
 	float yaw, pitch;
 
 	if ((value[1] == 0) && (value[0] == 0))
@@ -410,6 +434,8 @@ vectoangles(const vec3_t value, vec3_t angles)
 	}
 	else
 	{
+		float forward;
+
 		if (value[0])
 		{
 			yaw = (int)(atan2(value[1], value[0]) * 180 / M_PI);
@@ -447,6 +473,11 @@ G_CopyString(const char *in)
 {
 	char *out;
 
+	if (!in)
+	{
+		return NULL;
+	}
+
 	out = gi.TagMalloc(strlen(in) + 1, TAG_LEVEL);
 	strcpy(out, in);
 	return out;
@@ -455,6 +486,11 @@ G_CopyString(const char *in)
 void
 G_InitEdict(edict_t *e)
 {
+	if (!e)
+	{
+		return;
+	}
+
 	e->inuse = true;
 	e->classname = "noclass";
 	e->gravity = 1.0;
@@ -485,7 +521,7 @@ G_FindFreeEdict(int policy)
 		*/
 		if (!e->inuse && (policy == POLICY_DESPERATE || e->freetime < 2.0f || (level.time - e->freetime) > 0.5f))
 		{
-			G_InitEdict (e);
+			G_InitEdict(e);
 			return e;
 		}
 	}
@@ -509,7 +545,7 @@ G_SpawnOptional(void)
 	}
 
 	e = &g_edicts[globals.num_edicts++];
-	G_InitEdict (e);
+	G_InitEdict(e);
 
 	return e;
 }
@@ -520,7 +556,9 @@ G_Spawn(void)
 	edict_t *e = G_SpawnOptional();
 
 	if (!e)
-		gi.error ("ED_Alloc: no free edicts");
+	{
+		gi.error("%s: no free edicts", __func__);
+	}
 
 	return e;
 }
@@ -531,6 +569,11 @@ G_Spawn(void)
 void
 G_FreeEdict(edict_t *ed)
 {
+	if (!ed)
+	{
+		return;
+	}
+
 	gi.unlinkentity(ed); /* unlink from world */
 
 	if ((ed - g_edicts) <= (maxclients->value + BODY_QUEUE_SIZE))
@@ -548,7 +591,7 @@ void
 G_TouchTriggers(edict_t *ent)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
+	edict_t *touch[MAX_EDICTS];
 
 	if (!ent)
 	{
@@ -568,6 +611,8 @@ G_TouchTriggers(edict_t *ent)
 	   list removed before we get to it (killtriggered) */
 	for (i = 0; i < num; i++)
 	{
+		edict_t *hit;
+
 		hit = touch[i];
 
 		if (!hit->inuse)
@@ -592,7 +637,7 @@ void
 G_TouchSolids(edict_t *ent)
 {
 	int i, num;
-	edict_t *touch[MAX_EDICTS], *hit;
+	edict_t *touch[MAX_EDICTS];
 
 	if (!ent)
 	{
@@ -606,6 +651,8 @@ G_TouchSolids(edict_t *ent)
 	   list removed before we get to it (killtriggered) */
 	for (i = 0; i < num; i++)
 	{
+		edict_t *hit;
+
 		hit = touch[i];
 
 		if (!hit->inuse)
@@ -632,8 +679,6 @@ G_TouchSolids(edict_t *ent)
 qboolean
 KillBox(edict_t *ent)
 {
-	trace_t tr;
-
 	if (!ent)
 	{
 		return false;
@@ -641,6 +686,8 @@ KillBox(edict_t *ent)
 
 	while (1)
 	{
+		trace_t tr;
+
 		tr = gi.trace(ent->s.origin, ent->mins, ent->maxs, ent->s.origin,
 				NULL, MASK_PLAYERSOLID);
 

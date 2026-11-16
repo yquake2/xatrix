@@ -37,7 +37,8 @@ static spawn_t spawns[] = {
 #include "savegame/tables/spawnfunc_list.h"
 };
 
-qboolean Spawn_CheckCoop_MapHacks (edict_t *ent)
+static qboolean
+Spawn_CheckCoop_MapHacks(edict_t *ent)
 {
 	if(!coop->value || !ent)
 	{
@@ -119,7 +120,7 @@ ED_CallSpawn(edict_t *ent)
 	gi.dprintf("%s doesn't have a spawn function\n", ent->classname);
 }
 
-char *
+static char *
 ED_NewString(const char *string)
 {
 	char *newb, *new_p;

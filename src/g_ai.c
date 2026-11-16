@@ -1,4 +1,23 @@
-/* =======================================================================
+/*
+ * Copyright (C) 1997-2001 Id Software, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or (at
+ * your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ *
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+ * 02111-1307, USA.
+ *
+ * =======================================================================
  *
  * The basic AI functions like enemy detection, attacking and so on.
  *
@@ -365,7 +384,7 @@ infront(edict_t *self, edict_t *other)
 
 /* ============================================================================ */
 
-void
+static void
 HuntTarget(edict_t *self)
 {
 	vec3_t vec;
@@ -825,7 +844,7 @@ M_CheckAttack(edict_t *self)
  * Turn and close until within
  * an angle to launch a melee attack
  */
-void
+static void
 ai_run_melee(edict_t *self)
 {
 	if (!self)
@@ -850,7 +869,7 @@ ai_run_melee(edict_t *self)
  * Turn in place until within
  * an angle to launch a missile attack
  */
-void
+static void
 ai_run_missile(edict_t *self)
 {
 	if (!self)
@@ -874,7 +893,7 @@ ai_run_missile(edict_t *self)
  * Strafe sideways, but stay
  * at aproximately the same range
  */
-void
+static void
 ai_run_slide(edict_t *self, float distance)
 {
 	float ofs;

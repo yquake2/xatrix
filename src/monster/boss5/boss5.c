@@ -22,7 +22,7 @@ void boss5Rocket(edict_t *self);
 void boss5MachineGun(edict_t *self);
 void boss5_reattack1(edict_t *self);
 
-void
+static void
 TreadSound2(edict_t *self)
 {
   	if (!self)
@@ -190,7 +190,8 @@ mmove_t boss5_move_forward = {
    	NULL
 };
 
-void
+#if 0
+static void
 boss5_forward(edict_t *self)
 {
   	if (!self)
@@ -200,6 +201,7 @@ boss5_forward(edict_t *self)
 
 	self->monsterinfo.currentmove = &boss5_move_forward;
 }
+#endif
 
 void
 boss5_walk(edict_t *self)

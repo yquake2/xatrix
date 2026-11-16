@@ -53,7 +53,7 @@ static int  sound_step;
 static int  sound_step2;
 
 
-void
+static void
 chick_footstep(edict_t *self)
 {
 	if (!g_monsterfootsteps->value)
@@ -77,7 +77,7 @@ chick_footstep(edict_t *self)
 }
 
 
-void
+static void
 ChickMoan(edict_t *self)
 {
 	if (!self)
@@ -136,7 +136,7 @@ mmove_t chick_move_fidget =
    	chick_stand
 };
 
-void
+static void
 chick_fidget(edict_t *self)
 {
 	if (!self)
@@ -438,7 +438,7 @@ chick_pain(edict_t *self, edict_t *other /* unused */,
 	}
 }
 
-void
+static void
 chick_dead(edict_t *self)
 {
 	if (!self)
@@ -582,7 +582,7 @@ chick_die(edict_t *self, edict_t *inflictor /* unused */,
 	}
 }
 
-void
+static void
 chick_duck_down(edict_t *self)
 {
 	if (!self)
@@ -602,7 +602,7 @@ chick_duck_down(edict_t *self)
 	gi.linkentity(self);
 }
 
-void
+static void
 chick_duck_hold(edict_t *self)
 {
 	if (!self)
@@ -620,7 +620,7 @@ chick_duck_hold(edict_t *self)
 	}
 }
 
-void
+static void
 chick_duck_up(edict_t *self)
 {
 	if (!self)
@@ -674,7 +674,7 @@ chick_dodge(edict_t *self, edict_t *attacker, float eta /* unused */)
 	self->monsterinfo.currentmove = &chick_move_duck;
 }
 
-void
+static void
 ChickSlash(edict_t *self)
 {
 	vec3_t aim;
@@ -689,7 +689,7 @@ ChickSlash(edict_t *self)
 	fire_hit(self, aim, (10 + (randk() % 6)), 100);
 }
 
-void
+static void
 ChickRocket(edict_t *self)
 {
 	vec3_t forward, right;
@@ -721,7 +721,7 @@ ChickRocket(edict_t *self)
 	}
 }
 
-void
+static void
 Chick_PreAttack1(edict_t *self)
 {
 	if (!self)
@@ -732,7 +732,7 @@ Chick_PreAttack1(edict_t *self)
 	gi.sound(self, CHAN_VOICE, sound_missile_prelaunch, 1, ATTN_NORM, 0);
 }
 
-void
+static void
 ChickReload(edict_t *self)
 {
 	if (!self)
@@ -908,7 +908,7 @@ chick_reslash(edict_t *self)
 	self->monsterinfo.currentmove = &chick_move_end_slash;
 }
 
-void
+static void
 chick_slash(edict_t *self)
 {
 	if (!self)

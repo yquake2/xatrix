@@ -14,7 +14,7 @@ extern void SP_item_foodcube(edict_t *best);
  * a non-instant attack weapon.  It checks to see if a
  * monster's dodge function should be called.
  */
-void
+static void
 check_dodge(edict_t *self, vec3_t start, vec3_t dir, int speed)
 {
 	vec3_t end;
@@ -148,7 +148,7 @@ fire_hit(edict_t *self, vec3_t aim, int damage, int kick)
 /*
  * This is an internal support routine used for bullet/pellet based weapons.
  */
-void
+static void
 fire_lead(edict_t *self, vec3_t start, vec3_t aimdir, int damage, int kick,
 		int te_impact, int hspread, int vspread, int mod)
 {

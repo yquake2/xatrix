@@ -50,7 +50,7 @@ SP_func_areaportal(edict_t *ent)
 
 /* ===================================================== */
 
-void
+static void
 VelocityForDamage(int damage, vec3_t v)
 {
 	v[0] = 100.0 * crandom();
@@ -67,7 +67,7 @@ VelocityForDamage(int damage, vec3_t v)
 	}
 }
 
-void
+static void
 ClipGibVelocity(edict_t *ent)
 {
 	if (!ent)
@@ -544,7 +544,7 @@ BecomeExplosion1(edict_t *self)
 	G_FreeEdict(self);
 }
 
-void
+static void
 BecomeExplosion2(edict_t *self)
 {
 	if (!self)

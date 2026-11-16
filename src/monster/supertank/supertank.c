@@ -23,7 +23,7 @@ void supertankRocket(edict_t *self);
 void supertankMachineGun(edict_t *self);
 void supertank_reattack1(edict_t *self);
 
-void
+static void
 TreadSound(edict_t *self)
 {
   	if (!self)
@@ -184,12 +184,13 @@ static mframe_t supertank_frames_forward[] = {
 
 mmove_t supertank_move_forward = {
 	FRAME_forwrd_1,
-   	FRAME_forwrd_18,
-   	supertank_frames_forward,
-   	NULL
+	FRAME_forwrd_18,
+	supertank_frames_forward,
+	NULL
 };
 
-void
+#if 0
+static void
 supertank_forward(edict_t *self)
 {
   	if (!self)
@@ -199,6 +200,7 @@ supertank_forward(edict_t *self)
 
 	self->monsterinfo.currentmove = &supertank_move_forward;
 }
+#endif
 
 void
 supertank_walk(edict_t *self)
